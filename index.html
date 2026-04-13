@@ -282,10 +282,90 @@
     }
 
     /* ---- RESPONSIVE ---- */
+
+    /* Desktop: sidebar layout */
+    @media (min-width: 768px) {
+      .nav { max-width: 935px; padding: 0 32px; }
+      .wrap {
+        max-width: 935px;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        align-items: start;
+      }
+      .profile {
+        grid-column: 1;
+        grid-row: 1 / span 5;
+        position: sticky;
+        top: 54px;
+        padding: 28px 24px 28px 32px;
+        border-right: 1px solid var(--border);
+        min-height: calc(100vh - 54px);
+      }
+      .profile-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .avatar-ring { width: 110px; height: 110px; }
+      .avatar-inner { font-size: 30px; }
+      .stats { justify-content: flex-start; gap: 24px; }
+      .stat { text-align: left; }
+      .stat-num { font-size: 18px; }
+      .bio-name { font-size: 16px; }
+      .bio-role { font-size: 14px; }
+      .bio-desc { font-size: 14px; }
+      .actions { flex-direction: column; }
+      .highlights {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 16px 20px;
+      }
+      .tabs {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      .grid {
+        grid-column: 2;
+        grid-row: 3;
+        gap: 4px;
+      }
+      .saved-panel {
+        grid-column: 2;
+        grid-row: 3;
+      }
+      .modal { max-width: 860px; }
+      .modal-media { width: 420px; }
+    }
+
+    /* Large desktop */
+    @media (min-width: 1100px) {
+      .wrap { max-width: 1060px; }
+      .nav { max-width: 1060px; }
+      .profile { grid-column: 1; width: 300px; }
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Mobile: 2-column grid + touch-friendly overlay */
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+      .post-name { font-size: 10px; }
+      .post-emoji { font-size: 24px; }
+      /* Always show title on mobile since hover doesn't exist */
+      .post-overlay {
+        opacity: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 8px;
+      }
+      .post:active .post-overlay { opacity: 1; }
+    }
+
+    /* Small modal on mobile */
     @media (max-width: 520px) {
       .modal { flex-direction: column; }
-      .modal-media { width: 100%; min-height: 260px; }
-      .modal-media-inner { min-height: 260px; }
+      .modal-media { width: 100%; min-height: 220px; }
+      .modal-media-inner { min-height: 220px; }
     }
   </style>
 </head>
