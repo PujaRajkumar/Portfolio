@@ -43,27 +43,6 @@
       min-height: 100vh;
     }
 
-    /* ─── NAV ──────────────────────────────────────────── */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      height: 54px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 20px;
-      max-width: 600px; margin: 0 auto;
-    }
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; letter-spacing: -0.3px; color: var(--text);
-    }
-    .nav-icons { display: flex; gap: 18px; align-items: center; }
-    .nav-icons svg {
-      width: 22px; height: 22px;
-      stroke: var(--text); fill: none;
-      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-      cursor: pointer;
-    }
 
     /* ─── WRAPPER ─────────────────────────────────────── */
     .wrap { max-width: 600px; margin: 0 auto; }
@@ -306,7 +285,6 @@
     ═══════════════════════════════════════════════════ */
     @media (min-width: 768px) {
 
-      .nav  { max-width: 935px; padding: 0 20px; }
       .wrap { max-width: 935px; }
 
       /* 4-row grid. display:contents dissolves .profile-top
@@ -392,13 +370,6 @@
 </head>
 <body>
 
-  <nav class="nav">
-    <span class="nav-logo" id="nav-username">your.portfolio</span>
-    <div class="nav-icons">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </div>
-  </nav>
 
   <div class="wrap">
 
@@ -592,7 +563,6 @@ const PROJECTS = [
    ============================================================ */
 
 // Profile
-document.getElementById('nav-username').textContent   = PROFILE.username;
 document.getElementById('profile-handle').textContent = PROFILE.username;
 document.getElementById('bio-name').textContent      = PROFILE.name;
 document.getElementById('bio-role').textContent      = PROFILE.role;
