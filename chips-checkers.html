@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chips & Checkers — Brand Identity Case Study</title>
+  <meta name="description" content="Complete brand identity for a Toronto board game café. Logo system, color palette, typography, packaging, and digital applications." />
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Pacifico&family=Work+Sans:wght@300;400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:  #FF6B00;
+      --orange2: #CC5500;
+      --black:   #111111;
+      --white:   #FFFFFF;
+      --warm:    #F5F0E8;
+      --slate:   #3A3A3A;
+      --bg:      #fafafa;
+      --border:  #e8e8e8;
+      --muted:   #737373;
+      --font:    'Work Sans', sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:     #0a0a0a;
+        --border: #1f1f1f;
+        --muted:  #888;
+        --warm:   #1a1a1a;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { color: #f0f0f0; }
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--black);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-icon {
+      display: grid; grid-template-columns: 1fr 1fr;
+      width: 20px; height: 20px;
+    }
+    .nav-icon div { width: 10px; height: 10px; }
+    .nav-name {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 14px; font-weight: 600; color: #fff;
+    }
+    .nav-name span { color: var(--orange); }
+    .nav-back {
+      font-size: 13px; color: #555;
+      text-decoration: none; font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--orange); }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      background: var(--black);
+      padding: 80px 24px 0;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600;
+      color: var(--orange); letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero-title {
+      display: flex; align-items: baseline;
+      justify-content: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .hero-title .word {
+      font-family: 'Alfa Slab One', serif;
+      font-size: clamp(40px, 8vw, 80px);
+      color: #fff; line-height: 1;
+    }
+    .hero-title .amp {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(46px, 9vw, 90px);
+      color: var(--orange); line-height: 1;
+    }
+    .hero-sub {
+      font-size: 14px; color: #555;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero-tagline {
+      font-size: 18px; color: #888;
+      font-style: italic; margin-bottom: 48px;
+    }
+    .hero-pattern {
+      height: 32px;
+      background-image: repeating-conic-gradient(var(--black) 0% 25%, #fff 0% 50%);
+      background-size: 16px 16px;
+      margin: 0 -24px;
+    }
+
+    /* ─── WRAP ────────────────────────────────────────── */
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .wrap-wide { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── SECTION ─────────────────────────────────────── */
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      color: var(--orange); letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Alfa Slab One', serif;
+      font-size: clamp(24px, 4vw, 36px);
+      color: var(--black); line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .section-title { color: #f0f0f0; }
+    }
+    .section-body {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.8; max-width: 600px;
+    }
+    .section-body strong { color: var(--black); font-weight: 600; }
+    @media (prefers-color-scheme: dark) {
+      .section-body strong { color: #f0f0f0; }
+    }
+    .section-body p { margin-bottom: 16px; }
+    .section-body p:last-child { margin-bottom: 0; }
+
+    /* ─── PULL QUOTE ──────────────────────────────────── */
+    .pull-quote {
+      border-left: 3px solid var(--orange);
+      padding: 16px 24px; margin: 32px 0;
+      background: var(--warm);
+      border-radius: 0 8px 8px 0;
+    }
+    .pull-quote p {
+      font-size: 18px; font-style: italic;
+      color: var(--black); line-height: 1.6;
+      margin: 0;
+    }
+    @media (prefers-color-scheme: dark) {
+      .pull-quote p { color: #f0f0f0; }
+    }
+
+    /* ─── COLOR PALETTE ───────────────────────────────── */
+    .palette {
+      display: flex; gap: 0;
+      border-radius: 12px; overflow: hidden;
+      height: 120px; margin: 32px 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    }
+    .swatch {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 10px 12px;
+      transition: flex 0.25s;
+      cursor: default;
+    }
+    .swatch:hover { flex: 2; }
+    .swatch-name {
+      font-size: 11px; font-weight: 600;
+      line-height: 1.3;
+    }
+    .swatch-hex {
+      font-family: monospace; font-size: 10px;
+      opacity: 0.7; margin-top: 2px;
+    }
+    .palette-rule {
+      display: flex; height: 8px;
+      border-radius: 4px; overflow: hidden;
+      margin-bottom: 8px; gap: 2px;
+    }
+    .palette-note {
+      font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
+
+    /* ─── TYPOGRAPHY ──────────────────────────────────── */
+    .type-stack { display: flex; flex-direction: column; gap: 24px; margin: 32px 0; }
+    .type-card {
+      background: var(--warm); border-radius: 12px;
+      padding: 24px 28px;
+      display: flex; align-items: center;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .type-sample { flex: 1; min-width: 200px; }
+    .type-info { flex: 1; min-width: 180px; }
+    .type-role {
+      font-size: 10px; font-weight: 600;
+      color: var(--orange); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 4px;
+    }
+    .type-name {
+      font-size: 14px; font-weight: 600;
+      color: var(--black); margin-bottom: 4px;
+    }
+    @media (prefers-color-scheme: dark) { .type-name { color: #f0f0f0; } }
+    .type-use {
+      font-size: 12px; color: var(--muted); line-height: 1.5;
+    }
+
+    /* ─── LOGO SYSTEM ─────────────────────────────────── */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin: 32px 0;
+    }
+    .logo-card {
+      border-radius: 12px; overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; padding: 24px; position: relative;
+    }
+    .logo-card-label {
+      position: absolute; top: 12px; left: 12px;
+      font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      opacity: 0.4;
+    }
+    .logo-wordmark {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .logo-icon {
+      display: grid; grid-template-columns: 1fr 1fr;
+      width: 32px; height: 32px;
+    }
+    .logo-icon div { width: 16px; height: 16px; }
+
+    /* ─── DO / DON'T ──────────────────────────────────── */
+    .do-dont {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin: 24px 0;
+    }
+    .do-card, .dont-card {
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .do-card { background: #f0faf5; border: 1px solid #c8eed8; }
+    .dont-card { background: #fdf0f0; border: 1px solid #f5cccc; }
+    .do-label { font-size: 11px; font-weight: 700; color: #0F6E56; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .dont-label { font-size: 11px; font-weight: 700; color: #A32D2D; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .rule-list { list-style: none; }
+    .rule-list li {
+      font-size: 12px; color: #555;
+      line-height: 1.8; padding-left: 14px;
+      position: relative;
+    }
+    .rule-list li::before {
+      position: absolute; left: 0;
+      font-size: 10px; top: 4px;
+    }
+    .do-card .rule-list li::before { content: "✓"; color: #0F6E56; }
+    .dont-card .rule-list li::before { content: "✗"; color: #A32D2D; }
+
+    /* ─── PATTERN ─────────────────────────────────────── */
+    .pattern-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin: 32px 0;
+    }
+    .pattern-swatch {
+      border-radius: 10px; overflow: hidden; height: 80px;
+    }
+    .pattern-label {
+      font-size: 11px; color: var(--muted);
+      text-align: center; margin-top: 6px;
+    }
+
+    /* ─── APPLICATIONS ────────────────────────────────── */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin: 32px 0;
+    }
+    .app-card {
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .app-visual {
+      padding: 28px 24px; display: flex;
+      flex-direction: column; align-items: center;
+      justify-content: center; gap: 8px;
+      min-height: 200px; position: relative;
+      overflow: hidden;
+    }
+    .app-info {
+      padding: 16px 20px;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    @media (prefers-color-scheme: dark) {
+      .app-info { background: #111; border-color: #222; }
+    }
+    .app-name {
+      font-size: 14px; font-weight: 600;
+      color: var(--black); margin-bottom: 4px;
+    }
+    @media (prefers-color-scheme: dark) { .app-name { color: #f0f0f0; } }
+    .app-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.5;
+    }
+    .checker-bw {
+      background-image: repeating-conic-gradient(#111 0% 25%, #fff 0% 50%);
+      background-size: 12px 12px;
+    }
+    .checker-bo {
+      background-image: repeating-conic-gradient(#111 0% 25%, #FF6B00 0% 50%);
+      background-size: 14px 14px;
+    }
+
+    /* ─── VOICE ───────────────────────────────────────── */
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin: 32px 0;
+    }
+    .voice-card {
+      background: var(--warm);
+      border-radius: 10px; padding: 20px;
+    }
+    .voice-principle {
+      font-size: 14px; font-weight: 600;
+      color: var(--black); margin-bottom: 8px;
+    }
+    @media (prefers-color-scheme: dark) { .voice-principle { color: #f0f0f0; } }
+    .voice-example {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.6;
+    }
+    .voice-tag {
+      display: inline-block;
+      font-size: 11px; color: var(--orange);
+      font-weight: 600; margin-bottom: 8px;
+    }
+
+    /* ─── LEARNINGS ───────────────────────────────────── */
+    .learning {
+      display: flex; gap: 16px; margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .learning-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--orange); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .learning-body { flex: 1; }
+    .learning-title {
+      font-size: 15px; font-weight: 600;
+      color: var(--black); margin-bottom: 4px;
+    }
+    @media (prefers-color-scheme: dark) { .learning-title { color: #f0f0f0; } }
+    .learning-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    .case-footer {
+      background: var(--black);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .case-footer-title {
+      font-family: 'Alfa Slab One', serif;
+      font-size: 28px; color: #fff;
+      margin-bottom: 8px;
+    }
+    .case-footer-title span { color: var(--orange); }
+    .case-footer-sub {
+      font-size: 14px; color: #555;
+      margin-bottom: 28px;
+    }
+    .case-footer-btn {
+      display: inline-block;
+      background: var(--orange); color: #fff;
+      font-size: 14px; font-weight: 600;
+      padding: 12px 28px; border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .case-footer-btn:hover { background: var(--orange2); }
+    .case-footer-pattern {
+      height: 20px; margin: 0 -24px;
+      background-image: repeating-conic-gradient(#111 0% 25%, #fff 0% 50%);
+      background-size: 10px 10px;
+      margin-top: 48px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      section { padding: 48px 0; }
+      .do-dont { grid-template-columns: 1fr; }
+      .pattern-row { grid-template-columns: 1fr; }
+      .hero { padding: 48px 24px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-icon">
+        <div style="background:#fff;width:10px;height:10px;"></div>
+        <div style="background:#222;width:10px;height:10px;"></div>
+        <div style="background:#222;width:10px;height:10px;"></div>
+        <div style="background:#FF6B00;width:10px;height:10px;"></div>
+      </div>
+      <span class="nav-name">Chips <span>&</span> Checkers</span>
+    </a>
+    <a class="nav-back" href="index.html">← Back to portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Brand Identity · Toronto · 2025</div>
+    <div class="hero-title">
+      <span class="word">Chips</span>
+      <span class="amp">&</span>
+      <span class="word">Checkers</span>
+    </div>
+    <div class="hero-sub">Board game café · Complete brand system</div>
+    <div class="hero-tagline">Your move. Our snacks.</div>
+    <div class="hero-pattern"></div>
+  </div>
+
+  <!-- THE BRIEF -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">01 — The Brief</div>
+      <h2 class="section-title">A café where games and food collide.</h2>
+      <div class="section-body">
+        <p>Design a complete brand identity for Chips & Checkers — a fictional board game café in Toronto serving pizza, nachos, coffee, and cocktails. The brand needed to feel <strong>warm enough to be a neighbourhood spot</strong>, bold enough to stand out on a busy street, and clever enough to reward people who pay attention.</p>
+        <p>The brief covered everything: naming, logo system, color palette, typography, packaging, and digital applications — all working together as one cohesive brand.</p>
+      </div>
+      <div class="pull-quote">
+        <p>"Most board game cafés go dark and moody. We went bold and confident — because the brand is about joy, not atmosphere."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE NAME -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">02 — The Name</div>
+      <h2 class="section-title">Every word earns its place.</h2>
+      <div class="section-body">
+        <p>The name does double duty. <strong>Chips</strong> are both poker chips and the British English word for fries. <strong>Checkers</strong> is both the board game and the act of checking in and paying your bill. That double meaning became the foundation for every visual decision that followed.</p>
+        <p>A good brand name should be easy to say, impossible to forget, and carry an emotion before you even see the logo. Chips & Checkers tells you exactly what the place is — in two words.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0;">
+        <div style="background:var(--warm);border-radius:10px;padding:20px;">
+          <div style="font-size:11px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Chips =</div>
+          <div style="font-size:14px;color:var(--muted);line-height:1.8;">Poker chips → games<br>Fries (British English) → food<br>Both meanings simultaneously</div>
+        </div>
+        <div style="background:var(--warm);border-radius:10px;padding:20px;">
+          <div style="font-size:11px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Checkers =</div>
+          <div style="font-size:14px;color:var(--muted);line-height:1.8;">The board game → games<br>Checking in/out → café<br>The visual pattern → design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR SYSTEM -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">03 — Color System</div>
+      <h2 class="section-title">One signature color. Used ruthlessly.</h2>
+      <div class="section-body">
+        <p>Black, white, and one pop of <strong>Proper Orange (#FF6B00)</strong>. Not food orange. Not warning orange. A specific, ownable, Hermès-level orange that becomes the brand before you read a single word.</p>
+        <p>The 60-30-10 rule applied without exception — 60% white, 30% black, 10% Proper Orange. The orange only appears where it needs to hit hardest: the "&" in the logo, the bottom-right square in the icon, the price on a menu item.</p>
+      </div>
+
+      <div class="palette">
+        <div class="swatch" style="flex:3;background:#111111;">
+          <span class="swatch-name" style="color:#fff;">Ink</span>
+          <span class="swatch-hex" style="color:#aaa;">#111111</span>
+        </div>
+        <div class="swatch" style="flex:3;background:#FFFFFF;border-right:1px solid #e0e0e0;">
+          <span class="swatch-name" style="color:#999;">Paper</span>
+          <span class="swatch-hex" style="color:#bbb;">#FFFFFF</span>
+        </div>
+        <div class="swatch" style="flex:1;background:#FF6B00;">
+          <span class="swatch-name" style="color:#fff;">Orange</span>
+          <span class="swatch-hex" style="color:#fff;opacity:0.7;">#FF6B00</span>
+        </div>
+        <div class="swatch" style="flex:1;background:#F5F0E8;">
+          <span class="swatch-name" style="color:#999;">Warm</span>
+          <span class="swatch-hex" style="color:#bbb;">#F5F0E8</span>
+        </div>
+        <div class="swatch" style="flex:1;background:#3A3A3A;">
+          <span class="swatch-name" style="color:#aaa;">Slate</span>
+          <span class="swatch-hex" style="color:#888;">#3A3A3A</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <div style="height:8px;border-radius:4px;overflow:hidden;flex:1;display:flex;">
+          <div style="flex:6;background:#fff;border:1px solid #e0e0e0;"></div>
+          <div style="flex:3;background:#111;"></div>
+          <div style="flex:1;background:#FF6B00;"></div>
+        </div>
+      </div>
+      <p class="palette-note"><strong>60% White · 30% Black · 10% Proper Orange.</strong> Every design follows this ratio. The orange only hits when it needs to.</p>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">04 — Typography</div>
+      <h2 class="section-title">Two fonts. One "&". Infinite personality.</h2>
+      <div class="section-body">
+        <p>Every brand uses exactly two fonts. A display font for headlines and the logo — this is the personality. And a body font for supporting text — this is the readability. They create contrast. They never compete.</p>
+      </div>
+
+      <div class="type-stack">
+        <div class="type-card">
+          <div class="type-sample">
+            <div style="font-family:'Alfa Slab One',serif;font-size:40px;color:var(--black);line-height:1;">Chips<br>Checkers</div>
+          </div>
+          <div class="type-info">
+            <div class="type-role">Display</div>
+            <div class="type-name">Alfa Slab One</div>
+            <div class="type-use">Logo wordmark, headlines, all-caps moments. Chunky, warm, slightly vintage. Confident without being aggressive.</div>
+          </div>
+        </div>
+        <div class="type-card">
+          <div class="type-sample">
+            <div style="font-family:'Pacifico',cursive;font-size:56px;color:var(--orange);line-height:1;">&</div>
+          </div>
+          <div class="type-info">
+            <div class="type-role">Accent — one character only</div>
+            <div class="type-name">Pacifico</div>
+            <div class="type-use">The ampersand exclusively. Always in Proper Orange. The one handwritten element that gives the whole system humanity. Never used for anything else.</div>
+          </div>
+        </div>
+        <div class="type-card">
+          <div class="type-sample">
+            <div style="font-family:'Work Sans',sans-serif;font-size:16px;color:var(--muted);line-height:1.8;">Board game café · Toronto<br>Your move · Our snacks<br>chipscheckers.ca</div>
+          </div>
+          <div class="type-info">
+            <div class="type-role">Body</div>
+            <div class="type-name">Work Sans</div>
+            <div class="type-use">Everything else — sublines, menu items, captions, body copy. Clean, geometric, gets out of the way of the display font.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO SYSTEM -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">05 — Logo System</div>
+      <h2 class="section-title">Four squares. Three colors. One mark.</h2>
+      <div class="section-body">
+        <p>Four squares in a 2×2 grid — white, black, black, orange. The bottom-right square is always orange: it's the chip on the board. The icon works at 16px as a favicon and at six feet as a sign. Simplicity that scales.</p>
+      </div>
+
+      <div class="logo-grid">
+        <div class="logo-card" style="background:#fff;border:1px solid var(--border);">
+          <span class="logo-card-label" style="color:#999;">Light</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="logo-icon">
+              <div style="background:#111;"></div>
+              <div style="background:#f0f0f0;border:1px solid #ddd;"></div>
+              <div style="background:#f0f0f0;border:1px solid #ddd;"></div>
+              <div style="background:#FF6B00;"></div>
+            </div>
+            <div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:16px;color:#111;line-height:1.1;">Chips</div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:16px;color:#111;line-height:1.1;">Checkers</div>
+            </div>
+            <span style="font-family:'Pacifico',cursive;font-size:22px;color:#FF6B00;">&</span>
+          </div>
+          <div style="font-family:'Work Sans',sans-serif;font-size:9px;color:#999;letter-spacing:0.08em;">Your move · Our snacks</div>
+        </div>
+
+        <div class="logo-card" style="background:#111;">
+          <span class="logo-card-label" style="color:#444;">Dark</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="logo-icon">
+              <div style="background:#fff;"></div>
+              <div style="background:#222;"></div>
+              <div style="background:#222;"></div>
+              <div style="background:#FF6B00;"></div>
+            </div>
+            <div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:16px;color:#fff;line-height:1.1;">Chips</div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:16px;color:#fff;line-height:1.1;">Checkers</div>
+            </div>
+            <span style="font-family:'Pacifico',cursive;font-size:22px;color:#FF6B00;">&</span>
+          </div>
+          <div style="font-family:'Work Sans',sans-serif;font-size:9px;color:#555;letter-spacing:0.08em;">Your move · Our snacks</div>
+        </div>
+
+        <div class="logo-card" style="background:#FF6B00;">
+          <span class="logo-card-label" style="color:rgba(0,0,0,0.3);">Orange</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="logo-icon">
+              <div style="background:#111;"></div>
+              <div style="background:#fff;"></div>
+              <div style="background:#fff;"></div>
+              <div style="background:#111;"></div>
+            </div>
+            <div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:16px;color:#111;line-height:1.1;">Chips</div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:16px;color:#111;line-height:1.1;">Checkers</div>
+            </div>
+            <span style="font-family:'Pacifico',cursive;font-size:22px;color:#111;">&</span>
+          </div>
+          <div style="font-family:'Work Sans',sans-serif;font-size:9px;color:rgba(0,0,0,0.4);letter-spacing:0.08em;">Your move · Our snacks</div>
+        </div>
+
+        <div class="logo-card" style="background:#111;aspect-ratio:1;">
+          <span class="logo-card-label" style="color:#444;">Icon mark</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;width:64px;height:64px;">
+            <div style="background:#fff;width:32px;height:32px;"></div>
+            <div style="background:#222;width:32px;height:32px;"></div>
+            <div style="background:#222;width:32px;height:32px;"></div>
+            <div style="background:#FF6B00;width:32px;height:32px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-card">
+          <div class="do-label">DO ✓</div>
+          <ul class="rule-list">
+            <li>Use on approved backgrounds only</li>
+            <li>Maintain clear space equal to one square</li>
+            <li>Keep "&" always in Proper Orange</li>
+            <li>Use correct version per background</li>
+          </ul>
+        </div>
+        <div class="dont-card">
+          <div class="dont-label">NEVER ✗</div>
+          <ul class="rule-list">
+            <li>Stretch or distort the logo</li>
+            <li>Change the "&" font or color</li>
+            <li>Use orange "&" on orange background</li>
+            <li>Add drop shadows or effects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATTERN -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">06 — Brand Pattern</div>
+      <h2 class="section-title">The checkerboard is the brand.</h2>
+      <div class="section-body">
+        <p>A checkerboard pattern. It sounds obvious — but the execution matters. The pattern adapts to its surface: black and white on dark backgrounds, black and orange on orange surfaces. <strong>Always used as a band, never full bleed.</strong> It wraps the bottom of every application like a signature gesture.</p>
+      </div>
+
+      <div class="pattern-row">
+        <div>
+          <div class="pattern-swatch checker-bw"></div>
+          <div class="pattern-label">Black + White · dark surfaces</div>
+        </div>
+        <div>
+          <div class="pattern-swatch checker-bo"></div>
+          <div class="pattern-label">Black + Orange · orange surfaces</div>
+        </div>
+        <div>
+          <div class="pattern-swatch" style="background-image:repeating-conic-gradient(#FF6B00 0% 25%,#111 0% 50%);background-size:12px 12px;"></div>
+          <div class="pattern-label">Orange + Black · inverted accent</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section>
+    <div class="wrap-wide">
+      <div class="wrap" style="padding-bottom:0;">
+        <div class="section-label">07 — Brand Applications</div>
+        <h2 class="section-title">The brand alive in the real world.</h2>
+        <div class="section-body">
+          <p>A brand identity is only as strong as its applications. Every surface below follows the same system — same colors, same pattern, same fonts — but adapts to its context. That consistency is what makes a brand feel real.</p>
+        </div>
+      </div>
+
+      <div class="app-grid" style="margin-top:32px;">
+
+        <div class="app-card">
+          <div class="app-visual" style="background:#FF6B00;flex-direction:column;padding:0;overflow:hidden;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;width:36px;height:36px;">
+                <div style="background:#111;width:18px;height:18px;"></div>
+                <div style="background:#fff;width:18px;height:18px;"></div>
+                <div style="background:#fff;width:18px;height:18px;"></div>
+                <div style="background:#111;width:18px;height:18px;"></div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:4px;">
+                <div style="display:flex;flex-direction:column;">
+                  <span style="font-family:'Alfa Slab One',serif;font-size:18px;color:#111;line-height:1.1;">Chips</span>
+                  <span style="font-family:'Alfa Slab One',serif;font-size:18px;color:#111;line-height:1.1;">Checkers</span>
+                </div>
+                <span style="font-family:'Pacifico',cursive;font-size:24px;color:#111;margin-left:4px;">&</span>
+              </div>
+              <div style="font-family:'Work Sans',sans-serif;font-size:10px;color:rgba(0,0,0,0.5);">Your move · Our snacks</div>
+            </div>
+            <div style="height:20px;width:100%;" class="checker-bw"></div>
+          </div>
+          <div class="app-info">
+            <div class="app-name">Coffee Cup</div>
+            <div class="app-desc">Orange base, checkerboard band at the bottom. The back reads "Come for the games. Stay for the snacks." in a typewriter font — a different brand voice that rewards turning the cup around.</div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-visual" style="background:#111;flex-direction:column;padding:0;overflow:hidden;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:24px;">
+              <div style="font-family:'Alfa Slab One',serif;font-size:26px;color:#fff;line-height:0.95;text-align:center;">LESS<br>TALKING.</div>
+              <div style="font-family:'Pacifico',cursive;font-size:30px;color:#FF6B00;line-height:1;">More</div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:26px;color:#fff;line-height:0.95;text-align:center;">EATING.</div>
+            </div>
+            <div style="height:16px;width:100%;" class="checker-bw"></div>
+          </div>
+          <div class="app-info">
+            <div class="app-name">Pizza Box — Top</div>
+            <div class="app-desc">Bold typographic statement. "More" in Pacifico script sandwiched between two Alfa Slab One lines — the brand's font contrast doing its best work at the largest scale.</div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-visual" style="background:#fff;border:1px solid var(--border);">
+            <div style="border:2px solid #111;border-radius:8px;padding:14px;width:100%;max-width:260px;">
+              <div style="font-family:'Special Elite',serif;font-size:11px;color:#111;text-align:center;font-weight:bold;padding-bottom:6px;border-bottom:1px solid #eee;margin-bottom:6px;">OFFICIAL RULES OF PIZZA</div>
+              <div style="font-family:'Special Elite',serif;font-size:9px;color:#333;line-height:1.85;">
+                <div><span style="color:#FF6B00;font-weight:bold;">§1.</span> The person who ordered gets the last slice.</div>
+                <div><span style="color:#FF6B00;font-weight:bold;">§2.</span> Blowing on hot pizza does nothing.</div>
+                <div><span style="color:#FF6B00;font-weight:bold;">§3.</span> Pineapple is allowed. We don't judge.</div>
+                <div><span style="color:#FF6B00;font-weight:bold;">§4.</span> Game pauses when pizza arrives.</div>
+                <div><span style="color:#FF6B00;font-weight:bold;">§5.</span> Whoever wins pays for the next one.</div>
+              </div>
+            </div>
+          </div>
+          <div class="app-info">
+            <div class="app-name">Pizza Box — Inside Lid</div>
+            <div class="app-desc">The surprise element. Nobody expects design on the inside. This is the piece that gets photographed and posted — free marketing for the brand every time someone opens the box.</div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-visual" style="background:#FF6B00;flex-direction:column;padding:0;overflow:hidden;">
+            <div style="background:#111;padding:14px 18px;display:flex;align-items:center;gap:8px;width:100%;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;width:18px;height:18px;flex-shrink:0;">
+                <div style="background:#fff;width:9px;height:9px;"></div>
+                <div style="background:#222;width:9px;height:9px;"></div>
+                <div style="background:#222;width:9px;height:9px;"></div>
+                <div style="background:#FF6B00;width:9px;height:9px;"></div>
+              </div>
+              <span style="font-family:'Alfa Slab One',serif;font-size:12px;color:#fff;">Chips <span style="font-family:'Pacifico',cursive;color:#FF6B00;">&</span> Checkers</span>
+            </div>
+            <div style="padding:12px 18px;flex:1;width:100%;">
+              <div style="font-family:'Alfa Slab One',serif;font-size:14px;color:#111;margin-bottom:6px;">Drinks</div>
+              <div style="font-family:'Work Sans',sans-serif;font-size:10px;color:#111;opacity:0.75;line-height:1.9;">
+                <div style="display:flex;justify-content:space-between;"><span>Proper Orange Latte</span><span>$7</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>Checkmate Chai</span><span>$6</span></div>
+                <div style="display:flex;justify-content:space-between;"><span>Wild Card Cocktail</span><span>$14</span></div>
+              </div>
+            </div>
+            <div style="height:12px;width:100%;" class="checker-bo"></div>
+          </div>
+          <div class="app-info">
+            <div class="app-name">Menu</div>
+            <div class="app-desc">Orange dominant with black and orange checker dividers between sections. Drink names carry the brand voice: Proper Orange Latte, Checkmate Chai, Wild Card Cocktail, Draw Four Mocktail.</div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-visual" style="background:#FF6B00;flex-direction:column;padding:0;overflow:hidden;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:4px;">
+              <div style="font-family:'Work Sans',sans-serif;font-size:8px;color:#111;letter-spacing:0.14em;text-transform:uppercase;opacity:0.5;">every friday</div>
+              <div style="font-family:'Alfa Slab One',serif;font-size:28px;color:#111;line-height:0.95;text-align:center;">GAME<br>NIGHT</div>
+              <div style="font-family:'Pacifico',cursive;font-size:14px;color:#111;margin-top:4px;">starts at 7pm</div>
+              <div style="background:#111;color:#FF6B00;font-family:'Work Sans',sans-serif;font-size:8px;font-weight:600;padding:4px 12px;border-radius:20px;margin-top:6px;">FREE ENTRY</div>
+            </div>
+            <div style="height:16px;width:100%;" class="checker-bw"></div>
+            <div style="background:#111;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;width:100%;">
+              <div style="display:flex;align-items:center;gap:4px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;width:10px;height:10px;">
+                  <div style="background:#fff;width:5px;height:5px;"></div>
+                  <div style="background:#333;width:5px;height:5px;"></div>
+                  <div style="background:#333;width:5px;height:5px;"></div>
+                  <div style="background:#FF6B00;width:5px;height:5px;"></div>
+                </div>
+                <span style="font-family:'Work Sans',sans-serif;font-size:7px;color:#fff;letter-spacing:0.06em;">C&C</span>
+              </div>
+              <span style="font-family:'Work Sans',sans-serif;font-size:7px;color:#555;">@chipscheckers</span>
+            </div>
+          </div>
+          <div class="app-info">
+            <div class="app-name">Instagram Post</div>
+            <div class="app-desc">Three reusable templates — game night promo, new item drop, and quote card. Each follows the same structure: content zone, checker band, brand footer. Consistent enough to feel like a brand, flexible enough to post weekly.</div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-visual" style="background:#111;flex-direction:column;padding:0;overflow:hidden;">
+            <div style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;width:100%;">
+              <div>
+                <div style="display:flex;align-items:baseline;gap:3px;margin-bottom:4px;">
+                  <span style="font-family:'Alfa Slab One',serif;font-size:14px;color:#fff;">Chips</span>
+                  <span style="font-family:'Pacifico',cursive;font-size:18px;color:#FF6B00;">&</span>
+                  <span style="font-family:'Alfa Slab One',serif;font-size:14px;color:#fff;">Checkers</span>
+                </div>
+                <div style="font-family:'Work Sans',sans-serif;font-size:7px;color:#444;letter-spacing:0.1em;">BOARD GAME CAFÉ · TORONTO</div>
+                <div style="font-family:'Work Sans',sans-serif;font-size:9px;color:#FF6B00;margin-top:8px;font-weight:500;">LOYALTY CARD</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;width:36px;height:36px;flex-shrink:0;">
+                <div style="background:#fff;width:18px;height:18px;"></div>
+                <div style="background:#1e1e1e;width:18px;height:18px;"></div>
+                <div style="background:#1e1e1e;width:18px;height:18px;"></div>
+                <div style="background:#FF6B00;width:18px;height:18px;"></div>
+              </div>
+            </div>
+            <div style="height:10px;width:100%;" class="checker-bw" style="background-size:6px 6px;"></div>
+          </div>
+          <div class="app-info">
+            <div class="app-name">Loyalty Card</div>
+            <div class="app-desc">Black front with the logo and icon mark. White back with a 5×2 stamp grid — the tenth stamp is a star, the free drink. Small format, maximum brand consistency.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND VOICE -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">08 — Brand Voice</div>
+      <h2 class="section-title">How the brand talks.</h2>
+      <div class="section-body">
+        <p>Visual identity is half the brand. The other half is how it sounds. Every word on every surface — from the menu to the inside of a pizza box — follows the same voice principles.</p>
+      </div>
+
+      <div class="voice-grid">
+        <div class="voice-card">
+          <div class="voice-tag">Principle 01</div>
+          <div class="voice-principle">Warm but confident.</div>
+          <div class="voice-example">Friendly but never overthought. Short sentences. Real words. "Your move, our snacks" not "Welcome to an elevated gaming experience."</div>
+        </div>
+        <div class="voice-card">
+          <div class="voice-tag">Principle 02</div>
+          <div class="voice-principle">Game references always.</div>
+          <div class="voice-example">Every headline has a game nod. "Your move." "Roll the dice." "Draw four." The brand never forgets what it is.</div>
+        </div>
+        <div class="voice-card">
+          <div class="voice-tag">Principle 03</div>
+          <div class="voice-principle">Never too serious.</div>
+          <div class="voice-example">Official Rules of Pizza. Drink names like Wild Card Cocktail. The brand earns trust by not taking itself too seriously.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I LEARNED -->
+  <section>
+    <div class="wrap">
+      <div class="section-label">09 — What I Learned</div>
+      <h2 class="section-title">The thinking is the work.</h2>
+
+      <div style="margin-top:32px;">
+        <div class="learning">
+          <div class="learning-num">1</div>
+          <div class="learning-body">
+            <div class="learning-title">Brand identity is mostly decisions, not software.</div>
+            <div class="learning-desc">The name, the colour, the rule about how orange is used — those decisions took longer than building anything in Figma. The software is just the last step. The thinking is the work.</div>
+          </div>
+        </div>
+        <div class="learning">
+          <div class="learning-num">2</div>
+          <div class="learning-body">
+            <div class="learning-title">The "&" taught me the most.</div>
+            <div class="learning-desc">One character, one font, one colour. It appears in the logo, on the pizza box, in every Instagram post, on the back of the coffee cup. It became the brand's signature without ever trying to. That's what a system does — small decisions compound into something recognisable.</div>
+          </div>
+        </div>
+        <div class="learning">
+          <div class="learning-num">3</div>
+          <div class="learning-body">
+            <div class="learning-title">Restraint is harder than abundance.</div>
+            <div class="learning-desc">The temptation is always to add more — more colors, more fonts, more elements. The hardest design decision was keeping orange at 10%. Every time it was used less, it hit harder.</div>
+          </div>
+        </div>
+        <div class="learning">
+          <div class="learning-num">4</div>
+          <div class="learning-body">
+            <div class="learning-title">Every surface is a conversation.</div>
+            <div class="learning-desc">The inside lid of a pizza box nobody expects to have design. That's exactly why it should. The brand that rewards attention is the brand people remember and share.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="case-footer">
+    <div class="case-footer-title">Chips <span>&</span> Checkers</div>
+    <div class="case-footer-sub">Brand Identity · Toronto · 2025</div>
+    <a class="case-footer-btn" href="index.html">← Back to portfolio</a>
+    <div class="case-footer-pattern"></div>
+  </div>
+
+</body>
+</html>
