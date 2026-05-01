@@ -201,7 +201,7 @@
       display: flex; align-items: center; justify-content: center;
       gap: 18px; opacity: 0; transition: opacity .18s;
     }
-    .post:hover .post-overlay { opacity: 1; }
+    .post:hover .post-overlay { opacity: 0; }
     .ov-stat {
       display: flex; align-items: center; gap: 5px;
       color: #fff; font-size: 13px; font-weight: 600;
@@ -392,7 +392,7 @@
       .grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
       .post-emoji { font-size: 22px; }
       .post-name  { font-size: 9px; }
-      .post:active .post-overlay { opacity: 1; }
+      .post:active .post-overlay { opacity: 0; }
     }
 
     @media (max-width: 520px) {
@@ -550,7 +550,7 @@ const PROJECTS = [
     emoji: "🎲",
     likes: "4.2k",
     link:  "chips-checkers.html",
-    image: "cover-mockup.png",           // 👈 replace with your cup mockup photo path
+    image: "",           // 👈 replace with your cup mockup photo path
     cat:   "Branding",
     isCC:  true,         // marks this as the special C&C tile
   },
