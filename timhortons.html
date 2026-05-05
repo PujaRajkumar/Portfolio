@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tim Hortons App Redesign — UX Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Work+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#C8102E;--red2:#A00D24;--brown:#2C1810;--gold:#C8960C;
+  --muted:#8B6E5A;--border:#E8DDD4;--bg:#F5EFE6;--white:#FFFFFF;
+  --dark:#1a1a1a;--text:#1a1a1a;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Work Sans',sans-serif;background:#fafaf8;color:var(--text);}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:var(--dark);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-icon{display:grid;grid-template-columns:1fr 1fr;width:20px;height:20px;}
+.nav-icon div{width:10px;height:10px;}
+.nav-name{font-size:14px;font-weight:700;color:#fff;letter-spacing:-0.2px;}
+.nav-name span{color:var(--red);}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:12px;color:#666;text-decoration:none;font-weight:500;transition:color .15s;}
+.nav-links a:hover{color:var(--red);}
+.nav-back{font-size:12px;color:#555;text-decoration:none;font-weight:500;}
+.nav-back:hover{color:var(--red);}
+
+/* ── HERO ── */
+.hero{background:var(--dark);padding:80px 32px 0;overflow:hidden;position:relative;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 70% 50%,rgba(200,16,46,0.15) 0%,transparent 70%);}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+.hero-eyebrow{font-size:11px;font-weight:700;color:var(--red);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;}
+.hero-title{font-family:'Alfa Slab One',serif;font-size:clamp(36px,6vw,72px);color:#fff;line-height:1;margin-bottom:8px;}
+.hero-title span{color:var(--red);}
+.hero-subtitle{font-size:clamp(16px,2vw,22px);color:#666;font-weight:300;margin-bottom:32px;line-height:1.5;}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:56px;}
+.hero-stat{display:flex;flex-direction:column;gap:4px;}
+.hero-stat-num{font-size:32px;font-weight:800;color:#fff;line-height:1;}
+.hero-stat-num span{color:var(--red);}
+.hero-stat-label{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.08em;}
+.hero-pattern{height:24px;background-image:repeating-conic-gradient(var(--dark) 0% 25%,#fff 0% 50%);background-size:12px 12px;margin:0 -32px;opacity:0.08;}
+
+/* ── WRAP ── */
+.wrap{max-width:900px;margin:0 auto;padding:0 32px;}
+
+/* ── SECTIONS ── */
+section{padding:72px 0;border-bottom:1px solid #ebebeb;}
+section:last-of-type{border-bottom:none;}
+.eyebrow{font-size:11px;font-weight:700;color:var(--red);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);color:var(--text);line-height:1.1;margin-bottom:20px;}
+.section-body{font-size:16px;color:#555;line-height:1.85;max-width:640px;}
+.section-body p{margin-bottom:16px;}
+.section-body p:last-child{margin-bottom:0;}
+.section-body strong{color:var(--text);font-weight:600;}
+
+/* ── PULL QUOTE ── */
+.pull-quote{border-left:3px solid var(--red);padding:16px 24px;margin:32px 0;background:#fff8f5;border-radius:0 10px 10px 0;}
+.pull-quote p{font-size:18px;font-style:italic;color:var(--text);line-height:1.6;font-family:'DM Serif Display',serif;}
+
+/* ── PAIN POINTS ── */
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:32px 0;}
+.pain-card{background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:20px;transition:box-shadow .2s;}
+.pain-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.pain-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;margin-bottom:12px;}
+.pain-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.pain-desc{font-size:13px;color:#777;line-height:1.6;}
+.pain-quote-txt{font-size:12px;color:#999;font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;}
+
+/* ── PERSONA ── */
+.persona-card{background:#fff;border:1px solid #ebebeb;border-radius:20px;overflow:hidden;margin:32px 0;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+.persona-header{background:var(--dark);padding:24px 28px;display:flex;gap:20px;align-items:center;}
+.persona-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--red),#6B1020);display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
+.persona-id{flex:1;}
+.persona-name{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.persona-role{font-size:13px;color:#666;margin-bottom:8px;}
+.persona-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.p-tag{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e1e;color:#888;}
+.persona-quote{background:#0d0d0d;border-left:3px solid var(--red);padding:14px 28px;}
+.persona-quote-text{font-size:14px;font-style:italic;color:#aaa;line-height:1.6;}
+.persona-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.persona-col{padding:20px 24px;}
+.persona-col:first-child{border-right:1px solid #ebebeb;}
+.persona-col-title{font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+.persona-item{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start;}
+.p-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.p-text{font-size:13px;color:#555;line-height:1.5;}
+.p-text strong{color:var(--text);font-weight:600;}
+.persona-features{padding:20px 24px;border-top:1px solid #ebebeb;}
+.feature-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.feature-row:last-child{margin-bottom:0;}
+.feature-label{font-size:12px;color:#777;width:180px;flex-shrink:0;}
+.feature-bar-wrap{flex:1;height:5px;background:#f0f0f0;border-radius:3px;overflow:hidden;}
+.feature-bar{height:100%;border-radius:3px;}
+.feature-tag{font-size:10px;padding:2px 8px;border-radius:8px;white-space:nowrap;}
+
+/* ── JOURNEY ── */
+.journey-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0;}
+.journey-card{border-radius:16px;overflow:hidden;}
+.journey-header{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.journey-steps-list{padding:16px 18px;}
+.journey-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:0;}
+.j-line-wrap{display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0;}
+.j-node{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;z-index:1;}
+.j-connector{width:2px;flex:1;min-height:16px;margin:2px 0;}
+.j-body{flex:1;padding-bottom:14px;}
+.j-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.j-desc{font-size:11px;color:#777;line-height:1.4;}
+.j-emotion{font-size:10px;font-weight:600;margin-top:3px;}
+.journey-footer{padding:12px 18px;display:flex;align-items:center;gap:10px;}
+.j-stat-num{font-size:28px;font-weight:800;line-height:1;}
+.j-stat-label{font-size:11px;color:#777;line-height:1.4;}
+
+/* ── SCREENS ── */
+.screens-section{padding:72px 0;}
+.screens-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.screen-tab{font-size:12px;padding:7px 16px;border-radius:20px;border:1px solid #e0e0e0;background:transparent;cursor:pointer;color:#777;font-family:'Work Sans',sans-serif;font-weight:500;transition:all .15s;}
+.screen-tab:hover{border-color:var(--red);color:var(--red);}
+.screen-tab.active{background:var(--red);color:#fff;border-color:var(--red);}
+.screen-pane{display:none;}
+.screen-pane.active{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:start;}
+.phone-wrap{position:sticky;top:80px;}
+.phone{width:260px;border-radius:40px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.05);border:8px solid #111;background:var(--bg);}
+.phone-notch{height:26px;background:#111;display:flex;align-items:center;justify-content:center;}
+.phone-pill{width:72px;height:9px;background:#000;border-radius:9px;}
+.phone-screen{background:var(--bg);min-height:480px;overflow:hidden;position:relative;}
+.phone-bar{height:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;}
+.phone-indicator{width:72px;height:4px;background:#111;border-radius:4px;opacity:0.2;}
+.status-bar{display:flex;justify-content:space-between;padding:5px 14px 0;font-size:10px;font-weight:600;}
+
+/* phone internals */
+.greeting{padding:12px 14px 8px;}
+.greeting-sub{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.04em;}
+.greeting-name{font-size:19px;font-weight:700;color:var(--brown);line-height:1.2;margin-top:1px;}
+.points-pill{display:inline-flex;align-items:center;gap:4px;background:var(--gold);padding:3px 9px;border-radius:20px;margin-top:5px;}
+.points-pill-text{font-size:10px;font-weight:700;color:#fff;}
+.reorder-card{margin:0 12px 8px;background:var(--red);border-radius:14px;padding:12px 14px;position:relative;overflow:hidden;}
+.reorder-card::after{content:'';position:absolute;right:-16px;top:-16px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.08);}
+.reorder-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;}
+.reorder-item{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;}
+.reorder-custom{font-size:10px;color:rgba(255,255,255,0.65);margin-bottom:10px;}
+.reorder-btn{background:#fff;border-radius:9px;padding:7px 14px;display:inline-block;}
+.reorder-btn-text{font-size:12px;font-weight:700;color:var(--red);}
+.deal-card{margin:0 12px 8px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;}
+.deal-emoji{font-size:20px;flex-shrink:0;}
+.deal-body{flex:1;}
+.deal-title{font-size:11px;font-weight:700;color:var(--brown);}
+.deal-sub{font-size:10px;color:var(--muted);}
+.deal-price{font-size:11px;font-weight:700;color:var(--red);margin-top:1px;}
+.deal-add-btn{background:var(--red);border-radius:7px;padding:5px 9px;}
+.deal-add-txt{font-size:10px;font-weight:700;color:#fff;}
+.sec-hdr{padding:4px 14px 6px;display:flex;justify-content:space-between;align-items:center;}
+.sec-hdr-title{font-size:12px;font-weight:700;color:var(--brown);}
+.sec-hdr-link{font-size:10px;color:var(--red);font-weight:600;}
+.menu-pills{display:flex;gap:5px;padding:0 12px 8px;overflow-x:auto;scrollbar-width:none;}
+.menu-pills::-webkit-scrollbar{display:none;}
+.mpill{font-size:10px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--brown);white-space:nowrap;font-weight:500;flex-shrink:0;}
+.mpill.active{background:var(--brown);color:#fff;border-color:var(--brown);}
+.mitem{display:flex;align-items:center;gap:8px;padding:7px 14px;border-bottom:0.5px solid var(--border);}
+.mitem-emoji{font-size:18px;width:32px;height:32px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mitem-body{flex:1;}
+.mitem-name{font-size:11px;font-weight:600;color:var(--brown);}
+.mitem-desc{font-size:9px;color:var(--muted);margin-top:1px;}
+.mitem-price{font-size:11px;font-weight:700;color:var(--brown);}
+.mitem-add{width:20px;height:20px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:300;flex-shrink:0;}
+
+/* screen 2 */
+.red-hdr{background:var(--red);padding:12px 14px 16px;}
+.red-hdr-back{font-size:10px;color:rgba(255,255,255,0.6);margin-bottom:4px;}
+.red-hdr-title{font-size:16px;font-weight:700;color:#fff;}
+.sbody{padding:12px 14px;}
+.loc-row{display:flex;align-items:center;gap:7px;background:var(--white);border-radius:11px;padding:9px 12px;margin-bottom:10px;border:1px solid var(--border);}
+.loc-icon{font-size:14px;}
+.loc-body{flex:1;}
+.loc-name{font-size:12px;font-weight:600;color:var(--brown);}
+.loc-detail{font-size:10px;color:var(--muted);}
+.loc-change{font-size:10px;color:var(--red);font-weight:600;}
+.order-card{background:var(--white);border-radius:12px;padding:12px;border:1px solid var(--border);margin-bottom:10px;}
+.oc-title{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+.oc-item{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.oc-emoji{font-size:16px;width:28px;height:28px;background:var(--bg);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.oc-body{flex:1;}
+.oc-name{font-size:12px;font-weight:600;color:var(--brown);}
+.oc-custom{font-size:10px;color:var(--muted);}
+.oc-price{font-size:12px;font-weight:700;color:var(--brown);}
+.oc-total{display:flex;justify-content:space-between;border-top:0.5px solid var(--border);padding-top:8px;margin-top:4px;}
+.oc-total-lbl{font-size:12px;font-weight:600;color:var(--brown);}
+.oc-total-val{font-size:13px;font-weight:700;color:var(--brown);}
+.proceed-btn{background:var(--red);border-radius:12px;padding:11px;text-align:center;}
+.proceed-txt{font-size:13px;font-weight:700;color:#fff;}
+.proceed-note{font-size:10px;color:#fff8;margin-top:2px;}
+
+/* screen 3 — deal popup */
+.screen-dim{position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1;}
+.bottom-sheet{position:absolute;bottom:0;left:0;right:0;background:var(--white);border-radius:18px 18px 0 0;padding:14px;z-index:2;box-shadow:0 -8px 28px rgba(0,0,0,0.15);}
+.bs-handle{width:32px;height:3px;background:var(--border);border-radius:3px;margin:0 auto 10px;}
+.bs-close{position:absolute;top:12px;right:12px;width:22px;height:22px;background:#f0ece8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);font-weight:700;}
+.bs-title{font-size:13px;font-weight:700;color:var(--brown);margin-bottom:2px;}
+.bs-sub{font-size:10px;color:var(--muted);margin-bottom:10px;line-height:1.4;}
+.bs-item{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:10px;padding:8px 10px;margin-bottom:6px;}
+.bs-emoji{font-size:18px;flex-shrink:0;}
+.bs-body{flex:1;}
+.bs-name{font-size:11px;font-weight:700;color:var(--brown);}
+.bs-desc{font-size:9px;color:var(--muted);}
+.bs-price{font-size:11px;font-weight:700;color:var(--red);margin-top:1px;}
+.bs-add{background:var(--red);border-radius:7px;padding:5px 9px;flex-shrink:0;}
+.bs-add-txt{font-size:10px;font-weight:700;color:#fff;}
+.bs-skip{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;}
+
+/* screen 4 */
+.pay-summary{background:var(--white);border-radius:12px;padding:12px;border:1px solid var(--border);margin-bottom:10px;}
+.pay-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.pay-row.total{border-top:0.5px solid var(--border);padding-top:8px;margin-top:4px;margin-bottom:0;}
+.pay-row.total span{font-size:13px;font-weight:700;color:var(--brown);}
+.pay-method{background:var(--white);border-radius:12px;padding:10px 12px;border:1px solid var(--border);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.pay-method-icon{font-size:18px;}
+.pay-method-body{flex:1;}
+.pay-method-label{font-size:9px;color:var(--muted);}
+.pay-method-name{font-size:12px;font-weight:600;color:var(--brown);}
+.pay-method-change{font-size:10px;color:var(--red);font-weight:600;}
+.pay-btn{background:var(--red);border-radius:12px;padding:12px;text-align:center;margin-bottom:8px;}
+.pay-btn-main{font-size:14px;font-weight:700;color:#fff;}
+.pay-btn-sub{font-size:10px;color:rgba(255,255,255,0.7);margin-top:2px;}
+.pay-points{text-align:center;font-size:10px;color:var(--muted);}
+.pay-points span{color:var(--gold);font-weight:700;}
+
+/* screen 5 */
+.success-hdr{background:var(--red);padding:20px 14px 28px;text-align:center;}
+.success-circle{width:52px;height:52px;background:rgba(255,255,255,0.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:22px;}
+.success-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:3px;}
+.success-sub{font-size:11px;color:rgba(255,255,255,0.75);}
+.eta-card{margin:-14px 14px 0;background:var(--white);border-radius:14px;padding:14px;box-shadow:0 4px 16px rgba(0,0,0,0.1);position:relative;z-index:2;}
+.eta-inner{display:flex;justify-content:space-between;align-items:flex-start;}
+.eta-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;font-weight:600;}
+.eta-num{font-size:26px;font-weight:800;color:var(--brown);}
+.eta-unit{font-size:11px;color:var(--muted);}
+.eta-right{text-align:right;}
+.eta-loc-name{font-size:12px;font-weight:600;color:var(--brown);}
+.eta-loc-detail{font-size:10px;color:var(--muted);margin-top:2px;}
+.eta-progress{height:4px;background:#f0ece8;border-radius:2px;margin-top:10px;overflow:hidden;}
+.eta-fill{width:30%;height:100%;background:var(--red);border-radius:2px;animation:fill 3s ease forwards;}
+@keyframes fill{to{width:50%;}}
+.pts-earned{margin:8px 14px 0;background:#FFF8E7;border:1px solid #F0D080;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;}
+.pts-icon{font-size:20px;}
+.pts-body{flex:1;}
+.pts-lbl{font-size:9px;color:#8B6E2A;text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
+.pts-val{font-size:17px;font-weight:800;color:var(--gold);}
+.pts-total{font-size:10px;color:#8B6E2A;}
+.order-confirm-detail{margin:8px 14px 0;background:var(--white);border-radius:12px;padding:10px 14px;border:1px solid var(--border);}
+.ocd-title{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:7px;}
+.ocd-row{display:flex;justify-content:space-between;margin-bottom:5px;}
+.ocd-row:last-child{margin-bottom:0;}
+.ocd-name{font-size:11px;font-weight:600;color:var(--brown);}
+.ocd-sub{font-size:9px;color:var(--muted);}
+.ocd-price{font-size:11px;font-weight:700;color:var(--brown);}
+
+/* annotations */
+.screen-info{padding-top:8px;}
+.screen-info h3{font-family:'DM Serif Display',serif;font-size:24px;color:var(--text);margin-bottom:8px;}
+.screen-info .step-badge{display:inline-block;font-size:10px;font-weight:700;color:var(--red);background:#fff2f4;padding:3px 10px;border-radius:12px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;}
+.screen-info p{font-size:15px;color:#666;line-height:1.7;margin-bottom:20px;}
+.decisions{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.decision{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #ebebeb;border-radius:10px;padding:12px 14px;}
+.decision-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.decision-body{}
+.decision-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.decision-desc{font-size:12px;color:#777;line-height:1.5;}
+.ux-principle{background:var(--dark);border-radius:12px;padding:16px 20px;}
+.ux-principle-label{font-size:9px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
+.ux-principle-text{font-size:13px;color:#aaa;line-height:1.6;font-style:italic;}
+
+/* ── BEFORE / AFTER ── */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0;}
+.ba-card{border-radius:16px;overflow:hidden;}
+.ba-header{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.ba-title{font-size:13px;font-weight:700;}
+.ba-steps{padding:16px 18px;}
+.ba-step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+.ba-node{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.ba-text{font-size:12px;line-height:1.5;padding-top:3px;}
+.ba-footer{padding:12px 18px;display:flex;align-items:center;gap:10px;}
+.ba-num{font-size:28px;font-weight:800;line-height:1;}
+.ba-label{font-size:11px;line-height:1.4;}
+
+/* ── WHAT I LEARNED ── */
+.learnings{display:flex;flex-direction:column;gap:20px;margin-top:32px;}
+.learning{display:flex;gap:16px;align-items:flex-start;}
+.learning-num{width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.learning-body{}
+.learning-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.learning-desc{font-size:14px;color:#666;line-height:1.7;}
+
+/* ── FOOTER ── */
+.case-footer{background:var(--dark);padding:56px 32px;text-align:center;}
+.footer-title{font-family:'Alfa Slab One',serif;font-size:32px;color:#fff;margin-bottom:6px;}
+.footer-title span{color:var(--red);}
+.footer-sub{font-size:14px;color:#555;margin-bottom:28px;}
+.footer-btn{display:inline-block;background:var(--red);color:#fff;font-size:14px;font-weight:700;padding:13px 28px;border-radius:10px;text-decoration:none;transition:background .15s;}
+.footer-btn:hover{background:var(--red2);}
+.footer-pattern{height:16px;margin:48px -32px 0;background-image:repeating-conic-gradient(var(--dark) 0% 25%,#fff 0% 50%);background-size:8px 8px;opacity:0.06;}
+
+@media(max-width:700px){
+  .screen-pane.active{grid-template-columns:1fr;}
+  .phone-wrap{position:static;display:flex;justify-content:center;}
+  .ba-grid{grid-template-columns:1fr;}
+  .persona-body{grid-template-columns:1fr;}
+  .persona-col:first-child{border-right:none;border-bottom:1px solid #ebebeb;}
+  .journey-compare{grid-template-columns:1fr;}
+  .hero-stats{gap:20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-icon">
+      <div style="background:#fff;"></div><div style="background:#333;"></div>
+      <div style="background:#333;"></div><div style="background:#C8102E;"></div>
+    </div>
+    <span class="nav-name">Tim <span>Hortons</span> Redesign</span>
+  </a>
+  <div class="nav-links">
+    <a href="#research">Research</a>
+    <a href="#persona">Persona</a>
+    <a href="#journey">Journey</a>
+    <a href="#problems">Real Problems</a>
+    <a href="#screens">Screens</a>
+    <a href="#learnings">Learnings</a>
+  </div>
+  <a class="nav-back" href="index.html">← Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">UX Case Study · Self-Initiated · 2025</div>
+    <h1 class="hero-title">Tim <span>Hortons</span><br>App Redesign</h1>
+    <p class="hero-subtitle">Redesigning the daily ordering flow for Canada's most loyal café customers — from 9 frustrating steps to 3 effortless ones.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">9<span>→3</span></div><div class="hero-stat-label">Steps to order</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4<span>min→</span>30s</div><div class="hero-stat-label">Time to complete</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">End<span>-to-</span>end</div><div class="hero-stat-label">Redesign</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">Reorder<span>.</span></div><div class="hero-stat-label">Flow redesigned</div></div>
+    </div>
+  </div>
+  <div class="hero-pattern"></div>
+</div>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="eyebrow">01 — User Research</div>
+    <h2 class="section-title">The app that makes coffee feel like work.</h2>
+    <div class="section-body">
+      <p>I analysed 1-star and 2-star reviews on the App Store and Google Play to identify what was genuinely frustrating real users. Rather than treating the aggregate rating as the truth, I focused on qualitative feedback — the specific words people used when the app failed them.</p>
+      <p>Five pain points emerged consistently across hundreds of reviews. Critically, they aren't five separate problems — they're <strong>one systemic failure</strong>: an app built around features, not around the person trying to get a coffee in under 2 minutes.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Even if you order the same thing at the same time, every day, you need to jump through 10 screens to place the order." — Google Play review</p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-num" style="background:#C8102E;">1</div>
+        <div class="pain-title">No persistent reorder</div>
+        <div class="pain-desc">Daily users rebuild their order from scratch every single morning. No memory of past orders, no one-tap shortcut, no saved customizations.</div>
+        <div class="pain-quote-txt">"Same coffee every day. I have to select everything from scratch. Every. Single. Time."</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num" style="background:#C8102E;">2</div>
+        <div class="pain-title">Forced re-login constantly</div>
+        <div class="pain-desc">Sessions expire frequently. Users are kicked out mid-commute and sent verification codes by email — requiring them to switch apps while on a subway platform with poor signal.</div>
+        <div class="pain-quote-txt">"I just want a coffee. Not to check my email for a code while standing on a platform."</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num" style="background:#E8A838;">3</div>
+        <div class="pain-title">Apple Wallet & payment failures</div>
+        <div class="pain-desc">Apple Pay fails silently or isn't available. Users are pushed to preload a Tims Card instead. Gift cards can't be added. Balances disappear between sessions.</div>
+        <div class="pain-quote-txt">"Why am I forced to preload money onto a card I don't want just to pay for coffee?"</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num" style="background:#E8A838;">4</div>
+        <div class="pain-title">Orders don't sync with stores</div>
+        <div class="pain-desc">Users place mobile orders, arrive at the store, and staff have no record. They rejoin the counter queue anyway — defeating the entire value proposition of the app.</div>
+        <div class="pain-quote-txt">"Ordered ahead. Showed up. They had no idea. Stood in line anyway. What's the point?"</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num" style="background:#8B6E5A;">5</div>
+        <div class="pain-title">Slow load & scan screen glitches</div>
+        <div class="pain-desc">The app takes too long to launch. The scan screen gets stuck loading. For someone opening the app at 8am with one bar of signal, this is a deal-breaker.</div>
+        <div class="pain-quote-txt">"By the time the app loaded I'd already ordered at the counter."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONA -->
+<section id="persona">
+  <div class="wrap">
+    <div class="eyebrow">02 — User Persona</div>
+    <h2 class="section-title">Designing for Nadia.</h2>
+    <div class="section-body">
+      <p>Every design decision in this project was made for one person: Nadia, 28, a registered nurse in Toronto who visits Tim Hortons every morning before her shift. She represents the app's most valuable and most underserved user — the daily commuter who just needs their coffee in under 30 seconds.</p>
+    </div>
+
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar">👩‍⚕️</div>
+        <div class="persona-id">
+          <div class="persona-name">Nadia, 28</div>
+          <div class="persona-role">Registered Nurse · Toronto General Hospital · TTC commuter</div>
+          <div class="persona-tags">
+            <span class="p-tag">Daily Tim's user</span>
+            <span class="p-tag">iPhone 15</span>
+            <span class="p-tag">12hr shifts</span>
+            <span class="p-tag">Rewards member</span>
+            <span class="p-tag">Always in scrubs</span>
+          </div>
+        </div>
+      </div>
+      <div class="persona-quote">
+        <div class="persona-quote-text">"I have exactly 4 minutes between the subway and my shift. I don't have time to rebuild my order from scratch, wait for the app to load, or get logged out again. I just need my coffee."</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-col">
+          <div class="persona-col-title">Goals</div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>One-tap reorder</strong> — same medium dark roast every morning, never rebuild it</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Stay logged in</strong> — opens app, already authenticated, no passwords mid-commute</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Pay with Apple Pay</strong> — no Tims Card loading, no preloading money</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Order actually ready</strong> — walks in, grabs coffee, walks out in 60 seconds</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Points tracked automatically</strong> — doesn't have to think about it</div></div>
+        </div>
+        <div class="persona-col">
+          <div class="persona-col-title">Frustrations</div>
+          <div class="persona-item"><div class="p-dot" style="background:#C8102E;"></div><div class="p-text"><strong>No reorder shortcut.</strong> Rebuilds her medium dark roast from scratch every morning</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#C8102E;"></div><div class="p-text"><strong>Logged out constantly.</strong> Verification code email while on a platform with one bar of signal</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#C8102E;"></div><div class="p-text"><strong>Apple Pay unreliable.</strong> Forced to preload a Tims Card she doesn't want</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#C8102E;"></div><div class="p-text"><strong>Order doesn't show up.</strong> Staff have no record, joins counter queue anyway</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#C8102E;"></div><div class="p-text"><strong>Scan screen glitches.</strong> Gets stuck, has to restart while holding up the queue</div></div>
+        </div>
+      </div>
+      <div class="persona-features">
+        <div class="persona-col-title">What matters most to Nadia</div>
+        <div class="feature-row"><div class="feature-label">One-tap reorder</div><div class="feature-bar-wrap"><div class="feature-bar" style="width:100%;background:#C8102E;"></div></div><span class="feature-tag" style="background:#fff2f4;color:#C8102E;">critical</span></div>
+        <div class="feature-row"><div class="feature-label">Persistent login</div><div class="feature-bar-wrap"><div class="feature-bar" style="width:95%;background:#C8102E;"></div></div><span class="feature-tag" style="background:#fff2f4;color:#C8102E;">critical</span></div>
+        <div class="feature-row"><div class="feature-label">Reliable store sync</div><div class="feature-bar-wrap"><div class="feature-bar" style="width:90%;background:#E8A838;"></div></div><span class="feature-tag" style="background:#fff8e6;color:#92640a;">high</span></div>
+        <div class="feature-row"><div class="feature-label">Apple Pay support</div><div class="feature-bar-wrap"><div class="feature-bar" style="width:85%;background:#E8A838;"></div></div><span class="feature-tag" style="background:#fff8e6;color:#92640a;">high</span></div>
+        <div class="feature-row"><div class="feature-label">Order ready time</div><div class="feature-bar-wrap"><div class="feature-bar" style="width:75%;background:#8B6E5A;"></div></div><span class="feature-tag" style="background:#f5f0ec;color:#8B6E5A;">medium</span></div>
+        <div class="feature-row"><div class="feature-label">Real-time rewards</div><div class="feature-bar-wrap"><div class="feature-bar" style="width:60%;background:#ccc;"></div></div><span class="feature-tag" style="background:#f5f5f5;color:#aaa;">nice to have</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="wrap">
+    <div class="eyebrow">03 — User Journey</div>
+    <h2 class="section-title">9 steps to get a coffee. We got it to 3.</h2>
+    <div class="section-body">
+      <p>Mapping Nadia's current journey revealed the real cost of the app's failures — not just in steps, but in emotion. She starts hopeful every morning and ends defeated. The redesign doesn't add features. It removes friction. Every eliminated step was work the app was forcing Nadia to do itself.</p>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-header" style="background:#fff2f4;border-bottom:1px solid #ffe0e4;">
+          <span class="ba-title" style="color:#C8102E;">Before — Current app</span>
+          <span style="font-size:12px;color:#C8102E;font-weight:700;">9 steps · ~4 min</span>
+        </div>
+        <div class="ba-steps">
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">1</div><div class="ba-text" style="color:#555;">Opens app — slow load, sometimes crashes</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">2</div><div class="ba-text" style="color:#555;">Session expired — must sign in again</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">3</div><div class="ba-text" style="color:#555;">Check email for verification code</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">4</div><div class="ba-text" style="color:#555;">Home screen — no shortcuts, just promotions</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">5</div><div class="ba-text" style="color:#555;">Select location — every single time</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">6</div><div class="ba-text" style="color:#555;">Rebuild order from scratch — same as yesterday</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">7</div><div class="ba-text" style="color:#555;">Apple Pay fails — preload Tims Card</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">8</div><div class="ba-text" style="color:#555;">Order confirmed — no ETA, no store confirmation</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#fff2f4;color:#C8102E;">9</div><div class="ba-text" style="color:#555;">Arrives — store has no record, joins queue anyway</div></div>
+        </div>
+        <div class="ba-footer" style="background:#fff2f4;border-top:1px solid #ffe0e4;">
+          <div class="ba-num" style="color:#C8102E;">9</div>
+          <div class="ba-label" style="color:#C8102E;">steps<br>~4 minutes<br>Ends defeated</div>
+        </div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-header" style="background:#f0faf5;border-bottom:1px solid #c8eed8;">
+          <span class="ba-title" style="color:#166534;">After — Redesigned flow</span>
+          <span style="font-size:12px;color:#166534;font-weight:700;">3 steps · under 30s</span>
+        </div>
+        <div class="ba-steps">
+          <div class="ba-step"><div class="ba-node" style="background:#f0faf5;color:#166534;">1</div><div class="ba-text" style="color:#555;"><strong>Opens app — already signed in.</strong> Usual order front and center. Points balance visible.</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#f0faf5;color:#166534;">2</div><div class="ba-text" style="color:#555;"><strong>Reviews order → deal popup → checkout.</strong> Location pre-selected. Apple Pay ready. Optional add-on offered.</div></div>
+          <div class="ba-step"><div class="ba-node" style="background:#f0faf5;color:#166534;">3</div><div class="ba-text" style="color:#555;"><strong>Face ID confirms — done.</strong> ETA shown, exact pickup location, points updated instantly.</div></div>
+        </div>
+        <div class="ba-footer" style="background:#f0faf5;border-top:1px solid #c8eed8;">
+          <div class="ba-num" style="color:#166534;">3</div>
+          <div class="ba-label" style="color:#166534;">steps<br>under 30 seconds<br>Ends confident</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS SECTION -->
+<section id="problems">
+  <div class="wrap">
+    <div class="eyebrow">04 — Real Problems, Real Fixes</div>
+    <h2 class="section-title">5 moments that broke the experience.</h2>
+    <div class="section-body" style="margin-bottom:48px;">
+      <p>These aren't hypothetical pain points. These are real screenshots from real users — including the app as it exists today. Each one shows a moment where the app failed someone trying to get a coffee. Each one has a direct fix in the redesign.</p>
+    </div>
+
+    <!-- PROBLEM 1 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid #ebebeb;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;font-weight:700;color:#C8102E;text-transform:uppercase;letter-spacing:0.1em;">The problem</div>
+        <div style="position:relative;width:220px;">
+          <div style="border-radius:28px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);border:6px solid #111;">
+            <img src="ss-home.png" alt="Tim Hortons home screen" style="width:100%;display:block;"/>
+          </div>
+          <!-- annotation 1 -->
+          <div style="position:absolute;top:8%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">1</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Promo before Order</div>
+          </div>
+          <!-- annotation 2 -->
+          <div style="position:absolute;top:32%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">2</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Order buried in tile</div>
+          </div>
+          <!-- annotation 3 -->
+          <div style="position:absolute;top:56%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">3</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">10 icons before coffee</div>
+          </div>
+          <!-- annotation 4 -->
+          <div style="position:absolute;bottom:12%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">4</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">No reorder anywhere</div>
+          </div>
+        </div>
+        <div style="background:#fff2f4;border-radius:12px;padding:14px 16px;width:220px;">
+          <div style="font-size:12px;font-weight:700;color:#C8102E;margin-bottom:6px;">What's wrong</div>
+          <div style="font-size:12px;color:#555;line-height:1.7;">A Roll Up to Win promo appears before you can order. The Order button is a generic tile — not a shortcut. 10 feature icons (Financial, NHL, Word Challenge) sit between the user and their coffee. There is no reorder anywhere on screen.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;padding-top:28px;">
+        <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.1em;">The fix</div>
+        <div style="background:#f0faf5;border:1px solid #c8eed8;border-radius:16px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">☕</div>
+          <div style="font-size:16px;font-weight:700;color:#166534;margin-bottom:8px;">Usual order — front and center</div>
+          <div style="font-size:13px;color:#555;line-height:1.7;">In the redesign, the first thing Nadia sees is her usual order — Medium Dark Roast, no sugar, with price and location already populated. One tap starts the order. The promo is moved below as a subtle card. Feature icons are removed from the home screen entirely.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design principle</div>
+          <div style="font-size:13px;color:#555;line-height:1.6;font-style:italic;">"Show the most likely action first. Everything else is available but never in the way."</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:#111;border-radius:10px;padding:10px 14px;">
+          <div style="font-size:18px;">9→3</div>
+          <div style="font-size:12px;color:#aaa;line-height:1.4;">Steps to order reduced from 9 to 3 by surfacing the usual order immediately</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 2 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid #ebebeb;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;font-weight:700;color:#C8102E;text-transform:uppercase;letter-spacing:0.1em;">The problem</div>
+        <div style="position:relative;width:220px;">
+          <div style="border-radius:28px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);border:6px solid #111;">
+            <img src="ss-verify.png" alt="Verify with code error" style="width:100%;display:block;"/>
+          </div>
+          <div style="position:absolute;top:28%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">1</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Email code required</div>
+          </div>
+          <div style="position:absolute;top:55%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">2</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Code also fails</div>
+          </div>
+        </div>
+        <div style="background:#fff2f4;border-radius:12px;padding:14px 16px;width:220px;">
+          <div style="font-size:12px;font-weight:700;color:#C8102E;margin-bottom:6px;">What's wrong</div>
+          <div style="font-size:12px;color:#555;line-height:1.7;">Every sign-in requires a verification code sent by email. Then the code itself fails with "An error occurred logging in." The user is locked out — no fallback, no explanation, no support path.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;padding-top:28px;">
+        <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.1em;">The fix</div>
+        <div style="background:#f0faf5;border:1px solid #c8eed8;border-radius:16px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">🔐</div>
+          <div style="font-size:16px;font-weight:700;color:#166534;margin-bottom:8px;">Persistent session + Face ID fallback</div>
+          <div style="font-size:13px;color:#555;line-height:1.7;">The redesign uses persistent session tokens stored securely on device. Nadia is never asked to verify her email. If a session does expire — after weeks of inactivity — Face ID is offered as the one-tap fallback. No email. No code. No failure state.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design principle</div>
+          <div style="font-size:13px;color:#555;line-height:1.6;font-style:italic;">"Every extra authentication step is a moment where the user can fail. Eliminate steps that don't add security."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 3 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid #ebebeb;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;font-weight:700;color:#C8102E;text-transform:uppercase;letter-spacing:0.1em;">The problem</div>
+        <div style="position:relative;width:220px;">
+          <div style="border-radius:16px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);border:6px solid #111;">
+            <img src="ss-signup.png" alt="Something went wrong error" style="width:100%;display:block;"/>
+          </div>
+          <div style="position:absolute;top:35%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">1</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Vague error message</div>
+          </div>
+          <div style="position:absolute;top:52%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">2</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">"Yes, delete" — delete WHAT?</div>
+          </div>
+        </div>
+        <div style="background:#fff2f4;border-radius:12px;padding:14px 16px;width:220px;">
+          <div style="font-size:12px;font-weight:700;color:#C8102E;margin-bottom:6px;">What's wrong</div>
+          <div style="font-size:12px;color:#555;line-height:1.7;">"Something went wrong. An error occurred after logging in." Then a single button: "Yes, delete." Delete what? Account? Order? Data? This is one of the most terrifying UX patterns possible — a destructive action with no context.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;padding-top:28px;">
+        <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.1em;">The fix</div>
+        <div style="background:#f0faf5;border:1px solid #c8eed8;border-radius:16px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">💬</div>
+          <div style="font-size:16px;font-weight:700;color:#166534;margin-bottom:8px;">Clear error states with safe recovery</div>
+          <div style="font-size:13px;color:#555;line-height:1.7;">Every error in the redesign tells the user exactly what happened and what to do next — in plain language. Destructive actions always require explicit confirmation with a clear explanation. "Delete" is never a primary CTA. Error states include a retry and a support link.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design principle</div>
+          <div style="font-size:13px;color:#555;line-height:1.6;font-style:italic;">"Error messages should tell the user what happened, why, and what to do next. 'Something went wrong' does none of these things."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 4 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid #ebebeb;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;font-weight:700;color:#C8102E;text-transform:uppercase;letter-spacing:0.1em;">The problem</div>
+        <div style="position:relative;width:220px;">
+          <div style="border-radius:16px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);border:6px solid #111;">
+            <img src="ss-payment.png" alt="Unable to place order error" style="width:100%;display:block;"/>
+          </div>
+          <div style="position:absolute;top:30%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">1</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Can't order — tip bug</div>
+          </div>
+          <div style="position:absolute;top:55%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">2</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Apple Pay not default</div>
+          </div>
+        </div>
+        <div style="background:#fff2f4;border-radius:12px;padding:14px 16px;width:220px;">
+          <div style="font-size:12px;font-weight:700;color:#C8102E;margin-bottom:6px;">What's wrong</div>
+          <div style="font-size:12px;color:#555;line-height:1.7;">"Unable to Place Order — Please submit a valid tip amount." The app blocks checkout because of a tip field validation bug. Apple Pay is listed as an option but isn't the default — users must scroll through payment methods to find it.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;padding-top:28px;">
+        <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.1em;">The fix</div>
+        <div style="background:#f0faf5;border:1px solid #c8eed8;border-radius:16px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">💳</div>
+          <div style="font-size:16px;font-weight:700;color:#166534;margin-bottom:8px;">Apple Pay as default — one Face ID tap</div>
+          <div style="font-size:13px;color:#555;line-height:1.7;">The redesign makes Apple Pay the default payment method — no scrolling, no selection. The tip field is removed from the critical path entirely. Face ID confirms the entire transaction in one biometric tap. No forms, no validation errors, no blocked checkout.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design principle</div>
+          <div style="font-size:13px;color:#555;line-height:1.6;font-style:italic;">"The checkout flow should have zero optional fields that can block payment. Every form field is a potential failure point."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM 5 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;font-weight:700;color:#C8102E;text-transform:uppercase;letter-spacing:0.1em;">The problem</div>
+        <div style="position:relative;width:220px;">
+          <div style="border-radius:28px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);border:6px solid #111;">
+            <img src="ss-rewards.png" alt="Rewards history" style="width:100%;display:block;"/>
+          </div>
+          <div style="position:absolute;top:25%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">1</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">-400 points mystery</div>
+          </div>
+          <div style="position:absolute;top:45%;left:-12px;display:flex;align-items:center;gap:6px;">
+            <div style="width:22px;height:22px;background:#C8102E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(200,16,46,0.4);">2</div>
+            <div style="background:#C8102E;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;">Points buried in history tab</div>
+          </div>
+        </div>
+        <div style="background:#fff2f4;border-radius:12px;padding:14px 16px;width:220px;">
+          <div style="font-size:12px;font-weight:700;color:#C8102E;margin-bottom:6px;">What's wrong</div>
+          <div style="font-size:12px;color:#555;line-height:1.7;">The rewards history shows "+35 pts" and immediately "-400 pts" with no explanation. Points disappear with no clarity on why. Balance is buried in a History tab inside Rewards — not visible on the home screen. Users can't trust their points balance.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;padding-top:28px;">
+        <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.1em;">The fix</div>
+        <div style="background:#f0faf5;border:1px solid #c8eed8;border-radius:16px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">⭐</div>
+          <div style="font-size:16px;font-weight:700;color:#166534;margin-bottom:8px;">Points on the home screen — updated in real time</div>
+          <div style="font-size:13px;color:#555;line-height:1.7;">In the redesign, Nadia's points balance is shown immediately on the greeting — no navigating to Rewards. After every order, points update instantly with a clear "+24 points" confirmation. Any deduction includes a plain-language explanation. Trust is built through transparency.</div>
+        </div>
+        <div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design principle</div>
+          <div style="font-size:13px;color:#555;line-height:1.6;font-style:italic;">"Loyalty programmes only work when users trust them. Unexplained point deductions destroy that trust instantly."</div>
+        </div>
+        <div style="background:#FFF8E7;border:1px solid #F0D080;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">⭐</span>
+          <div style="font-size:12px;color:#8B6E2A;line-height:1.5;">In the redesign: <strong style="color:#C8960C;">340 → 364 points</strong> shown in real time immediately after payment</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section id="screens" class="screens-section">
+  <div class="wrap">
+    <div class="eyebrow">05 — Screen Designs</div>
+    <h2 class="section-title">Every screen, every decision.</h2>
+    <div class="section-body" style="margin-bottom:32px;">
+      <p>Five screens. Each one solves a specific pain point identified in research. Click through to see the design decisions behind every element.</p>
+    </div>
+
+    <div class="screens-nav">
+      <button class="screen-tab active" onclick="showScreen('s1',this)">1. Home</button>
+      <button class="screen-tab" onclick="showScreen('s2',this)">2. Order Summary</button>
+      <button class="screen-tab" onclick="showScreen('s3',this)">3. Deal Popup</button>
+      <button class="screen-tab" onclick="showScreen('s4',this)">4. Checkout</button>
+      <button class="screen-tab" onclick="showScreen('s5',this)">5. Confirmed</button>
+    </div>
+
+    <!-- SCREEN 1 -->
+    <div class="screen-pane active" id="s1">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div class="status-bar" style="color:#2C1810;"><span>8:42</span><span>●●● 5G 🔋</span></div>
+            <div class="greeting">
+              <div class="greeting-sub">Good morning ☀️</div>
+              <div class="greeting-name">Nadia</div>
+              <div class="points-pill"><span class="points-pill-text">⭐ 340 points</span></div>
+            </div>
+            <div class="reorder-card">
+              <div class="reorder-lbl">Your usual</div>
+              <div class="reorder-item">Medium Dark Roast</div>
+              <div class="reorder-custom">No sugar · No cream · King St W</div>
+              <div class="reorder-btn"><span class="reorder-btn-text">Order again — $2.09</span></div>
+            </div>
+            <div class="deal-card">
+              <div class="deal-emoji">🥯</div>
+              <div class="deal-body">
+                <div class="deal-title">Morning combo deal</div>
+                <div class="deal-sub">Bagel + your coffee</div>
+                <div class="deal-price">+$1.50 today only</div>
+              </div>
+              <div class="deal-add-btn"><span class="deal-add-txt">Add</span></div>
+            </div>
+            <div class="sec-hdr"><span class="sec-hdr-title">Menu</span><span class="sec-hdr-link">See all</span></div>
+            <div class="menu-pills">
+              <div class="mpill active">Coffee</div><div class="mpill">Food</div>
+              <div class="mpill">Baked</div><div class="mpill">Cold</div><div class="mpill">Combos</div>
+            </div>
+            <div class="mitem"><div class="mitem-emoji">☕</div><div class="mitem-body"><div class="mitem-name">Dark Roast</div><div class="mitem-desc">Small · Med · Large · XL</div></div><div class="mitem-price">$1.79</div><div class="mitem-add">+</div></div>
+            <div class="mitem"><div class="mitem-emoji">🧋</div><div class="mitem-body"><div class="mitem-name">Iced Capp</div><div class="mitem-desc">Small · Med · Large</div></div><div class="mitem-price">$3.49</div><div class="mitem-add">+</div></div>
+            <div class="mitem"><div class="mitem-emoji">🍵</div><div class="mitem-body"><div class="mitem-name">Steeped Tea</div><div class="mitem-desc">Small · Med · Large</div></div><div class="mitem-price">$1.89</div><div class="mitem-add">+</div></div>
+          </div>
+          <div class="phone-bar"><div class="phone-indicator"></div></div>
+        </div>
+      </div>
+      <div class="screen-info">
+        <div class="step-badge">Screen 1 of 5</div>
+        <h3>Home — The Intelligent Welcome</h3>
+        <p>Nadia opens the app and immediately sees what she needs. No sign-in screen. No promotions blocking the way. Just her usual order, her points balance, and a subtle deal if she wants it.</p>
+        <div class="decisions">
+          <div class="decision"><div class="decision-icon">🔐</div><div class="decision-body"><div class="decision-title">Persistent session — never logged out</div><div class="decision-desc">The single most common complaint. Session tokens are stored securely using biometric authentication as fallback. No verification codes, no email interruptions.</div></div></div>
+          <div class="decision"><div class="decision-icon">☕</div><div class="decision-body"><div class="decision-title">Usual order card front and center</div><div class="decision-desc">The app remembers her order, her customizations, and her usual store. "Order again — $2.09" shows the price so there are no surprises at checkout.</div></div></div>
+          <div class="decision"><div class="decision-icon">⭐</div><div class="decision-body"><div class="decision-title">Points visible immediately on greeting</div><div class="decision-desc">The rewards program is the main reason people download this app. Her balance is shown upfront — not buried in settings.</div></div></div>
+          <div class="decision"><div class="decision-icon">🥯</div><div class="decision-body"><div class="decision-title">Subtle deal card — never in the way</div><div class="decision-desc">The morning combo sits quietly below the reorder button. Same visual weight as a menu item. Easy to tap, easy to ignore. The primary action is never blocked.</div></div></div>
+        </div>
+        <div class="ux-principle"><div class="ux-principle-label">UX Principle</div><div class="ux-principle-text">"Progressive disclosure — show the most likely action first. Everything else is available but never in the way."</div></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2 -->
+    <div class="screen-pane" id="s2">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div class="status-bar" style="color:#fff;background:var(--red);padding-bottom:4px;"><span>8:42</span><span>●●● 5G 🔋</span></div>
+            <div class="red-hdr">
+              <div class="red-hdr-back">← Back</div>
+              <div class="red-hdr-title">Your order</div>
+            </div>
+            <div class="sbody">
+              <div class="loc-row">
+                <div class="loc-icon">📍</div>
+                <div class="loc-body"><div class="loc-name">King St W · 0.3km</div><div class="loc-detail">Mobile pickup · ~3 min walk</div></div>
+                <div class="loc-change">Change</div>
+              </div>
+              <div class="order-card">
+                <div class="oc-title">Items in your order</div>
+                <div class="oc-item">
+                  <div class="oc-emoji">☕</div>
+                  <div class="oc-body"><div class="oc-name">Medium Dark Roast</div><div class="oc-custom">No sugar · No cream</div></div>
+                  <div class="oc-price">$2.09</div>
+                </div>
+                <div class="oc-total"><span class="oc-total-lbl">Total</span><span class="oc-total-val">$2.09</span></div>
+              </div>
+              <div class="proceed-btn">
+                <div class="proceed-txt">Continue to checkout →</div>
+                <div class="proceed-note">We'll show you today's offers next</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-indicator"></div></div>
+        </div>
+      </div>
+      <div class="screen-info">
+        <div class="step-badge">Screen 2 of 5</div>
+        <h3>Order Summary — Review Before Committing</h3>
+        <p>Nadia sees exactly what she's about to order before anything is sent. The location is pre-selected based on her most recent store. She can change it if needed.</p>
+        <div class="decisions">
+          <div class="decision"><div class="decision-icon">📍</div><div class="decision-body"><div class="decision-title">Location pre-selected with distance</div><div class="decision-desc">Shows "0.3km · ~3 min walk" so she knows exactly when to leave. She can change it, but 90% of the time she won't need to.</div></div></div>
+          <div class="decision"><div class="decision-icon">📋</div><div class="decision-body"><div class="decision-title">Full order visible before payment</div><div class="decision-desc">Item, customization, and price all shown clearly. No surprises at checkout. She can still go back and modify from here.</div></div></div>
+          <div class="decision"><div class="decision-icon">💬</div><div class="decision-body"><div class="decision-title">Micro-copy sets expectations</div><div class="decision-desc">"We'll show you today's offers next" — the deal popup won't feel like an ambush because she's been told it's coming. This is called transparent design.</div></div></div>
+        </div>
+        <div class="ux-principle"><div class="ux-principle-label">UX Principle</div><div class="ux-principle-text">"Never surprise users at critical moments. Set expectations early, and every subsequent step feels intentional."</div></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3 -->
+    <div class="screen-pane" id="s3">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen" style="position:relative;">
+            <div class="status-bar" style="color:#2C1810;"><span>8:43</span><span>●●● 5G 🔋</span></div>
+            <div style="padding:12px 14px;opacity:0.3;">
+              <div style="font-size:15px;font-weight:700;color:#2C1810;margin-bottom:5px;">Your order</div>
+              <div style="background:#fff;border-radius:11px;padding:11px;border:1px solid #E8DDD4;">
+                <div style="font-size:12px;font-weight:600;color:#2C1810;">Medium Dark Roast</div>
+                <div style="font-size:10px;color:#8B6E5A;">No sugar · No cream</div>
+                <div style="display:flex;justify-content:space-between;margin-top:7px;padding-top:7px;border-top:0.5px solid #E8DDD4;">
+                  <span style="font-size:12px;font-weight:600;color:#2C1810;">Total</span>
+                  <span style="font-size:13px;font-weight:700;color:#2C1810;">$2.09</span>
+                </div>
+              </div>
+            </div>
+            <div class="screen-dim"></div>
+            <div class="bottom-sheet">
+              <div class="bs-handle"></div>
+              <div class="bs-close">✕</div>
+              <div class="bs-title">Complete your morning 🌅</div>
+              <div class="bs-sub">Add to your order before checkout — one tap, no rebuilding</div>
+              <div class="bs-item"><div class="bs-emoji">🥯</div><div class="bs-body"><div class="bs-name">Everything Bagel</div><div class="bs-desc">Toasted · Cream cheese</div><div class="bs-price">+$1.99</div></div><div class="bs-add"><span class="bs-add-txt">Add</span></div></div>
+              <div class="bs-item"><div class="bs-emoji">🍩</div><div class="bs-body"><div class="bs-name">Chocolate Dip Donut</div><div class="bs-desc">Classic glazed</div><div class="bs-price">+$1.49</div></div><div class="bs-add"><span class="bs-add-txt">Add</span></div></div>
+              <div class="bs-item"><div class="bs-emoji">🧆</div><div class="bs-body"><div class="bs-name">Hash Brown</div><div class="bs-desc">Crispy · Classic</div><div class="bs-price">+$1.29</div></div><div class="bs-add"><span class="bs-add-txt">Add</span></div></div>
+              <div class="bs-skip">No thanks — just the coffee →</div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-indicator"></div></div>
+        </div>
+      </div>
+      <div class="screen-info">
+        <div class="step-badge">Screen 3 of 5</div>
+        <h3>Deal Popup — The Non-Blocking Upsell</h3>
+        <p>After reviewing her order, a bottom sheet slides up with 3 relevant morning add-ons. Her order summary is still visible dimmed behind it. One tap adds, one tap dismisses. The primary action is never held hostage.</p>
+        <div class="decisions">
+          <div class="decision"><div class="decision-icon">⏱️</div><div class="decision-body"><div class="decision-title">Appears after order review — not before</div><div class="decision-desc">She's already in buying mode when this appears. Showing it earlier would feel like an interruption. Showing it now feels like a service.</div></div></div>
+          <div class="decision"><div class="decision-icon">✕</div><div class="decision-body"><div class="decision-title">Close button top right — immediately visible</div><div class="decision-desc">One tap to dismiss. No dark patterns. The close button is the same size as the add buttons — equal affordance for yes and no.</div></div></div>
+          <div class="decision"><div class="decision-icon">3️⃣</div><div class="decision-body"><div class="decision-title">Three options maximum</div><div class="decision-desc">Decision fatigue is real at 8:43am. More than 3 options and she'll dismiss without reading. Three is the psychological sweet spot for impulse choices.</div></div></div>
+          <div class="decision"><div class="decision-icon">💬</div><div class="decision-body"><div class="decision-title">"Just the coffee" — not "No thanks"</div><div class="decision-desc">The dismiss copy is warm and specific. It tells her what she's choosing (just the coffee) rather than making her feel like she's declining something. Small copy, big difference in feel.</div></div></div>
+        </div>
+        <div class="ux-principle"><div class="ux-principle-label">UX Principle</div><div class="ux-principle-text">"A non-blocking upsell respects the user's primary intent. The order is already happening. This is just an offer — never a gate."</div></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4 -->
+    <div class="screen-pane" id="s4">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div class="status-bar" style="color:#fff;background:var(--red);padding-bottom:4px;"><span>8:43</span><span>●●● 5G 🔋</span></div>
+            <div class="red-hdr">
+              <div class="red-hdr-back">← Back</div>
+              <div class="red-hdr-title">Checkout</div>
+            </div>
+            <div class="sbody">
+              <div class="pay-summary">
+                <div class="pay-row"><span>Medium Dark Roast</span><span style="color:#2C1810;font-weight:600;">$2.09</span></div>
+                <div class="pay-row"><span>Everything Bagel</span><span style="color:#2C1810;font-weight:600;">$1.99</span></div>
+                <div class="pay-row total"><span>Total</span><span>$4.08</span></div>
+              </div>
+              <div class="pay-method">
+                <div class="pay-method-icon">💳</div>
+                <div class="pay-method-body"><div class="pay-method-label">Paying with</div><div class="pay-method-name"> Apple Pay</div></div>
+                <div class="pay-method-change">Change</div>
+              </div>
+              <div class="pay-btn">
+                <div class="pay-btn-main">Pay with Face ID</div>
+                <div class="pay-btn-sub">Ready in ~3 min · King St W</div>
+              </div>
+              <div class="pay-points">You'll earn <span>+24 points</span> for this order</div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-indicator"></div></div>
+        </div>
+      </div>
+      <div class="screen-info">
+        <div class="step-badge">Screen 4 of 5</div>
+        <h3>Checkout — One Tap to Pay</h3>
+        <p>Everything she needs to confirm her order is here. The bagel she added is reflected in the total. Apple Pay is the default. She sees her points preview before she pays. One Face ID tap sends the order.</p>
+        <div class="decisions">
+          <div class="decision"><div class="decision-icon">💳</div><div class="decision-body"><div class="decision-title">Apple Pay as default — no Tims Card</div><div class="decision-desc">The biggest payment complaint resolved. Apple Pay is shown first, always. No prompts to preload money onto a card she doesn't want. She can change to another method if she chooses.</div></div></div>
+          <div class="decision"><div class="decision-icon">⏱️</div><div class="decision-body"><div class="decision-title">ETA on the pay button</div><div class="decision-desc">"Ready in ~3 min · King St W" sits directly on the button she's about to tap. She knows exactly what she's committing to before she commits.</div></div></div>
+          <div class="decision"><div class="decision-icon">⭐</div><div class="decision-body"><div class="decision-title">Points preview before payment</div><div class="decision-desc">"+24 points" shown below the button. She sees the reward before she pays — not after. This reinforces the value of using the app and the loyalty programme.</div></div></div>
+          <div class="decision"><div class="decision-icon">🆕</div><div class="decision-body"><div class="decision-title">Bagel added — total updated automatically</div><div class="decision-desc">The flow is connected. Adding from the popup updated the total to $4.08 without any extra steps. She never had to manually add it to a cart.</div></div></div>
+        </div>
+        <div class="ux-principle"><div class="ux-principle-label">UX Principle</div><div class="ux-principle-text">"Reduce cognitive load at the moment of payment. Show only what matters: what you're buying, how you're paying, what you'll get."</div></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 5 -->
+    <div class="screen-pane" id="s5">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div class="status-bar" style="color:#fff;background:var(--red);padding-bottom:4px;"><span>8:43</span><span>●●● 5G 🔋</span></div>
+            <div class="success-hdr">
+              <div class="success-circle">✓</div>
+              <div class="success-title">Order confirmed!</div>
+              <div class="success-sub">Head over when you're ready, Nadia</div>
+            </div>
+            <div class="eta-card">
+              <div class="eta-inner">
+                <div><div class="eta-lbl">Ready in</div><div><span class="eta-num">3</span><span class="eta-unit"> min</span></div></div>
+                <div class="eta-right"><div class="eta-lbl">Pickup at</div><div class="eta-loc-name">King St W</div><div class="eta-loc-detail">Mobile counter · Left side</div></div>
+              </div>
+              <div class="eta-progress"><div class="eta-fill"></div></div>
+            </div>
+            <div class="pts-earned">
+              <div class="pts-icon">⭐</div>
+              <div class="pts-body"><div class="pts-lbl">Points earned</div><div class="pts-val">+24 points</div><div class="pts-total">New total: 364 points</div></div>
+            </div>
+            <div class="order-confirm-detail">
+              <div class="ocd-title">Your order</div>
+              <div class="ocd-row"><div><div class="ocd-name">Medium Dark Roast</div><div class="ocd-sub">No sugar · No cream</div></div><div class="ocd-price">$2.09</div></div>
+              <div class="ocd-row"><div><div class="ocd-name">Everything Bagel</div><div class="ocd-sub">Toasted · Cream cheese</div></div><div class="ocd-price">$1.99</div></div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-indicator"></div></div>
+        </div>
+      </div>
+      <div class="screen-info">
+        <div class="step-badge">Screen 5 of 5</div>
+        <h3>Confirmed — Nothing Left to Do</h3>
+        <p>The order is in. Nadia knows exactly when it'll be ready, exactly where to pick it up, and her points have already updated. There's nothing left to tap. Just go get your coffee.</p>
+        <div class="decisions">
+          <div class="decision"><div class="decision-icon">⏱️</div><div class="decision-body"><div class="decision-title">ETA is the largest element on screen</div><div class="decision-desc">"3 min" in 26px bold. It's the only number Nadia cares about at this point. Everything else is secondary information.</div></div></div>
+          <div class="decision"><div class="decision-icon">📍</div><div class="decision-body"><div class="decision-title">"Mobile counter · Left side" — no ambiguity</div><div class="decision-desc">Telling her exactly where to go in the store eliminates the awkward "where do I wait?" moment that often leads to joining the counter queue anyway.</div></div></div>
+          <div class="decision"><div class="decision-icon">📊</div><div class="decision-body"><div class="decision-title">Progress bar animates — visual reassurance</div><div class="decision-desc">A subtle animated bar shows the order moving. It solves the anxiety of "did it actually go through?" without requiring any action from Nadia.</div></div></div>
+          <div class="decision"><div class="decision-icon">⭐</div><div class="decision-body"><div class="decision-title">Points updated in real time — 340 → 364</div><div class="decision-desc">She can see the number changed. Not "points will be added soon." They're added now. This is the reward for using the app — delivered immediately.</div></div></div>
+          <div class="decision"><div class="decision-icon">🚫</div><div class="decision-body"><div class="decision-title">No unnecessary CTAs</div><div class="decision-desc">No "rate your experience," no "share with friends," no promotions. The job is done. The best confirmation screen is one that asks nothing more of the user.</div></div></div>
+        </div>
+        <div class="ux-principle"><div class="ux-principle-label">UX Principle</div><div class="ux-principle-text">"The best confirmation screen has nothing to tap. The transaction is complete. Respect the user's time by letting them move on."</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section id="learnings">
+  <div class="wrap">
+    <div class="eyebrow">06 — What I Learned</div>
+    <h2 class="section-title">The best UX is invisible.</h2>
+    <div class="section-body">
+      <p>Nadia won't notice the persistent login. She won't think about the fact that her order was pre-filled. She won't remark on the progress bar. She'll just think: this app is easy. That invisibility is the goal.</p>
+    </div>
+    <div class="learnings">
+      <div class="learning">
+        <div class="learning-num">1</div>
+        <div class="learning-body">
+          <div class="learning-title">Removing friction is more valuable than adding features.</div>
+          <div class="learning-desc">This redesign doesn't add a single new feature. It removes steps. Every eliminated tap was work the app was forcing Nadia to do that it should have been doing for her. The most impactful UX decisions were subtractions, not additions.</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">2</div>
+        <div class="learning-body">
+          <div class="learning-title">Research reveals the root cause, not just the symptoms.</div>
+          <div class="learning-desc">Five different complaints in the reviews were actually one problem: the app doesn't respect the user's time. Once that root cause was clear, every design decision became obvious — because every decision was measured against one question: does this make Nadia's morning faster?</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">3</div>
+        <div class="learning-body">
+          <div class="learning-title">The upsell moment matters as much as the upsell itself.</div>
+          <div class="learning-desc">The deal popup was originally designed to appear after the order was placed. Moving it to before checkout — after order review — changed it from an interruption to a service. Same feature, completely different user experience, just by changing its position in the flow.</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">4</div>
+        <div class="learning-body">
+          <div class="learning-title">Copy is a design decision.</div>
+          <div class="learning-desc">"No thanks" vs "Just the coffee →". "Order confirmed" vs "Head over when you're ready, Nadia." Small copy changes that make the brand feel warm and human rather than transactional. Microcopy is where brand voice lives in a product.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="case-footer">
+  <div class="wrap">
+    <div class="footer-title">Tim <span>Hortons</span><br>Redesign</div>
+    <div class="footer-sub">UX Case Study · Self-Initiated · Toronto · 2025</div>
+    <a class="footer-btn" href="index.html">← Back to portfolio</a>
+    <div class="footer-pattern"></div>
+  </div>
+</div>
+
+<script>
+function showScreen(id, btn) {
+  document.querySelectorAll('.screen-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.screen-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
