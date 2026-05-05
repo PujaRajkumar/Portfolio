@@ -511,15 +511,15 @@
    ============================================================ */
 
 const PROFILE = {
-  username:     "Puja Rajkumar",
-  initials:     "PR",
+  username:     "your.portfolio",
+  initials:     "YN",
   photo:        "",
-  name:         "Design Portfolio",
+  name:         "Your Name",
   role:         "UI/UX · Graphic Design · Creative",
-  bio:          "Designing at the intersection of function and experience.",
-  website:      "https://pujarajkumar.github.io/Portfolio/",
-  websiteLabel: "pujarajkumar.com",
-  email:        "puja1901rk@gmail.com",
+  bio:          "Designing at the intersection of function and beauty.",
+  website:      "https://yoursite.com",
+  websiteLabel: "yoursite.com",
+  email:        "you@email.com",
   stat2: { val: "5", label: "yrs exp" },
   stat3: { val: "open", label: "to work" },
 };
@@ -541,29 +541,24 @@ const PROJECTS = [
   // Replace `link` with your actual case study URL when ready
   // Replace `image` with your mockup photo path e.g. "cup-mockup.png"
   // ─────────────────────────────────────────────────────────
-{
-  id:    "chips-checkers",
-  title: "Identity & Branding",
-  desc:  "Chips & Checkers is a board game café in Toronto. Built a complete brand identity from scratch — name, logo system, colour palette, typography, packaging, and digital templates. The brand runs on three colours: black, white, and one signature Proper Orange. The checkerboard pattern wraps every surface. The "&" in Pacifico script is the brand's fingerprint.",
-  color: "#FF6B00",
-  emoji: "🎲",
-  likes: "4.2k",
-  link:  "chips-checkers.html",
-  image: "cover-chipscheckers.png",
-  cat:   "Branding",
-  isCC:  true,
-},
   {
-  id:    "Tim Hortons",
-  title: "UX Redesign",
-  desc: "UX case study redesigning the mobile ordering flow. Reduced the daily order journey from 9 steps to 3. Research-led design targeting Canada's most loyal café customers.",
-  color: "#C8102E",
-  emoji: "☕",
-  likes: "3.1k",
-  link: "timhortons.html",
-  image: "cover-timhortons.png",
-  cat: "UX Case study",
-  isCC:  true,
+    id:    "chips-checkers",
+    title: "Chips & Checkers",
+    desc:  "Complete brand identity for a Toronto board game café — name, logo system, color palette, typography, and brand applications across coffee cup, pizza box, menu, Instagram templates, and loyalty card. Built around a signature black, white, and Proper Orange color system with a checkerboard pattern that becomes the brand's visual fingerprint.",
+    tags:  ["#branding", "#identity", "#toronto", "#packaging", "#typography"],
+    color: "#FF6B00",
+    emoji: "🎲",
+    likes: "4.2k",
+    link:  "chips-checkers.html",
+    image: "",           // 👈 replace with your cup mockup photo path
+    cat:   "Branding",
+    isCC:  true,         // marks this as the special C&C tile
+  },
+  {
+    title: "E-commerce Redesign",
+    desc:  "Full UX overhaul for a fashion retailer — reduced checkout drop-off by 34% through streamlined flows and mobile-first design.",
+    tags:  ["#uxdesign", "#ecommerce", "#casestudy"],
+    color: "#C9B8F5", emoji: "🛍️", likes: "1.2k", link: "#", cat: "UX/UI",
   },
   {
     title: "Finance Dashboard",
@@ -688,7 +683,7 @@ PROJECTS.forEach(p => {
     if (p.image) {
       el.innerHTML = `
         <div class="post-bg" style="background:#111;padding:0;">
-          <img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">
         </div>
         <div class="post-overlay">
           <div class="ov-stat">
@@ -755,7 +750,7 @@ function openModal(p) {
 
   if (p.isCC) {
     if (p.image) {
-      mediaHTML = `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;">`;
+      mediaHTML = `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">`;
     } else {
       mediaHTML = `
         <div class="cc-modal-media">
