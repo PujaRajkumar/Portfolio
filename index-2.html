@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Portfolio</title>
+  <meta name="description" content="Portfolio of creative work spanning UI/UX, branding, front-end, content, and AI." />
+  <meta property="og:title" content="Your Portfolio" />
+  <meta property="og:description" content="Portfolio of creative work spanning UI/UX, branding, front-end, content, and AI." />
+  <meta property="og:type" content="website" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #fafafa;
+      --surface: #ffffff;
+      --border:  #dbdbdb;
+      --text:    #262626;
+      --muted:   #737373;
+      --hint:    #a8a8a8;
+      --accent:  #0095f6;
+      --green:   #22c55e;
+      --font:    'DM Sans', sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:      #000;
+        --surface: #121212;
+        --border:  #262626;
+        --text:    #f5f5f5;
+        --muted:   #a8a8a8;
+        --hint:    #737373;
+      }
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── WRAPPER ─────────────────────────────────────── */
+    .wrap { max-width: 600px; margin: 0 auto; }
+
+    /* ─── PROFILE ─────────────────────────────────────── */
+    .profile { padding: 20px 16px 0; }
+
+    .profile-top {
+      display: flex; align-items: center;
+      gap: 24px; margin-bottom: 14px;
+    }
+
+    .avatar-ring {
+      width: 86px; height: 86px; flex-shrink: 0; border-radius: 50%;
+      background: conic-gradient(#f09433,#e6683c,#dc2743,#cc2366,#bc1888,#f09433);
+      padding: 2.5px;
+    }
+    .avatar-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 500; color: var(--muted);
+      overflow: hidden;
+    }
+    .avatar-inner img { width: 100%; height: 100%; object-fit: cover; }
+
+    .stats {
+      flex: 1;
+      display: flex; justify-content: space-around;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 16px; font-weight: 600;
+      color: var(--text); line-height: 1.2;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .available-dot {
+      display: inline-block; width: 8px; height: 8px;
+      background: var(--green); border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    .bio { margin-bottom: 12px; }
+    .bio-name  { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .bio-role  { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .bio-desc  { font-size: 13px; line-height: 1.5; margin-bottom: 4px; }
+    .bio-link  {
+      font-size: 13px; color: var(--accent);
+      text-decoration: none; font-weight: 500;
+    }
+    .bio-link:hover { text-decoration: underline; }
+
+    .actions { display: flex; gap: 8px; margin-bottom: 16px; }
+    .btn {
+      flex: 1; padding: 6px 0; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface);
+      font-size: 13px; font-weight: 600; color: var(--text);
+      cursor: pointer; font-family: var(--font);
+    }
+    .btn:hover { filter: brightness(0.97); }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* ─── HIGHLIGHTS ──────────────────────────────────── */
+    .highlights {
+      display: flex; gap: 16px;
+      padding: 14px 16px;
+      overflow-x: auto; scrollbar-width: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .highlights::-webkit-scrollbar { display: none; }
+    .highlight {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 5px; cursor: pointer; flex-shrink: 0;
+    }
+    .hl-ring {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 1px solid var(--border); padding: 3px;
+      transition: border-color .15s;
+    }
+    .highlight.active .hl-ring {
+      border-color: transparent;
+      background: conic-gradient(#f09433,#e6683c,#dc2743,#cc2366,#bc1888,#f09433);
+    }
+    .hl-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .hl-label { font-size: 11px; color: var(--text); }
+
+    /* ─── TABS ────────────────────────────────────────── */
+    .tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .tab {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 12px 0; cursor: pointer;
+      border-bottom: 2px solid transparent; color: var(--hint);
+      transition: all .15s;
+    }
+    .tab.active { color: var(--text); border-bottom-color: var(--text); }
+    .tab svg {
+      width: 22px; height: 22px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ─── GRID ────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+    .post {
+      aspect-ratio: 1; cursor: pointer; overflow: hidden;
+      position: relative; background: #e9e9e9;
+    }
+    .post.hidden { display: none; }
+    .post-bg {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px; padding: 8px;
+    }
+    .post-emoji { font-size: 28px; line-height: 1; }
+    .post-name {
+      font-size: 9px; font-weight: 500;
+      color: rgba(0,0,0,.55);
+      text-align: center; line-height: 1.3;
+    }
+
+    /* ─── CHIPS & CHECKERS special tile ──────────────── */
+    .post.cc-tile .post-bg {
+      background: #111 !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .post.cc-tile .post-name { color: #fff; font-weight: 600; z-index: 2; position: relative; }
+    .post.cc-tile .cc-icon {
+      display: grid; grid-template-columns: 1fr 1fr;
+      width: 36px; height: 36px; flex-shrink: 0;
+      z-index: 2; position: relative;
+    }
+    .post.cc-tile .cc-sq { width: 18px; height: 18px; }
+    .post.cc-tile .cc-pattern {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 20px;
+      background-image: repeating-conic-gradient(#111 0% 25%, #fff 0% 50%);
+      background-size: 8px 8px;
+    }
+
+    .post-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.38);
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; opacity: 0; transition: opacity .18s;
+    }
+    .post:hover .post-overlay { opacity: 0; }
+    .ov-stat {
+      display: flex; align-items: center; gap: 5px;
+      color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .ov-stat svg { width: 16px; height: 16px; fill: white; stroke: none; }
+
+    /* ─── SAVED PANEL ─────────────────────────────────── */
+    .saved-panel {
+      display: none;
+      padding: 60px 20px; text-align: center;
+      color: var(--muted); font-size: 13px; line-height: 1.7;
+    }
+    .saved-panel.active { display: block; }
+    .saved-panel-icon { font-size: 48px; margin-bottom: 12px; }
+
+    /* ─── MODAL ───────────────────────────────────────── */
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.65);
+      display: none; align-items: center; justify-content: center;
+      z-index: 200; padding: 16px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      background: var(--surface); border-radius: 4px;
+      width: 100%; max-width: 700px;
+      display: flex; max-height: 92vh; overflow: hidden;
+    }
+    .modal-media {
+      width: 340px; flex-shrink: 0;
+      background: #efefef;
+    }
+    .modal-media-inner {
+      width: 100%; height: 100%; min-height: 340px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+    }
+    .modal-media-inner img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-emoji { font-size: 64px; line-height: 1; }
+    .modal-cat {
+      font-size: 11px; color: var(--muted);
+      letter-spacing: .5px; text-transform: uppercase;
+    }
+    .modal-right { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .modal-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .modal-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #e9e9e9;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; color: var(--muted); flex-shrink: 0;
+    }
+    .modal-username { font-size: 13px; font-weight: 600; }
+    .modal-close {
+      margin-left: auto; font-size: 22px;
+      cursor: pointer; color: var(--muted);
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 16px; flex: 1; overflow-y: auto; }
+    .modal-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .modal-desc  { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .modal-tags  { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .modal-tag   { font-size: 13px; color: var(--accent); cursor: pointer; }
+    .modal-link  {
+      font-size: 13px; font-weight: 600;
+      color: var(--accent); text-decoration: none;
+    }
+    .modal-link:hover { text-decoration: underline; }
+    .modal-footer {
+      border-top: 1px solid var(--border);
+      padding: 10px 16px; display: flex; gap: 14px; flex-shrink: 0;
+    }
+    .modal-action {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 13px; color: var(--muted); cursor: pointer;
+    }
+    .modal-action:hover { color: var(--text); }
+    .modal-action svg {
+      width: 20px; height: 20px; stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ─── CC MODAL MEDIA ──────────────────────────────── */
+    .cc-modal-media {
+      width: 100%; height: 100%; min-height: 340px;
+      background: #111;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; position: relative; overflow: hidden;
+      padding: 24px;
+    }
+    .cc-modal-logo { display: flex; align-items: center; gap: 8px; }
+    .cc-modal-icon { display: grid; grid-template-columns: 1fr 1fr; width: 48px; height: 48px; }
+    .cc-modal-icon div { width: 24px; height: 24px; }
+    .cc-modal-wordmark { display: flex; flex-direction: column; }
+    .cc-modal-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px; font-weight: 700;
+      color: #fff; line-height: 1.1; letter-spacing: -0.5px;
+    }
+    .cc-modal-amp { color: #FF6B00; }
+    .cc-modal-sub {
+      font-size: 10px; color: #555;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .cc-modal-tagline {
+      font-size: 12px; color: #444;
+      font-style: italic; text-align: center;
+    }
+    .cc-modal-pattern {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 28px;
+      background-image: repeating-conic-gradient(#111 0% 25%, #fff 0% 50%);
+      background-size: 10px 10px;
+    }
+    .cc-modal-swatches {
+      display: flex; gap: 6px; margin-top: 4px;
+    }
+    .cc-swatch {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Handle row */
+    .profile-handle-row { display: none; }
+    .profile-handle {
+      font-size: 26px; font-weight: 300;
+      letter-spacing: -0.3px; color: var(--text);
+    }
+
+    @media (min-width: 768px) {
+      .wrap { max-width: 935px; }
+      .profile {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        grid-template-rows: auto auto auto auto;
+        column-gap: 40px;
+        padding: 44px 20px 36px;
+        border-bottom: 1px solid var(--border);
+      }
+      .profile-top { display: contents; }
+      .avatar-ring {
+        grid-column: 1; grid-row: 1 / 5;
+        width: 150px; height: 150px;
+        align-self: center; justify-self: center;
+      }
+      .avatar-inner { font-size: 32px; }
+      .profile-handle-row {
+        display: flex; align-items: center;
+        grid-column: 2; grid-row: 1;
+        padding-bottom: 20px;
+      }
+      .stats {
+        grid-column: 2; grid-row: 2;
+        justify-content: flex-start; gap: 36px;
+        padding-bottom: 16px;
+      }
+      .stat { text-align: left; }
+      .stat-num   { font-size: 16px; font-weight: 600; }
+      .stat-label { font-size: 14px; color: var(--muted); }
+      .bio {
+        grid-column: 2; grid-row: 3;
+        margin-bottom: 0; padding-bottom: 16px;
+      }
+      .bio-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+      .bio-role  { font-size: 13px; margin-bottom: 4px; }
+      .bio-desc  { font-size: 13px; line-height: 1.55; margin-bottom: 5px; }
+      .actions {
+        grid-column: 2; grid-row: 4;
+        max-width: 280px; margin-bottom: 0;
+      }
+      .highlights { padding: 14px 20px; gap: 20px; }
+      .hl-ring  { width: 77px; height: 77px; }
+      .hl-inner { font-size: 26px; }
+      .hl-label { font-size: 12px; }
+      .modal { max-width: 880px; }
+      .modal-media { width: 440px; }
+      .modal-media-inner { min-height: 440px; }
+      .cc-modal-media { min-height: 440px; }
+      .cc-modal-name { font-size: 28px; }
+      .cc-modal-icon { width: 60px; height: 60px; }
+      .cc-modal-icon div { width: 30px; height: 30px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+      .post-emoji { font-size: 22px; }
+      .post-name  { font-size: 9px; }
+      .post:active .post-overlay { opacity: 0; }
+    }
+
+    @media (max-width: 520px) {
+      .modal { flex-direction: column; }
+      .modal-media { width: 100%; }
+      .modal-media-inner { min-height: 220px; }
+      .cc-modal-media { min-height: 220px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <!-- PROFILE -->
+    <div class="profile">
+      <div class="profile-top">
+        <div class="avatar-ring">
+          <div class="avatar-inner" id="avatar"></div>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num" id="stat1-val">9</div>
+            <div class="stat-label" id="stat1-lbl">projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" id="stat2-val">5</div>
+            <div class="stat-label" id="stat2-lbl">yrs exp</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">
+              <span class="available-dot"></span><span id="stat3-val">open</span>
+            </div>
+            <div class="stat-label" id="stat3-lbl">to work</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-handle-row" id="profile-handle-row">
+        <span class="profile-handle" id="profile-handle">your.portfolio</span>
+      </div>
+
+      <div class="bio">
+        <div class="bio-name" id="bio-name">Your Name</div>
+        <div class="bio-role" id="bio-role">UI/UX · Graphic Design · Creative</div>
+        <div class="bio-desc" id="bio-desc">Designing at the intersection of function and beauty.</div>
+        <a class="bio-link" id="bio-link" href="#" target="_blank">🔗 yoursite.com</a>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="hire-btn">Hire me</button>
+        <button class="btn" id="share-btn">Share profile</button>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHTS -->
+    <div class="highlights" id="highlights"></div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" id="tab-grid" onclick="switchTab('grid')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="tab" id="tab-saved" onclick="switchTab('saved')">
+        <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid" id="grid"></div>
+    <div class="saved-panel" id="saved-panel">
+      <div class="saved-panel-icon">🔖</div>
+      <strong>Saved projects</strong><br>Projects you bookmark will appear here.
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-bg" id="modal">
+    <div class="modal">
+      <div class="modal-media"><div class="modal-media-inner" id="modal-media"></div></div>
+      <div class="modal-right">
+        <div class="modal-header">
+          <div class="modal-avatar" id="modal-avatar"></div>
+          <div class="modal-username" id="modal-uname"></div>
+          <div class="modal-close" id="modal-close">×</div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-title" id="modal-title"></div>
+          <div class="modal-desc"  id="modal-desc"></div>
+          <div class="modal-tags"  id="modal-tags"></div>
+          <a class="modal-link" id="modal-link" target="_blank">View project →</a>
+        </div>
+        <div class="modal-footer">
+          <div class="modal-action">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="modal-likes"></span>
+          </div>
+          <div class="modal-action">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            comment
+          </div>
+          <div class="modal-action">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            share
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ============================================================
+   ✏️  EDIT YOUR DETAILS HERE
+   ============================================================ */
+
+const PROFILE = {
+  username:     "your.portfolio",
+  initials:     "YN",
+  photo:        "",
+  name:         "Your Name",
+  role:         "UI/UX · Graphic Design · Creative",
+  bio:          "Designing at the intersection of function and beauty.",
+  website:      "https://yoursite.com",
+  websiteLabel: "yoursite.com",
+  email:        "you@email.com",
+  stat2: { val: "5", label: "yrs exp" },
+  stat3: { val: "open", label: "to work" },
+};
+
+const HIGHLIGHTS = [
+  { label: "All",       emoji: "✦"  },
+  { label: "UX/UI",     emoji: "🎨" },
+  { label: "Web",       emoji: "💻" },
+  { label: "Apps",      emoji: "📱" },
+  { label: "Branding",  emoji: "🖋️" },
+  { label: "Content",   emoji: "📝" },
+  { label: "AI",        emoji: "🤖" },
+  { label: "Marketing", emoji: "📣" },
+];
+
+const PROJECTS = [
+  // ─────────────────────────────────────────────────────────
+  // ✅ CHIPS & CHECKERS — Brand Identity (Project 1)
+  // Replace `link` with your actual case study URL when ready
+  // Replace `image` with your mockup photo path e.g. "cup-mockup.png"
+  // ─────────────────────────────────────────────────────────
+  {
+    id:    "chips-checkers",
+    title: "Chips & Checkers",
+    desc:  "Complete brand identity for a Toronto board game café — name, logo system, color palette, typography, and brand applications across coffee cup, pizza box, menu, Instagram templates, and loyalty card. Built around a signature black, white, and Proper Orange color system with a checkerboard pattern that becomes the brand's visual fingerprint.",
+    tags:  ["#branding", "#identity", "#toronto", "#packaging", "#typography"],
+    color: "#FF6B00",
+    emoji: "🎲",
+    likes: "4.2k",
+    link:  "chips-checkers.html",
+    image: "",           // 👈 replace with your cup mockup photo path
+    cat:   "Branding",
+    isCC:  true,         // marks this as the special C&C tile
+  },
+  {
+    title: "E-commerce Redesign",
+    desc:  "Full UX overhaul for a fashion retailer — reduced checkout drop-off by 34% through streamlined flows and mobile-first design.",
+    tags:  ["#uxdesign", "#ecommerce", "#casestudy"],
+    color: "#C9B8F5", emoji: "🛍️", likes: "1.2k", link: "#", cat: "UX/UI",
+  },
+  {
+    title: "Finance Dashboard",
+    desc:  "Real-time data visualisation for a fintech startup. Built with React + D3. Shipped in 6 weeks from concept to production.",
+    tags:  ["#dashboard", "#react", "#dataviz"],
+    color: "#B3D9F5", emoji: "📊", likes: "984", link: "#", cat: "Web",
+  },
+  {
+    title: "Brand Identity — Bloom",
+    desc:  "Logo, colour system, and design language for a wellness brand. Influenced by organic forms and slow living.",
+    tags:  ["#branding", "#identity", "#logo"],
+    color: "#F5C9D4", emoji: "🌸", likes: "2.1k", link: "#", cat: "Branding",
+  },
+  {
+    title: "iOS Meditation App",
+    desc:  "End-to-end product design for a guided meditation app. 40+ screens, 3 rounds of usability testing.",
+    tags:  ["#iosdesign", "#mobile", "#figma"],
+    color: "#B3EFD8", emoji: "🧘", likes: "1.7k", link: "#", cat: "Apps",
+  },
+  {
+    title: "AI Content Pipeline",
+    desc:  "Prompt-driven system that generates SEO-optimised blog briefs, meta copy, and social variants from a single keyword input.",
+    tags:  ["#ai", "#contentops", "#automation"],
+    color: "#FFE0B3", emoji: "🤖", likes: "3.4k", link: "#", cat: "AI",
+  },
+  {
+    title: "Campaign Launch — Pulse",
+    desc:  "End-to-end marketing campaign for a DTC fitness brand: strategy, copy, creative direction, and paid social assets. 2.8× ROAS.",
+    tags:  ["#marketing", "#campaign", "#copywriting"],
+    color: "#D4EAB3", emoji: "📣", likes: "876", link: "#", cat: "Marketing",
+  },
+  {
+    title: "Portfolio OS Concept",
+    desc:  "A macOS-inspired portfolio with drag-and-drop windows, a live terminal, and dark/light mode toggle.",
+    tags:  ["#portfolio", "#concept", "#webdesign"],
+    color: "#C9D4F5", emoji: "💻", likes: "5.1k", link: "#", cat: "Web",
+  },
+  {
+    title: "Editorial Content System",
+    desc:  "Modular content framework for a digital magazine — tone of voice guide, article templates, and SEO-first structure.",
+    tags:  ["#content", "#editorial", "#copywriting"],
+    color: "#F5E6B3", emoji: "📝", likes: "1.3k", link: "#", cat: "Content",
+  },
+  {
+    title: "AR Try-On Feature",
+    desc:  "Designed and shipped an AR glasses try-on feature for a DTC eyewear brand. 22% lift in add-to-cart rate.",
+    tags:  ["#ar", "#product", "#ux"],
+    color: "#F5B3D4", emoji: "🥽", likes: "2.8k", link: "#", cat: "Apps",
+  },
+];
+
+/* ============================================================
+   🔧  ENGINE — no need to edit below
+   ============================================================ */
+
+// Profile
+document.getElementById('profile-handle').textContent = PROFILE.username;
+document.getElementById('bio-name').textContent        = PROFILE.name;
+document.getElementById('bio-role').textContent        = PROFILE.role;
+document.getElementById('bio-desc').textContent        = PROFILE.bio;
+document.getElementById('bio-link').textContent        = '🔗 ' + PROFILE.websiteLabel;
+document.getElementById('bio-link').href               = PROFILE.website;
+document.getElementById('stat1-val').textContent       = PROJECTS.length;
+document.getElementById('stat1-lbl').textContent       = 'projects';
+document.getElementById('stat2-val').textContent       = PROFILE.stat2.val;
+document.getElementById('stat2-lbl').textContent       = PROFILE.stat2.label;
+document.getElementById('stat3-val').textContent       = PROFILE.stat3.val;
+document.getElementById('stat3-lbl').textContent       = PROFILE.stat3.label;
+
+// Avatar
+const avatarEl = document.getElementById('avatar');
+if (PROFILE.photo) {
+  avatarEl.innerHTML = `<img src="${PROFILE.photo}" alt="${PROFILE.name}" loading="lazy">`;
+} else {
+  avatarEl.textContent = PROFILE.initials;
+}
+
+// Buttons
+document.getElementById('hire-btn').onclick  = () => window.location.href = 'mailto:' + PROFILE.email;
+document.getElementById('share-btn').onclick = () => {
+  const url = window.location.href;
+  const copy = (t) => {
+    const el = document.createElement('textarea');
+    el.value = t; el.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(el); el.select();
+    document.execCommand('copy'); document.body.removeChild(el);
+  };
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(url).catch(() => copy(url));
+  } else { copy(url); }
+  const btn = document.getElementById('share-btn');
+  btn.textContent = 'Copied!';
+  setTimeout(() => btn.textContent = 'Share profile', 2000);
+};
+
+// Highlights with filter
+let activeFilter = 'All';
+const hlWrap = document.getElementById('highlights');
+HIGHLIGHTS.forEach(h => {
+  const div = document.createElement('div');
+  div.className = 'highlight' + (h.label === 'All' ? ' active' : '');
+  div.innerHTML = `<div class="hl-ring"><div class="hl-inner">${h.emoji}</div></div><div class="hl-label">${h.label}</div>`;
+  div.onclick = () => {
+    activeFilter = h.label;
+    document.querySelectorAll('.highlight').forEach(el => el.classList.remove('active'));
+    div.classList.add('active');
+    filterGrid();
+  };
+  hlWrap.appendChild(div);
+});
+
+// Grid
+const grid = document.getElementById('grid');
+const postEls = [];
+PROJECTS.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'post' + (p.isCC ? ' cc-tile' : '');
+  el.dataset.cat = p.cat;
+
+  if (p.isCC) {
+    // Special Chips & Checkers tile
+    if (p.image) {
+      el.innerHTML = `
+        <div class="post-bg" style="background:#111;padding:0;">
+          <img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">
+        </div>
+        <div class="post-overlay">
+          <div class="ov-stat">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            ${p.likes}
+          </div>
+        </div>`;
+    } else {
+      el.innerHTML = `
+        <div class="post-bg" style="background:#111;">
+          <div class="cc-icon">
+            <div class="cc-sq" style="background:#fff;"></div>
+            <div class="cc-sq" style="background:#222;"></div>
+            <div class="cc-sq" style="background:#222;"></div>
+            <div class="cc-sq" style="background:#FF6B00;"></div>
+          </div>
+          <div class="post-name" style="color:#fff;font-size:9px;font-weight:600;">${p.title}</div>
+          <div class="cc-pattern"></div>
+        </div>
+        <div class="post-overlay">
+          <div class="ov-stat">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            ${p.likes}
+          </div>
+        </div>`;
+    }
+  } else {
+    el.innerHTML = `
+      <div class="post-bg" style="background:${p.color}30">
+        <div class="post-emoji">${p.emoji}</div>
+        <div class="post-name">${p.title}</div>
+      </div>
+      <div class="post-overlay">
+        <div class="ov-stat">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          ${p.likes}
+        </div>
+      </div>`;
+  }
+
+  el.onclick = () => openModal(p);
+  grid.appendChild(el);
+  postEls.push(el);
+});
+
+function filterGrid() {
+  postEls.forEach(el => {
+    el.classList.toggle('hidden', activeFilter !== 'All' && el.dataset.cat !== activeFilter);
+  });
+}
+
+// Tab switching
+function switchTab(tab) {
+  const isGrid = tab === 'grid';
+  document.getElementById('grid').style.display       = isGrid ? 'grid' : 'none';
+  document.getElementById('saved-panel').classList.toggle('active', !isGrid);
+  document.getElementById('tab-grid').classList.toggle('active',  isGrid);
+  document.getElementById('tab-saved').classList.toggle('active', !isGrid);
+}
+
+// Modal
+function openModal(p) {
+  let mediaHTML;
+
+  if (p.isCC) {
+    if (p.image) {
+      mediaHTML = `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">`;
+    } else {
+      mediaHTML = `
+        <div class="cc-modal-media">
+          <div class="cc-modal-logo">
+            <div class="cc-modal-icon">
+              <div style="background:#fff;"></div>
+              <div style="background:#222;"></div>
+              <div style="background:#222;"></div>
+              <div style="background:#FF6B00;"></div>
+            </div>
+            <div class="cc-modal-wordmark">
+              <div class="cc-modal-name">Chips <span class="cc-modal-amp">&</span> Checkers</div>
+              <div class="cc-modal-sub">Brand Identity · Toronto</div>
+            </div>
+          </div>
+          <div class="cc-modal-swatches">
+            <div class="cc-swatch" style="background:#111;"></div>
+            <div class="cc-swatch" style="background:#fff;border-color:rgba(255,255,255,0.2);"></div>
+            <div class="cc-swatch" style="background:#FF6B00;"></div>
+            <div class="cc-swatch" style="background:#F5F0E8;border-color:rgba(255,255,255,0.15);"></div>
+            <div class="cc-swatch" style="background:#3A3A3A;"></div>
+          </div>
+          <div class="cc-modal-tagline">Your move · Our snacks</div>
+          <div class="cc-modal-pattern"></div>
+        </div>`;
+    }
+  } else {
+    mediaHTML = `
+      <div style="width:100%;height:100%;min-height:340px;background:${p.color}25;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+        <div class="modal-emoji">${p.emoji}</div>
+        <div class="modal-cat">${p.cat}</div>
+      </div>`;
+  }
+
+  document.getElementById('modal-media').innerHTML    = mediaHTML;
+  document.getElementById('modal-uname').textContent  = PROFILE.username;
+  document.getElementById('modal-avatar').textContent = PROFILE.initials;
+  document.getElementById('modal-title').textContent  = p.title;
+  document.getElementById('modal-desc').textContent   = p.desc;
+  document.getElementById('modal-likes').textContent  = p.likes + ' likes';
+  document.getElementById('modal-tags').innerHTML     = p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+  const link = document.getElementById('modal-link');
+  link.style.display = (p.link && p.link !== '#') ? 'inline-block' : 'none';
+  if (p.link && p.link !== '#') link.href = p.link;
+  link.textContent = p.isCC ? 'View full case study →' : 'View project →';
+  document.getElementById('modal').classList.add('open');
+}
+
+document.getElementById('modal-close').onclick = closeModal;
+document.getElementById('modal').onclick = e => { if (e.target.id === 'modal') closeModal(); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+</script>
+</body>
+</html>
