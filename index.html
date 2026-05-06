@@ -432,7 +432,7 @@
 </div>
 
 <script>
-document.getElementById('avatar').parentElement.addEventListener('click', () => {
+document.querySelector('.avatar-ring').addEventListener('click', () => {
   const inner = document.getElementById('photo-zoom-inner');
   if (PROFILE.photo) {
     inner.innerHTML = `<img class="photo-zoom-img" src="${PROFILE.photo}" alt="${PROFILE.name}">`;
