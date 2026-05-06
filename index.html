@@ -427,25 +427,7 @@
 
   </style>
 </head>
-  <div class="photo-zoom-bg" id="photo-zoom" onclick="closePhotoZoom()">
-  <div id="photo-zoom-inner"></div>
-</div>
-
-<script>
-document.querySelector('.avatar-ring').addEventListener('click', () => {
-  const inner = document.getElementById('photo-zoom-inner');
-  if (PROFILE.photo) {
-    inner.innerHTML = `<img class="photo-zoom-img" src="${PROFILE.photo}" alt="${PROFILE.name}">`;
-  } else {
-    inner.innerHTML = `<div class="photo-zoom-initials">${PROFILE.initials}</div>`;
-  }
-  document.getElementById('photo-zoom').classList.add('open');
-});
-function closePhotoZoom() {
-  document.getElementById('photo-zoom').classList.remove('open');
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhotoZoom(); });
-</script>
+  
 <body>
 
   <div class="wrap">
@@ -852,6 +834,25 @@ document.getElementById('modal-close').onclick = closeModal;
 document.getElementById('modal').onclick = e => { if (e.target.id === 'modal') closeModal(); };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 function closeModal() { document.getElementById('modal').classList.remove('open'); }
+</script>
+  <div class="photo-zoom-bg" id="photo-zoom" onclick="closePhotoZoom()">
+  <div id="photo-zoom-inner"></div>
+</div>
+
+<script>
+document.querySelector('.avatar-ring').addEventListener('click', () => {
+  const inner = document.getElementById('photo-zoom-inner');
+  if (PROFILE.photo) {
+    inner.innerHTML = `<img class="photo-zoom-img" src="${PROFILE.photo}" alt="${PROFILE.name}">`;
+  } else {
+    inner.innerHTML = `<div class="photo-zoom-initials">${PROFILE.initials}</div>`;
+  }
+  document.getElementById('photo-zoom').classList.add('open');
+});
+function closePhotoZoom() {
+  document.getElementById('photo-zoom').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhotoZoom(); });
 </script>
 </body>
 </html>
