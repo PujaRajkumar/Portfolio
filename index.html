@@ -59,6 +59,29 @@
       background: conic-gradient(#f09433,#e6683c,#dc2743,#cc2366,#bc1888,#f09433);
       padding: 2.5px;
     }
+    .avatar-ring { cursor: pointer; }
+
+.photo-zoom-bg {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none; align-items: center; justify-content: center;
+  z-index: 300;
+}
+.photo-zoom-bg.open { display: flex; }
+.photo-zoom-img {
+  width: min(90vw, 480px); height: min(90vw, 480px);
+  border-radius: 50%; object-fit: cover;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  animation: scaleIn .25s cubic-bezier(.34,1.56,.64,1);
+}
+.photo-zoom-initials {
+  width: min(90vw, 480px); height: min(90vw, 480px);
+  border-radius: 50%; background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 120px; font-weight: 500; color: var(--muted);
+  animation: scaleIn .25s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes scaleIn { from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1} }
     .avatar-inner {
       width: 100%; height: 100%; border-radius: 50%;
       background: var(--bg);
@@ -404,6 +427,25 @@
 
   </style>
 </head>
+  <div class="photo-zoom-bg" id="photo-zoom" onclick="closePhotoZoom()">
+  <div id="photo-zoom-inner"></div>
+</div>
+
+<script>
+document.getElementById('avatar').parentElement.addEventListener('click', () => {
+  const inner = document.getElementById('photo-zoom-inner');
+  if (PROFILE.photo) {
+    inner.innerHTML = `<img class="photo-zoom-img" src="${PROFILE.photo}" alt="${PROFILE.name}">`;
+  } else {
+    inner.innerHTML = `<div class="photo-zoom-initials">${PROFILE.initials}</div>`;
+  }
+  document.getElementById('photo-zoom').classList.add('open');
+});
+function closePhotoZoom() {
+  document.getElementById('photo-zoom').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhotoZoom(); });
+</script>
 <body>
 
   <div class="wrap">
