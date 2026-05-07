@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aritzia — Spring 2025 Campaign Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#0a0a0a;--cream:#f2ede8;--warm:#e8ddd4;
+  --muted:#8a7f78;--border:#ddd5cc;--accent:#c4a882;
+  --font:'Cormorant Garamond',serif;--body:'Jost',sans-serif;
+  --blush:#f5e8de;--sage:#d4ddd0;--dusty:#dcd0e0;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--body);background:var(--cream);color:var(--black);}
+nav{position:sticky;top:0;z-index:100;background:var(--black);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--font);font-size:18px;font-weight:600;color:#fff;text-decoration:none;font-style:italic;letter-spacing:0.5px;}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:11px;color:#555;text-decoration:none;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;transition:color .15s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-back{font-size:11px;color:#555;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;}
+.nav-back:hover{color:var(--accent);}
+.hero{background:var(--black);min-height:75vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 32px 64px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,168,130,0.06) 0%,transparent 50%);}
+.hero-inner{max-width:900px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.hero-eyebrow{font-size:10px;font-weight:400;color:var(--accent);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:28px;}
+.hero-title{font-family:var(--font);font-size:clamp(52px,10vw,120px);color:#fff;line-height:0.85;margin-bottom:28px;letter-spacing:-1px;}
+.hero-title em{color:var(--accent);font-style:italic;}
+.hero-meta{display:flex;gap:56px;flex-wrap:wrap;border-top:1px solid #1f1f1f;padding-top:24px;}
+.hero-meta-label{font-size:9px;color:#3a3a3a;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:5px;}
+.hero-meta-val{font-size:13px;color:#999;font-weight:300;}
+.wrap{max-width:900px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
+.eyebrow{font-size:10px;font-weight:400;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:16px;}
+.section-title{font-family:var(--font);font-size:clamp(34px,5vw,56px);color:var(--black);line-height:0.95;margin-bottom:24px;letter-spacing:-0.5px;}
+.section-title em{font-style:italic;color:var(--accent);}
+.section-body{font-size:15px;color:var(--muted);line-height:1.85;max-width:640px;font-weight:300;}
+.section-body p{margin-bottom:16px;}
+.section-body strong{color:var(--black);font-weight:500;}
+.pull-quote{border-left:2px solid var(--accent);padding:16px 28px;margin:32px 0;background:rgba(196,168,130,0.06);}
+.pull-quote p{font-family:var(--font);font-size:22px;color:var(--black);line-height:1.5;font-style:italic;}
+
+/* BRIEF GRID */
+.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:40px 0;}
+.brief-card{padding:36px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;}
+.brief-card-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:14px;font-weight:400;}
+.brief-card-title{font-family:var(--font);font-size:26px;line-height:1.1;}
+.brief-card-body{font-size:13px;line-height:1.7;margin-top:14px;font-weight:300;}
+
+/* COLOR STORY */
+.color-story{display:flex;gap:12px;margin:32px 0;flex-wrap:wrap;}
+.color-swatch{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.color-circle{width:72px;height:72px;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,0.08);}
+.color-name{font-size:11px;color:var(--muted);text-align:center;font-weight:400;}
+.color-hex{font-size:10px;color:var(--muted);font-family:monospace;}
+
+/* EMAIL MOCK */
+.email-mock{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.12);max-width:500px;margin:40px auto;}
+.email-topbar{background:var(--black);padding:6px 16px;display:flex;align-items:center;gap:6px;}
+.email-dot{width:10px;height:10px;border-radius:50%;}
+.email-header{background:var(--black);padding:28px 36px;text-align:center;border-bottom:1px solid #1a1a1a;}
+.email-logo{font-family:var(--font);font-size:22px;color:#fff;letter-spacing:2px;font-style:italic;}
+.email-hero{background:linear-gradient(160deg,#1a1816 0%,#0d0c0b 100%);height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;position:relative;overflow:hidden;}
+.email-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(196,168,130,0.12),transparent 60%);}
+.email-hero-season{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;position:relative;z-index:1;}
+.email-hero-title{font-family:var(--font);font-size:52px;color:#fff;font-style:italic;line-height:0.85;position:relative;z-index:1;}
+.email-body-section{padding:36px;}
+.email-subject{font-family:var(--font);font-size:28px;line-height:1.1;margin-bottom:14px;letter-spacing:-0.3px;}
+.email-copy{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:28px;font-weight:300;}
+.email-cta{display:block;background:var(--black);color:#fff;text-align:center;padding:15px;font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;}
+.email-spacer{height:1px;background:var(--border);margin:28px 0;}
+.email-secondary{display:flex;gap:2px;}
+.email-sec-block{flex:1;padding:24px;text-align:center;}
+.email-sec-tag{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.email-sec-title{font-family:var(--font);font-size:20px;color:var(--black);line-height:1.1;margin-bottom:6px;}
+.email-sec-link{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;text-decoration:underline;cursor:default;}
+.email-footer{background:#f8f5f2;padding:16px 36px;text-align:center;font-size:9px;color:#aaa;letter-spacing:0.06em;}
+
+/* INSTAGRAM GRID */
+.insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:32px 0;}
+.insta-post{aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;}
+.insta-post-overlay{position:absolute;inset:0;}
+.insta-post-content{position:relative;z-index:1;}
+.insta-tag{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:5px;}
+.insta-title{font-family:var(--font);line-height:1.0;}
+
+/* STORIES MOCK */
+.stories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:32px 0;}
+.story-frame{aspect-ratio:9/16;border-radius:12px;overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:16px;}
+.story-top{display:flex;align-items:center;justify-content:space-between;}
+.story-logo{font-family:var(--font);font-size:13px;font-style:italic;}
+.story-progress{height:2px;background:rgba(255,255,255,0.3);border-radius:1px;margin-bottom:4px;}
+.story-progress-fill{height:100%;border-radius:1px;}
+.story-bottom{}
+.story-swipe{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-top:8px;}
+
+/* DISPLAY BANNER */
+.banner-row{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin:32px 0;}
+.banner-wide{background:var(--black);border-radius:8px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;}
+.banner-wide::before{content:'';position:absolute;right:-80px;top:-80px;width:240px;height:240px;border-radius:50%;background:rgba(196,168,130,0.06);}
+.banner-copy{}
+.banner-season{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.banner-title{font-family:var(--font);font-size:clamp(24px,4vw,40px);color:#fff;line-height:0.95;font-style:italic;margin-bottom:14px;}
+.banner-btn{display:inline-block;background:transparent;color:#fff;padding:10px 24px;border:1px solid #333;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;cursor:default;}
+.banner-sq{background:var(--black);border-radius:8px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.banner-sq::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(196,168,130,0.08),transparent);}
+
+/* PAID SOCIAL */
+.paid-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0;}
+.paid-card{border-radius:8px;padding:24px;position:relative;overflow:hidden;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;}
+
+/* RESULTS */
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0;}
+.result-card{background:#fff;border-radius:12px;padding:24px;border:1px solid var(--border);}
+.result-num{font-family:var(--font);font-size:48px;font-weight:600;color:var(--black);line-height:1;margin-bottom:4px;}
+.result-label{font-size:12px;color:var(--muted);line-height:1.5;font-weight:300;}
+
+/* LEARNINGS */
+.learnings{display:flex;flex-direction:column;gap:20px;margin-top:32px;}
+.learning{display:flex;gap:16px;}
+.learning-num{width:36px;height:36px;border-radius:50%;background:var(--black);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;margin-top:2px;}
+.learning-title{font-family:var(--font);font-size:20px;color:var(--black);margin-bottom:6px;}
+.learning-desc{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300;}
+
+.case-footer{background:var(--black);padding:64px 32px;text-align:center;}
+.footer-title{font-family:var(--font);font-size:clamp(36px,6vw,64px);color:#fff;font-style:italic;margin-bottom:6px;line-height:0.9;}
+.footer-sub{font-size:11px;color:#3a3a3a;margin-bottom:28px;letter-spacing:0.14em;text-transform:uppercase;}
+.footer-btn{display:inline-block;border:1px solid #222;color:#fff;font-size:11px;font-weight:400;padding:13px 32px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all .15s;}
+.footer-btn:hover{background:#fff;color:var(--black);}
+@media(max-width:640px){
+  .brief-grid,.results-grid,.banner-row,.paid-grid{grid-template-columns:1fr;}
+  .insta-grid,.stories-grid{grid-template-columns:repeat(2,1fr);}
+  section{padding:48px 0;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Aritzia</a>
+  <div class="nav-links">
+    <a href="#brief">Brief</a>
+    <a href="#colour">Colour</a>
+    <a href="#email">Email</a>
+    <a href="#social">Social</a>
+    <a href="#display">Display</a>
+  </div>
+  <a class="nav-back" href="index.html">← Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Digital Campaign · Spring 2025 · Case Study</div>
+    <h1 class="hero-title">The<br><em>Effortless</em><br>Edit.</h1>
+    <div class="hero-meta">
+      <div><div class="hero-meta-label">Brand</div><div class="hero-meta-val">Aritzia</div></div>
+      <div><div class="hero-meta-label">Campaign</div><div class="hero-meta-val">Spring 2025 Collection Launch</div></div>
+      <div><div class="hero-meta-label">Surfaces</div><div class="hero-meta-val">Email · Instagram · Stories · Display · Paid Social</div></div>
+      <div><div class="hero-meta-label">Type</div><div class="hero-meta-val">Self-initiated concept</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="brief">
+  <div class="wrap">
+    <div class="eyebrow">01 — Campaign Brief</div>
+    <h2 class="section-title">Warmth without<br><em>noise.</em></h2>
+    <div class="section-body">
+      <p>Aritzia is one of Canada's most quietly powerful fashion brands. Their aesthetic is studied restraint — never loud, never overselling, always letting the product speak. This Spring 2025 campaign, "The Effortless Edit," launches their new collection across five digital surfaces with one creative brief: <strong>warmth without noise.</strong></p>
+      <p>The spring palette — blush, sage, dusty lilac, warm cream — lives in the clothes and the creative. The campaign itself stays rooted in Aritzia's signature black and warm neutral. The brand doesn't need to shout spring. It shows it.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Aritzia customers don't want to be sold to. They want to be understood. Every word in this campaign is a design decision."</p>
+    </div>
+
+    <div class="brief-grid">
+      <div class="brief-card" style="background:var(--black);">
+        <div>
+          <div class="brief-card-label" style="color:var(--accent);">The Insight</div>
+          <div class="brief-card-title" style="color:#fff;font-family:'Cormorant Garamond',serif;">Aritzia's customer edits her wardrobe, not her identity.</div>
+        </div>
+        <div class="brief-card-body" style="color:#555;">The campaign doesn't say "shop now." It says "this is your wardrobe, considered." The CTA is always secondary to the feeling. The clothes are the hero — the campaign gets out of the way.</div>
+      </div>
+      <div class="brief-card" style="background:var(--warm);">
+        <div>
+          <div class="brief-card-label" style="color:var(--muted);">The Strategy</div>
+          <div class="brief-card-title" style="font-family:'Cormorant Garamond',serif;">One campaign. Five surfaces. One voice.</div>
+        </div>
+        <div class="brief-card-body" style="color:var(--muted);">Email anchors with storytelling. Instagram creates desire through visual restraint. Stories drive urgency. Display drives traffic. Paid social retargets with product focus. Each surface has a distinct role — all speak in the same voice.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="colour">
+  <div class="wrap">
+    <div class="eyebrow">02 — Colour Story</div>
+    <h2 class="section-title">Spring lives in<br><em>the clothes.</em></h2>
+    <div class="section-body" style="margin-bottom:32px;">
+      <p>Aritzia's brand palette is always black, white, and cream. The spring campaign doesn't change that — it adds. The seasonal palette appears in the product photography and the campaign creative, never in the brand frame itself. The brand stays black. The clothes bring the colour.</p>
+    </div>
+
+    <div style="margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:16px;">Brand palette — always</div>
+      <div class="color-story">
+        <div class="color-swatch"><div class="color-circle" style="background:#0a0a0a;"></div><div class="color-name">Ink Black</div><div class="color-hex">#0a0a0a</div></div>
+        <div class="color-swatch"><div class="color-circle" style="background:#f2ede8;border:1px solid #e0d8d0;"></div><div class="color-name">Warm Cream</div><div class="color-hex">#f2ede8</div></div>
+        <div class="color-swatch"><div class="color-circle" style="background:#e8ddd4;border:1px solid #ddd5cc;"></div><div class="color-name">Warm Sand</div><div class="color-hex">#e8ddd4</div></div>
+        <div class="color-swatch"><div class="color-circle" style="background:#c4a882;"></div><div class="color-name">Camel</div><div class="color-hex">#c4a882</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:16px;">Campaign palette — Spring 2025 only</div>
+      <div class="color-story">
+        <div class="color-swatch"><div class="color-circle" style="background:#f5e8de;border:1px solid #e8ddd4;"></div><div class="color-name">Blush</div><div class="color-hex">#f5e8de</div></div>
+        <div class="color-swatch"><div class="color-circle" style="background:#d4ddd0;border:1px solid #c8d1c4;"></div><div class="color-name">Sage</div><div class="color-hex">#d4ddd0</div></div>
+        <div class="color-swatch"><div class="color-circle" style="background:#dcd0e0;border:1px solid #d0c4d4;"></div><div class="color-name">Dusty Lilac</div><div class="color-hex">#dcd0e0</div></div>
+        <div class="color-swatch"><div class="color-circle" style="background:#e8e0d4;border:1px solid #ddd5c8;"></div><div class="color-name">Linen</div><div class="color-hex">#e8e0d4</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="email">
+  <div class="wrap">
+    <div class="eyebrow">03 — Email Campaign</div>
+    <h2 class="section-title">The highest-intent<br><em>surface.</em></h2>
+    <div class="section-body" style="margin-bottom:40px;">
+      <p>Email is opened by people who already love the brand. The design rewards that relationship with editorial storytelling — not a product grid. Single column, maximum 500px width, editorial copy, one call to action. No discounts. No countdown timers. Just the collection, considered.</p>
+      <p><strong>Subject line:</strong> "Your spring wardrobe, considered." &nbsp;·&nbsp; <strong>Target open rate:</strong> 34%+</p>
+    </div>
+
+    <div class="email-mock">
+      <div class="email-topbar">
+        <div class="email-dot" style="background:#ff5f57;"></div>
+        <div class="email-dot" style="background:#febc2e;"></div>
+        <div class="email-dot" style="background:#28c840;"></div>
+      </div>
+      <div class="email-header">
+        <div class="email-logo">Aritzia</div>
+      </div>
+      <div class="email-hero">
+        <div class="email-hero-season">Spring · 2025</div>
+        <div class="email-hero-title">The<br>Effortless<br>Edit.</div>
+      </div>
+      <div class="email-body-section">
+        <div class="email-subject">Thoughtfully made.<br>Effortlessly worn.</div>
+        <div class="email-copy">This season, we edited with intention. Every piece chosen for how it moves, how it layers, how it lasts. Not a wardrobe refresh — a wardrobe refinement. New arrivals, available now.</div>
+        <a class="email-cta" href="#">Explore the collection</a>
+        <div class="email-spacer"></div>
+        <div class="email-secondary">
+          <div class="email-sec-block" style="background:var(--blush);">
+            <div class="email-sec-tag">New in</div>
+            <div class="email-sec-title">The<br>Blush Edit</div>
+            <div class="email-sec-link">Shop now</div>
+          </div>
+          <div class="email-sec-block" style="background:var(--sage);">
+            <div class="email-sec-tag">Trending</div>
+            <div class="email-sec-title">The<br>Sage Story</div>
+            <div class="email-sec-link">Shop now</div>
+          </div>
+        </div>
+      </div>
+      <div class="email-footer">You're receiving this because you subscribed to Aritzia emails · Unsubscribe · View online</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+      <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Design decisions</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;">Single-column layout. Hero image carries the emotion — copy supports it. CTA as a full-width black block, not a button. Secondary blocks use spring palette colours. No product grid — that's for the website, not the email.</div>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid var(--border);">
+        <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Copy strategy</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;">No exclamation points. No "SALE" in caps. No emojis. The copy is quiet and confident — the same register as the brand's Instagram captions. Every word earns its place or it's cut.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="social">
+  <div class="wrap">
+    <div class="eyebrow">04 — Instagram & Stories</div>
+    <h2 class="section-title">Three formats.<br><em>One voice.</em></h2>
+    <div class="section-body" style="margin-bottom:40px;">
+      <p>Instagram feed posts build brand equity. Stories drive urgency and swipe-up traffic. Each format has a distinct job — but the visual language stays consistent: warm neutrals, editorial typography, generous negative space. The product is always the hero.</p>
+    </div>
+
+    <div style="font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Instagram Feed</div>
+    <div class="insta-grid">
+      <div class="insta-post" style="background:var(--black);">
+        <div class="insta-post-overlay" style="background:linear-gradient(135deg,rgba(196,168,130,0.08),transparent);"></div>
+        <div class="insta-post-content">
+          <div class="insta-tag" style="color:var(--accent);">New Collection</div>
+          <div class="insta-title" style="font-size:28px;color:#fff;">The<br><em>Effortless</em><br>Edit.</div>
+        </div>
+      </div>
+      <div class="insta-post" style="background:var(--blush);">
+        <div class="insta-post-content">
+          <div class="insta-tag" style="color:var(--muted);">Spring '25</div>
+          <div class="insta-title" style="font-size:22px;color:var(--black);">Thoughtfully<br>made.</div>
+        </div>
+      </div>
+      <div class="insta-post" style="background:var(--sage);">
+        <div class="insta-post-content">
+          <div class="insta-tag" style="color:var(--muted);">The Edit</div>
+          <div class="insta-title" style="font-size:22px;color:var(--black);">Effortlessly<br>worn.</div>
+        </div>
+      </div>
+      <div class="insta-post" style="background:var(--dusty);">
+        <div class="insta-post-content">
+          <div class="insta-tag" style="color:var(--muted);">New in</div>
+          <div class="insta-title" style="font-size:22px;color:var(--black);">The Lilac<br>Moment.</div>
+        </div>
+      </div>
+      <div class="insta-post" style="background:var(--warm);">
+        <div class="insta-post-content">
+          <div class="insta-tag" style="color:var(--muted);">Spring '25</div>
+          <div class="insta-title" style="font-size:22px;color:var(--black);">Dressed<br>simply.</div>
+        </div>
+      </div>
+      <div class="insta-post" style="background:var(--black);">
+        <div class="insta-post-overlay" style="background:linear-gradient(135deg,rgba(196,168,130,0.05),transparent);"></div>
+        <div class="insta-post-content">
+          <div class="insta-tag" style="color:var(--accent);">Shop the edit</div>
+          <div class="insta-title" style="font-size:22px;color:#fff;">Link<br>in bio.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin:32px 0 12px;">Instagram Stories</div>
+    <div class="stories-grid">
+      <div class="story-frame" style="background:var(--black);">
+        <div class="story-top">
+          <div><div class="story-progress" style="width:100%;"><div class="story-progress-fill" style="width:60%;background:var(--accent);"></div></div><div style="font-size:9px;color:#fff;opacity:0.5;margin-top:2px;">Aritzia · Spring '25</div></div>
+        </div>
+        <div class="story-bottom">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:#fff;line-height:0.9;font-style:italic;margin-bottom:6px;">The Effortless Edit.</div>
+          <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);">Swipe up to shop</div>
+        </div>
+      </div>
+      <div class="story-frame" style="background:var(--blush);">
+        <div class="story-top">
+          <div><div class="story-progress" style="width:100%;"><div class="story-progress-fill" style="width:80%;background:var(--black);"></div></div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Aritzia · Blush Edit</div></div>
+        </div>
+        <div class="story-bottom">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--black);line-height:0.9;font-style:italic;margin-bottom:6px;">New in<br>Blush.</div>
+          <div style="background:var(--black);color:#fff;text-align:center;padding:10px;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;border-radius:2px;">Shop now</div>
+        </div>
+      </div>
+      <div class="story-frame" style="background:var(--sage);">
+        <div class="story-top">
+          <div><div class="story-progress" style="width:100%;"><div class="story-progress-fill" style="width:40%;background:var(--black);"></div></div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Aritzia · Sage Story</div></div>
+        </div>
+        <div class="story-bottom">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--black);line-height:0.9;font-style:italic;margin-bottom:6px;">Dressed<br>for Spring.</div>
+          <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">↑ Swipe up</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="display">
+  <div class="wrap">
+    <div class="eyebrow">05 — Display & Paid Social</div>
+    <h2 class="section-title">Driving traffic.<br><em>Staying on brand.</em></h2>
+    <div class="section-body" style="margin-bottom:40px;">
+      <p>Display ads and paid social operate differently to organic — they're interruptions, not invitations. The creative must earn attention in under a second. One line of copy. One image. One action. The Aritzia brand voice stays the same — the format gets tighter.</p>
+    </div>
+
+    <div style="font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Display Banners — Leaderboard & Rectangle</div>
+    <div class="banner-row">
+      <div class="banner-wide">
+        <div class="banner-copy" style="position:relative;z-index:1;">
+          <div class="banner-season">Aritzia · Spring 2025</div>
+          <div class="banner-title">The Effortless Edit.</div>
+          <div class="banner-btn">Shop the collection</div>
+        </div>
+        <div style="position:relative;z-index:1;text-align:right;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:64px;color:rgba(255,255,255,0.06);font-style:italic;line-height:0.8;">A</div>
+        </div>
+      </div>
+      <div class="banner-sq">
+        <div style="position:relative;z-index:1;">
+          <div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">New arrivals</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;font-style:italic;line-height:1;margin-bottom:12px;">Spring '25</div>
+          <div style="background:transparent;color:#fff;padding:8px 0;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;border-top:1px solid #222;">Shop now →</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin:32px 0 12px;">Paid Social — Retargeting & Prospecting</div>
+    <div class="paid-grid">
+      <div class="paid-card" style="background:var(--black);">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,168,130,0.06),transparent);"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Prospecting — New audience</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-style:italic;line-height:1;margin-bottom:8px;">Dressed simply.<br>Designed carefully.</div>
+          <div style="font-size:10px;color:#444;letter-spacing:0.1em;text-transform:uppercase;">Aritzia · Spring 2025</div>
+        </div>
+      </div>
+      <div class="paid-card" style="background:var(--blush);">
+        <div style="position:relative;z-index:1;">
+          <div style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Retargeting — Warm audience</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--black);font-style:italic;line-height:1;margin-bottom:8px;">Still thinking<br>about it?</div>
+          <div style="font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">The Edit is still available.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:24px;border:1px solid var(--border);margin-top:8px;">
+      <div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;">Campaign performance targets</div>
+      <div class="results-grid" style="margin:0;">
+        <div class="result-card">
+          <div class="result-num">34<span style="font-size:22px;font-weight:400;">%</span></div>
+          <div class="result-label">Email open rate — vs 21% fashion industry average</div>
+        </div>
+        <div class="result-card">
+          <div class="result-num">4.8<span style="font-size:22px;font-weight:400;">%</span></div>
+          <div class="result-label">Instagram engagement rate target — vs 1.5% average</div>
+        </div>
+        <div class="result-card">
+          <div class="result-num">2.4<span style="font-size:22px;font-weight:400;">×</span></div>
+          <div class="result-label">ROAS target on display — lookalike audience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learnings">
+  <div class="wrap">
+    <div class="eyebrow">06 — What I Learned</div>
+    <h2 class="section-title">Restraint is<br><em>a creative choice.</em></h2>
+    <div class="learnings">
+      <div class="learning">
+        <div class="learning-num">1</div>
+        <div>
+          <div class="learning-title">The brand voice is the campaign.</div>
+          <div class="learning-desc">Aritzia doesn't use exclamation points. They don't shout SALE. That restraint is the brand identity. Designing this campaign meant internalising that voice before writing a single word — then letting it drive every decision across five surfaces.</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">2</div>
+        <div>
+          <div class="learning-title">Every surface has a different job.</div>
+          <div class="learning-desc">Email builds relationship. Instagram builds desire. Stories build urgency. Display drives traffic. Paid social closes the loop. The same message, five completely different executions — each calibrated to where the user is in their journey.</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">3</div>
+        <div>
+          <div class="learning-title">Copy is design.</div>
+          <div class="learning-desc">"Shop now" and "Explore the collection" are the same instruction with completely different feelings. Every line in this campaign — the subject line, the display headline, the story swipe prompt — is a design decision as deliberate as any visual choice.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="case-footer">
+  <div class="wrap">
+    <div class="footer-title">The Effortless<br>Edit.</div>
+    <div class="footer-sub">Aritzia · Digital Campaign · Spring 2025</div>
+    <a class="footer-btn" href="index.html">← Back to portfolio</a>
+  </div>
+</div>
+
+</body>
+</html>

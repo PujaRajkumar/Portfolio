@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Uber Eats — AI Smart Reorder Feature</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#06C167;--green2:#05a657;--black:#000;
+  --dark:#1a1a1a;--surface:#f8f8f8;--muted:#737373;
+  --border:#e8e8e8;--font:'Work Sans',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--surface);color:var(--dark);}
+nav{position:sticky;top:0;z-index:100;background:var(--black);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-size:16px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.5px;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:12px;color:#555;text-decoration:none;font-weight:500;transition:color .15s;}
+.nav-links a:hover{color:var(--green);}
+.nav-back{font-size:12px;color:#555;text-decoration:none;}
+.nav-back:hover{color:var(--green);}
+.hero{background:var(--black);padding:80px 32px 0;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(6,193,103,0.1) 0%,transparent 55%);}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(6,193,103,0.05) 0%,transparent 50%);}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+.hero-eyebrow{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:20px;}
+.hero-title{font-size:clamp(40px,7vw,80px);font-weight:800;color:#fff;line-height:0.92;margin-bottom:16px;letter-spacing:-2px;}
+.hero-title span{color:var(--green);}
+.hero-sub{font-size:18px;color:#555;margin-bottom:40px;line-height:1.6;max-width:560px;font-weight:300;}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:60px;}
+.hero-stat-num{font-size:36px;font-weight:800;color:#fff;line-height:1;}
+.hero-stat-num span{color:var(--green);}
+.hero-stat-label{font-size:11px;color:#444;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;}
+.hero-bottom{height:24px;background:var(--surface);clip-path:polygon(0 100%,100% 0,100% 100%);margin:0 -32px;}
+.wrap{max-width:900px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
+.eyebrow{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-size:clamp(28px,4vw,42px);font-weight:800;color:var(--dark);line-height:1.0;margin-bottom:20px;letter-spacing:-1px;}
+.section-body{font-size:16px;color:var(--muted);line-height:1.85;max-width:640px;}
+.section-body p{margin-bottom:16px;}
+.section-body p:last-child{margin-bottom:0;}
+.section-body strong{color:var(--dark);font-weight:600;}
+.pull-quote{border-left:3px solid var(--green);padding:16px 24px;margin:32px 0;background:rgba(6,193,103,0.04);border-radius:0 10px 10px 0;}
+.pull-quote p{font-size:18px;color:var(--dark);line-height:1.6;}
+
+/* PERSONA */
+.persona-card{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;margin:32px 0;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+.persona-header{background:var(--black);padding:24px 28px;display:flex;gap:20px;align-items:center;}
+.persona-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green2));display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
+.persona-id{flex:1;}
+.persona-name{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.persona-role{font-size:13px;color:#555;margin-bottom:8px;}
+.persona-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.p-tag{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e1e;color:#666;}
+.persona-quote{background:#0d0d0d;border-left:3px solid var(--green);padding:14px 28px;}
+.persona-quote-text{font-size:14px;font-style:italic;color:#888;line-height:1.6;}
+.persona-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.persona-col{padding:20px 24px;}
+.persona-col:first-child{border-right:1px solid var(--border);}
+.persona-col-title{font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+.persona-item{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start;}
+.p-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.p-text{font-size:13px;color:#555;line-height:1.5;}
+.p-text strong{font-weight:600;color:var(--dark);}
+
+/* PROBLEM CARDS */
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:32px 0;}
+.problem-card{background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);}
+.problem-num{width:28px;height:28px;border-radius:50%;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-bottom:12px;}
+.problem-title{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px;}
+.problem-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:32px 0;}
+.how-step{background:#fff;padding:20px 16px;}
+.how-step:last-child{background:var(--green);}
+.how-num{font-size:28px;font-weight:800;color:var(--border);line-height:1;margin-bottom:8px;}
+.how-title{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px;}
+.how-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* SCREENS */
+.screens-section-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.screens-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.screens-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;align-items:start;}
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.phone{width:200px;border-radius:32px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);border:6px solid #111;}
+.phone-notch{height:20px;background:#111;display:flex;align-items:center;justify-content:center;}
+.phone-pill{width:52px;height:7px;background:#000;border-radius:7px;}
+.phone-screen{background:var(--surface);}
+.phone-bar{height:14px;background:var(--surface);display:flex;align-items:center;justify-content:center;}
+.phone-ind{width:48px;height:3px;background:#111;border-radius:3px;opacity:0.15;}
+.screen-label{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;text-align:center;}
+.screen-desc{font-size:12px;color:var(--muted);text-align:center;line-height:1.5;max-width:200px;}
+.screen-decision{background:#fff;border-radius:10px;padding:12px 14px;width:200px;border:1px solid var(--border);}
+.sd-title{font-size:11px;font-weight:700;color:var(--dark);margin-bottom:5px;}
+.sd-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+
+/* Phone internals */
+.ue-header{background:#000;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.ue-greeting-sub{font-size:8px;color:#444;}
+.ue-greeting-name{font-size:12px;font-weight:700;color:#fff;}
+.ue-avatar{width:24px;height:24px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000;}
+.ai-card{margin:7px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.ai-card-header{background:var(--green);padding:6px 10px;display:flex;align-items:center;gap:5px;}
+.ai-card-icon{font-size:11px;}
+.ai-card-title{font-size:9px;font-weight:700;color:#000;}
+.ai-card-body{padding:8px 10px;}
+.ai-order-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.ai-order-row:last-child{margin-bottom:0;}
+.ai-order-img{width:30px;height:30px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.ai-order-info{flex:1;}
+.ai-order-name{font-size:10px;font-weight:700;color:#1a1a1a;}
+.ai-order-rest{font-size:8px;color:#999;}
+.ai-order-btn{background:var(--green);border-radius:5px;padding:4px 7px;flex-shrink:0;}
+.ai-order-btn-txt{font-size:8px;font-weight:700;color:#000;}
+.search-bar{margin:5px 7px;background:#fff;border-radius:7px;padding:6px 10px;border:1px solid var(--border);font-size:9px;color:#aaa;display:flex;align-items:center;gap:4px;}
+.cats{padding:4px 7px 6px;display:flex;gap:5px;overflow:hidden;}
+.cat{border-radius:12px;padding:3px 8px;font-size:8px;font-weight:700;white-space:nowrap;}
+.cat.active{background:var(--green);color:#000;}
+.cat.inactive{background:#f0f0f0;color:#777;}
+.pref-section{padding:8px 10px;}
+.pref-hdr{font-size:8px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.pref-row{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:0.5px solid #f0f0f0;}
+.pref-row:last-child{border-bottom:none;}
+.pref-icon{font-size:13px;}
+.pref-body{flex:1;}
+.pref-name{font-size:9px;font-weight:700;color:#1a1a1a;}
+.pref-sub{font-size:8px;color:#999;}
+.pref-toggle-on{width:26px;height:15px;background:var(--green);border-radius:8px;position:relative;flex-shrink:0;}
+.pref-toggle-on::after{content:'';position:absolute;right:2px;top:2px;width:11px;height:11px;border-radius:50%;background:#fff;}
+.pref-toggle-off{width:26px;height:15px;background:#e0e0e0;border-radius:8px;position:relative;flex-shrink:0;}
+.pref-toggle-off::after{content:'';position:absolute;left:2px;top:2px;width:11px;height:11px;border-radius:50%;background:#fff;}
+.predict-card{margin:7px;background:#000;border-radius:10px;overflow:hidden;}
+.predict-header{padding:8px 10px;border-bottom:0.5px solid #1a1a1a;}
+.predict-title{font-size:10px;font-weight:700;color:#fff;}
+.predict-sub{font-size:8px;color:#444;margin-top:1px;}
+.predict-body{padding:8px 10px;}
+.predict-item{display:flex;align-items:center;gap:7px;margin-bottom:6px;}
+.predict-item:last-child{margin-bottom:0;}
+.predict-rank{width:16px;height:16px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;}
+.predict-info{flex:1;}
+.predict-name{font-size:9px;font-weight:700;color:#fff;}
+.predict-why{font-size:8px;color:#444;margin-top:1px;}
+.predict-btn{background:var(--green);border-radius:4px;padding:3px 6px;flex-shrink:0;}
+.predict-btn-txt{font-size:8px;font-weight:700;color:#000;}
+.confirm-header-green{background:var(--green);padding:8px 12px 12px;}
+.confirm-title-dark{font-size:12px;font-weight:700;color:#000;}
+.confirm-sub-dark{font-size:8px;color:rgba(0,0,0,0.5);margin-top:1px;}
+.confirm-body-s{padding:8px 10px;}
+.confirm-item-s{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;font-size:9px;}
+.confirm-name-s{font-weight:700;color:#1a1a1a;}
+.confirm-sub-s{font-size:8px;color:#999;margin-top:1px;}
+.confirm-price-s{font-weight:700;color:#1a1a1a;}
+.confirm-ai-note-s{background:#f0faf6;border-radius:6px;padding:6px 8px;margin:4px 0;display:flex;gap:5px;}
+.confirm-ai-txt-s{font-size:8px;color:var(--green);line-height:1.4;font-weight:700;}
+.confirm-pay-s{background:var(--green);border-radius:8px;padding:9px;text-align:center;margin:0 10px 8px;}
+.confirm-pay-txt-s{font-size:10px;font-weight:700;color:#000;}
+
+/* LEARNINGS */
+.learnings{display:flex;flex-direction:column;gap:20px;margin-top:32px;}
+.learning{display:flex;gap:16px;}
+.learning-num{width:36px;height:36px;border-radius:50%;background:var(--green);color:#000;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.learning-title{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px;}
+.learning-desc{font-size:14px;color:var(--muted);line-height:1.7;}
+
+.case-footer{background:var(--black);padding:60px 32px;text-align:center;}
+.footer-title{font-size:32px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-1px;}
+.footer-title span{color:var(--green);}
+.footer-sub{font-size:13px;color:#333;margin-bottom:28px;text-transform:uppercase;letter-spacing:0.06em;}
+.footer-btn{display:inline-block;background:var(--green);color:#000;font-size:13px;font-weight:700;padding:13px 28px;border-radius:8px;text-decoration:none;}
+.footer-btn:hover{background:var(--green2);}
+@media(max-width:640px){
+  .how-grid,.screens-row{grid-template-columns:1fr 1fr;}
+  .persona-body{grid-template-columns:1fr;}
+  .persona-col:first-child{border-right:none;border-bottom:1px solid var(--border);}
+  section{padding:48px 0;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Uber<span>Eats</span></a>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#persona">Persona</a>
+    <a href="#feature">Feature</a>
+    <a href="#screens">Screens</a>
+    <a href="#learnings">Learnings</a>
+  </div>
+  <a class="nav-back" href="index.html">← Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI Feature Concept · UX Case Study · 2025</div>
+    <h1 class="hero-title">Uber Eats<br>knows what<br><span>you need.</span></h1>
+    <p class="hero-sub">Designing an AI-powered smart reorder feature that learns your comfort food patterns, remembers your dietary preferences, and predicts your next order before you even open the app.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">3<span> features</span></div><div class="hero-stat-label">Built together</div></div>
+      <div><div class="hero-stat-num">1<span> tap</span></div><div class="hero-stat-label">To reorder</div></div>
+      <div><div class="hero-stat-num">0<span> rebuilding</span></div><div class="hero-stat-label">Your order</div></div>
+    </div>
+  </div>
+  <div class="hero-bottom"></div>
+</div>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="eyebrow">01 — The Problem</div>
+    <h2 class="section-title">The app knows everything.<br>And does nothing with it.</h2>
+    <div class="section-body">
+      <p>Uber Eats collects an enormous amount of data about every user — past orders, favourite restaurants, dietary filters, time of day patterns, location. And then, every single session, it greets you like a stranger. The home screen shows you what's popular near you — not what you actually eat.</p>
+      <p><strong>For late-night workers especially, this is a failure.</strong> They order at irregular hours, rely on a rotation of comfort foods, and have no time to browse. The app should already know what they want. It has the data. It just doesn't use it.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The app treats every session like a first visit. But for someone ordering at 2am after a 12-hour shift, this isn't discovery — it's friction."</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-num">1</div>
+        <div class="problem-title">Reorder is buried</div>
+        <div class="problem-desc">Past orders live in a separate tab. No prediction on the home screen. No "order your usual?" moment. Every session starts from scratch.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">2</div>
+        <div class="problem-title">Dietary filters reset</div>
+        <div class="problem-desc">Set "vegetarian" in a session — it's forgotten next time. The app doesn't carry preferences forward. You re-filter every order.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">3</div>
+        <div class="problem-title">No time-awareness</div>
+        <div class="problem-desc">2am on a Tuesday is a different need than Saturday lunch. The app shows the same recommendations regardless of when, why, or how often you order.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">4</div>
+        <div class="problem-title">Shallow personalisation</div>
+        <div class="problem-desc">"Recommended for you" means popular items nearby — not items that match your actual order history. It's proximity, not personalisation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="persona">
+  <div class="wrap">
+    <div class="eyebrow">02 — User Persona</div>
+    <h2 class="section-title">Designing for<br>the late-night shift.</h2>
+    <div class="section-body" style="margin-bottom:32px;">
+      <p>Same approach as every project — every design decision is made for one specific person. Meet Dara. She works unpredictable hours, orders comfort food at irregular times, and has zero patience for browsing when she's exhausted.</p>
+    </div>
+
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar">🏥</div>
+        <div class="persona-id">
+          <div class="persona-name">Dara, 31</div>
+          <div class="persona-role">ER Nurse · Toronto Western · Shift worker · Irregular hours</div>
+          <div class="persona-tags">
+            <span class="p-tag">Vegetarian</span>
+            <span class="p-tag">iPhone 14</span>
+            <span class="p-tag">12hr shifts</span>
+            <span class="p-tag">Night shifts</span>
+            <span class="p-tag">Comfort food rotator</span>
+          </div>
+        </div>
+      </div>
+      <div class="persona-quote">
+        <div class="persona-quote-text">"It's 1:30am. I just finished a 12-hour shift. I know I want Thai food or that ramen place. I don't want to scroll through 200 restaurants. I want the app to know me by now."</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-col">
+          <div class="persona-col-title">Goals</div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Order in under 30 seconds</strong> — she's too tired to browse at 1am</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Vegetarian filter always on</strong> — never wants to check manually</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>App predicts her rotation</strong> — Thai Tuesday, ramen after night shifts</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#22c55e;"></div><div class="p-text"><strong>Pay and forget</strong> — Apple Pay, no fuss, order arrives, done</div></div>
+        </div>
+        <div class="persona-col">
+          <div class="persona-col-title">Frustrations</div>
+          <div class="persona-item"><div class="p-dot" style="background:#ef4444;"></div><div class="p-text"><strong>Starts from scratch every time</strong> — no memory of what she ordered last</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#ef4444;"></div><div class="p-text"><strong>Vegetarian filter disappears</strong> — meat dishes appear after every new session</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#ef4444;"></div><div class="p-text"><strong>2am recommendations are irrelevant</strong> — shows lunch spots that are closed</div></div>
+          <div class="persona-item"><div class="p-dot" style="background:#ef4444;"></div><div class="p-text"><strong>Has to rebuild her usual order</strong> — same ramen bowl, same customisations, every time</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="feature">
+  <div class="wrap">
+    <div class="eyebrow">03 — The AI Feature</div>
+    <h2 class="section-title">Three capabilities.<br>One seamless experience.</h2>
+    <div class="section-body" style="margin-bottom:32px;">
+      <p>The feature isn't a single button — it's three AI capabilities working together. Smart Reorder surfaces her usual orders. Dietary Memory keeps her preferences permanently. AI Prediction shows her what she'll want before she asks. Together they make the app feel like it actually knows her.</p>
+    </div>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-title">Smart Reorder</div>
+        <div class="how-desc">Her last 3 orders surface on the home screen — ordered by how recently and how often she's ordered them. One tap to reorder any of them.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-title">Dietary Memory</div>
+        <div class="how-desc">Preferences set once, stored permanently. Vegetarian filter, allergen flags, spice level — all applied automatically to every recommendation, every session.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-title">AI Prediction</div>
+        <div class="how-desc">The app learns her patterns — Thai on Tuesday evenings, ramen after night shifts. It shows the predicted order at the top before she even types anything.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">→</div>
+        <div class="how-title" style="color:#000;">One tap to confirm</div>
+        <div class="how-desc" style="color:rgba(0,0,0,0.6);">Customisations saved from last order. Apple Pay default. Face ID confirms. Under 10 seconds from open to ordered.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="eyebrow">04 — Screen Designs</div>
+    <h2 class="section-title">Three screens.<br>All three features working.</h2>
+    <div class="section-body" style="margin-bottom:40px;">
+      <p>Each screen shows one of the three AI features in context. The design stays true to Uber Eats' existing visual language — black, white, and green — so the feature feels native, not bolted on.</p>
+    </div>
+
+    <div class="screens-section-title">Feature 1 — Smart Reorder home card</div>
+    <div class="screens-row">
+      <div class="phone-wrap" style="grid-column:1/2;">
+        <div class="screen-label" style="margin-bottom:8px;">Home screen — 1:34am</div>
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div class="ue-header">
+              <div><div class="ue-greeting-sub">Good evening 🌙</div><div class="ue-greeting-name">Hey Dara</div></div>
+              <div class="ue-avatar">D</div>
+            </div>
+            <div class="ai-card">
+              <div class="ai-card-header"><span class="ai-card-icon">✨</span><span class="ai-card-title">Smart Reorder — late night pattern</span></div>
+              <div class="ai-card-body">
+                <div class="ai-order-row"><div class="ai-order-img" style="background:#fff8e6;">🍜</div><div class="ai-order-info"><div class="ai-order-name">Veggie Ramen</div><div class="ai-order-rest">Kinton Ramen · 22 min · $17.50</div></div><div class="ai-order-btn"><span class="ai-order-btn-txt">Reorder</span></div></div>
+                <div class="ai-order-row"><div class="ai-order-img" style="background:#f0f7e6;">🍛</div><div class="ai-order-info"><div class="ai-order-name">Paneer Tikka Masala</div><div class="ai-order-rest">Brar's · 28 min · $15.00</div></div><div class="ai-order-btn"><span class="ai-order-btn-txt">Reorder</span></div></div>
+              </div>
+            </div>
+            <div class="search-bar">🔍 Search Uber Eats</div>
+            <div class="cats">
+              <div class="cat active">🥗 Vegetarian</div>
+              <div class="cat inactive">🍜 Noodles</div>
+              <div class="cat inactive">🍛 Curry</div>
+            </div>
+            <div style="padding:4px 7px;font-size:9px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">Open now · Near you</div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 7px;border-top:0.5px solid var(--border);">
+              <div style="width:28px;height:28px;background:#f5f5f5;border-radius:7px;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🍜</div>
+              <div style="flex:1;"><div style="font-size:9px;font-weight:700;">Kinton Ramen</div><div style="font-size:8px;color:#999;">22 min · 4.7★</div></div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-ind"></div></div>
+        </div>
+      </div>
+
+      <div style="grid-column:2/4;display:flex;flex-direction:column;gap:16px;padding-top:32px;">
+        <div class="screen-decision">
+          <div class="sd-title">Why Smart Reorder works here</div>
+          <div class="sd-desc">The AI card appears at the top — not buried in a tab. It shows her two most likely orders based on time (1:34am) and pattern (ramen after night shifts). One tap reorders without rebuilding anything.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">Vegetarian filter — already applied</div>
+          <div class="sd-desc">Both suggested orders are vegetarian. The "Vegetarian" category pill is pre-selected. She never had to set it this session — Dietary Memory applied it automatically.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">Design principle</div>
+          <div class="sd-desc" style="color:var(--green);font-weight:600;">Show the most likely action first. The AI card is the first tappable element on screen — not a banner, not a promotion. It's the main action.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screens-section-title">Feature 2 — Dietary Memory preferences</div>
+    <div class="screens-row">
+      <div class="phone-wrap" style="grid-column:1/2;">
+        <div class="screen-label" style="margin-bottom:8px;">Preferences — set once</div>
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div style="background:#000;padding:8px 12px 12px;">
+              <div style="font-size:8px;color:#444;margin-bottom:3px;">← Back</div>
+              <div style="font-size:13px;font-weight:700;color:#fff;">Food Preferences</div>
+              <div style="font-size:8px;color:#444;margin-top:1px;">Saved permanently across all sessions</div>
+            </div>
+            <div class="pref-section">
+              <div class="pref-hdr">Dietary</div>
+              <div class="pref-row"><div class="pref-icon">🥗</div><div class="pref-body"><div class="pref-name">Vegetarian</div><div class="pref-sub">Filter all menus</div></div><div class="pref-toggle-on"></div></div>
+              <div class="pref-row"><div class="pref-icon">🌶️</div><div class="pref-body"><div class="pref-name">No extra spice</div><div class="pref-sub">Flag spicy items</div></div><div class="pref-toggle-on"></div></div>
+              <div class="pref-row"><div class="pref-icon">🥜</div><div class="pref-body"><div class="pref-name">Nut allergy</div><div class="pref-sub">Alert on nut ingredients</div></div><div class="pref-toggle-off"></div></div>
+            </div>
+            <div style="height:0.5px;background:var(--border);margin:0 10px;"></div>
+            <div class="pref-section">
+              <div class="pref-hdr">Smart Reorder</div>
+              <div class="pref-row"><div class="pref-icon">🕐</div><div class="pref-body"><div class="pref-name">Time-based suggestions</div><div class="pref-sub">Late night vs daytime</div></div><div class="pref-toggle-on"></div></div>
+              <div class="pref-row"><div class="pref-icon">📅</div><div class="pref-body"><div class="pref-name">Day patterns</div><div class="pref-sub">Post-shift suggestions</div></div><div class="pref-toggle-on"></div></div>
+              <div class="pref-row"><div class="pref-icon">🏥</div><div class="pref-body"><div class="pref-name">Location context</div><div class="pref-sub">Near hospital vs home</div></div><div class="pref-toggle-on"></div></div>
+            </div>
+            <div style="margin:6px 10px;background:#f0faf6;border-radius:8px;padding:7px 10px;">
+              <div style="font-size:8px;color:var(--green);font-weight:700;line-height:1.5;">✓ These preferences are active. They apply to all recommendations, now and in future sessions.</div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-ind"></div></div>
+        </div>
+      </div>
+
+      <div style="grid-column:2/4;display:flex;flex-direction:column;gap:16px;padding-top:32px;">
+        <div class="screen-decision">
+          <div class="sd-title">Set once. Applied forever.</div>
+          <div class="sd-desc">Dara sets vegetarian and no extra spice one time. Those preferences are saved to her account — not the session. Next time she opens the app, they're already applied. She never re-filters.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">Context-aware preferences</div>
+          <div class="sd-desc">The system knows she's near Toronto Western. It knows it's 1:30am. These context signals feed the AI — late night + hospital location = post-shift comfort food pattern.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">Design principle</div>
+          <div class="sd-desc" style="color:var(--green);font-weight:600;">Transparency builds trust. The confirmation note at the bottom tells Dara exactly what's saved and what it does. She's always in control.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screens-section-title">Feature 3 — AI Prediction + One-tap confirm</div>
+    <div class="screens-row">
+      <div class="phone-wrap" style="grid-column:1/2;">
+        <div class="screen-label" style="margin-bottom:8px;">AI Prediction + Confirm</div>
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-pill"></div></div>
+          <div class="phone-screen">
+            <div class="predict-card">
+              <div class="predict-header">
+                <div class="predict-title">✨ Predicted for you — Tuesday 1:34am</div>
+                <div class="predict-sub">Based on your last 8 late-night orders</div>
+              </div>
+              <div class="predict-body">
+                <div class="predict-item">
+                  <div class="predict-rank" style="background:var(--green);color:#000;">1</div>
+                  <div class="predict-info"><div class="predict-name">Veggie Ramen — Kinton</div><div class="predict-why">Ordered 5x after night shifts</div></div>
+                  <div class="predict-btn"><span class="predict-btn-txt">Order</span></div>
+                </div>
+                <div class="predict-item">
+                  <div class="predict-rank" style="background:#1a1a1a;color:#555;">2</div>
+                  <div class="predict-info"><div class="predict-name">Paneer Tikka — Brar's</div><div class="predict-why">Ordered Tues/Thurs evenings</div></div>
+                  <div class="predict-btn"><span class="predict-btn-txt">Order</span></div>
+                </div>
+                <div class="predict-item">
+                  <div class="predict-rank" style="background:#1a1a1a;color:#555;">3</div>
+                  <div class="predict-info"><div class="predict-name">Veg Pad Thai — Thai Garden</div><div class="predict-why">3 orders this month</div></div>
+                  <div class="predict-btn"><span class="predict-btn-txt">Order</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="height:0.5px;background:var(--border);margin:0 7px;"></div>
+            <div class="confirm-header-green" style="margin:7px;border-radius:10px 10px 0 0;">
+              <div class="confirm-title-dark">Confirm order</div>
+              <div class="confirm-sub-dark">Kinton Ramen · 22 min</div>
+            </div>
+            <div class="confirm-body-s">
+              <div class="confirm-item-s">
+                <div><div class="confirm-name-s">Veggie Ramen</div><div class="confirm-sub-s">No meat broth · Extra tofu · Saved</div></div>
+                <div class="confirm-price-s">$17.50</div>
+              </div>
+              <div class="confirm-ai-note-s"><span>✨</span><div class="confirm-ai-txt-s">Customisations from your last order — vegetarian broth, extra tofu. Applied automatically.</div></div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;color:#999;margin-bottom:6px;"><span>Delivery</span><span>$3.99</span></div>
+              <div class="confirm-pay-s"><div class="confirm-pay-txt-s">Pay with Face ID · $21.49</div></div>
+            </div>
+          </div>
+          <div class="phone-bar"><div class="phone-ind"></div></div>
+        </div>
+      </div>
+
+      <div style="grid-column:2/4;display:flex;flex-direction:column;gap:16px;padding-top:32px;">
+        <div class="screen-decision">
+          <div class="sd-title">Prediction shows the why</div>
+          <div class="sd-desc">"Ordered 5x after night shifts" — the AI shows its reasoning. Dara understands why this is ranked #1. The transparency makes the prediction feel helpful, not creepy.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">Customisations saved automatically</div>
+          <div class="sd-desc">The AI note says "customisations from your last order — applied automatically." She ordered no meat broth and extra tofu last time. Both are saved. She rebuilds nothing.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">One Face ID tap — done</div>
+          <div class="sd-desc">Apple Pay is default. Face ID confirms. Under 10 seconds from opening the app to order placed. For someone who just finished a 12-hour shift, that's the feature.</div>
+        </div>
+        <div class="screen-decision">
+          <div class="sd-title">Design principle</div>
+          <div class="sd-desc" style="color:var(--green);font-weight:600;">The best AI feature is the one you don't notice. Dara doesn't think "the AI predicted my order." She thinks "this app finally gets me."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learnings">
+  <div class="wrap">
+    <div class="eyebrow">05 — What I Learned</div>
+    <h2 class="section-title">AI features fail<br>when they feel like AI.</h2>
+    <div class="learnings">
+      <div class="learning">
+        <div class="learning-num">1</div>
+        <div>
+          <div class="learning-title">The best AI is invisible.</div>
+          <div class="learning-desc">The feature never says "our machine learning model analysed your behaviour patterns." It says "your usual?" The technology disappears into the outcome. If the user notices the AI, it's probably in the way — not helping.</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">2</div>
+        <div>
+          <div class="learning-title">Transparency builds trust — show the why.</div>
+          <div class="learning-desc">Showing "ordered 5x after night shifts" next to the prediction changes how the feature feels entirely. Without it, an AI recommendation feels like a guess. With it, it feels like the app actually knows you. The "why" is part of the design.</div>
+        </div>
+      </div>
+      <div class="learning">
+        <div class="learning-num">3</div>
+        <div>
+          <div class="learning-title">Speculative design requires real constraints.</div>
+          <div class="learning-desc">This is a concept — the AI system doesn't exist yet. But every capability shown is grounded in data Uber Eats already collects: order history, time stamps, location, dietary filters. The concept is speculative in form, not in possibility. That distinction matters.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="case-footer">
+  <div class="wrap">
+    <div class="footer-title">Uber<span>Eats</span><br>AI Feature</div>
+    <div class="footer-sub">AI Concept · UX Case Study · 2025</div>
+    <a class="footer-btn" href="index.html">← Back to portfolio</a>
+  </div>
+</div>
+
+</body>
+</html>
