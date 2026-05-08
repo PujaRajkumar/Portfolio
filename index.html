@@ -753,27 +753,131 @@ const SAVED = [
   { title: "Coco",          emoji: "🎸", color: "#ea580c", image: "" },
 ];
 
+// ── LIGHTBOX STATE ────────────────────────────────────────
+let ppPostIndex = 0;
+let ppSlideIndex = 0;
+let ppSlides = [];
+
+function openPPLightbox(postIdx) {
+  ppPostIndex = postIdx;
+  ppSlideIndex = 0;
+  renderLightbox();
+  updatePostArrows();
+  document.getElementById('pp-lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLightbox() {
+  const s = SAVED[ppPostIndex];
+  const media = document.getElementById('pp-media');
+  const dots  = document.getElementById('pp-dots');
+  dots.innerHTML = '';
+  ppSlides = [];
+
+  if (s.type === 'video') {
+    media.innerHTML = `<video controls autoplay style="width:100%;max-height:70vh;display:block;background:#000;"><source src="${s.video}" type="video/mp4"></video>`;
+  } else if (s.type === 'carousel') {
+    ppSlides = s.images || [];
+    renderSlide();
+    ppSlides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.style.cssText = `width:6px;height:6px;border-radius:50%;background:${i===0?'#fff':'#555'};transition:background .2s;cursor:pointer;`;
+      dot.onclick = (e) => { e.stopPropagation(); goToSlide(i); };
+      dots.appendChild(dot);
+    });
+  } else {
+    if (s.image) {
+      media.innerHTML = `<img src="${s.image}" style="width:100%;max-height:75vh;object-fit:contain;display:block;">`;
+    } else {
+      media.innerHTML = `<div style="width:100%;height:340px;background:${s.color}22;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;"><div style="font-size:56px;">${s.emoji}</div><div style="font-size:13px;color:#888;">Coming soon</div></div>`;
+    }
+  }
+}
+
+function renderSlide() {
+  const media = document.getElementById('pp-media');
+  const src = ppSlides[ppSlideIndex];
+  media.style.position = 'relative';
+  media.innerHTML = src
+    ? `<img src="${src}" style="width:100%;max-height:75vh;object-fit:contain;display:block;">`
+    : `<div style="width:100%;height:340px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:13px;color:#555;">Slide ${ppSlideIndex+1} coming soon</div>`;
+  media.innerHTML += `
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 10px;pointer-events:none;">
+      <div onclick="event.stopPropagation();goToSlide(${ppSlideIndex-1})" style="pointer-events:${ppSlideIndex>0?'all':'none'};opacity:${ppSlideIndex>0?1:0};width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:#fff;">‹</div>
+      <div onclick="event.stopPropagation();goToSlide(${ppSlideIndex+1})" style="pointer-events:${ppSlideIndex<ppSlides.length-1?'all':'none'};opacity:${ppSlideIndex<ppSlides.length-1?1:0};width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:#fff;">›</div>
+    </div>`;
+  document.querySelectorAll('#pp-dots div').forEach((d,i) => d.style.background = i===ppSlideIndex?'#fff':'#555');
+}
+
+function goToSlide(i) {
+  if (i < 0 || i >= ppSlides.length) return;
+  ppSlideIndex = i;
+  renderSlide();
+}
+
+function navigatePost(dir) {
+  const n = ppPostIndex + dir;
+  if (n < 0 || n >= SAVED.length) return;
+  ppPostIndex = n;
+  ppSlideIndex = 0;
+  renderLightbox();
+  updatePostArrows();
+}
+
+function updatePostArrows() {
+  const prev = document.getElementById('pp-prev');
+  const next = document.getElementById('pp-next');
+  prev.style.opacity = ppPostIndex > 0 ? '1' : '0.2';
+  prev.style.pointerEvents = ppPostIndex > 0 ? 'all' : 'none';
+  next.style.opacity = ppPostIndex < SAVED.length-1 ? '1' : '0.2';
+  next.style.pointerEvents = ppPostIndex < SAVED.length-1 ? 'all' : 'none';
+}
+
+function closePPLightbox() {
+  document.getElementById('pp-lightbox').style.display = 'none';
+  document.getElementById('pp-media').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+// ── BUILD SAVED GRID ──────────────────────────────────────
 const savedGrid = document.getElementById('saved-grid');
-SAVED.forEach(s => {
+SAVED.forEach((s, i) => {
   const el = document.createElement('div');
   el.className = 'post';
+  el.style.cursor = 'pointer';
+
+  let inner = '';
   if (s.image) {
-    el.innerHTML = `
-      <div class="post-bg" style="padding:0;">
-        <img src="${s.image}" alt="${s.title}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">
-      </div>`;
+    inner = `<img src="${s.image}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">`;
+  } else if (s.type === 'video' && s.video) {
+    inner = `<video src="${s.video}" muted playsinline style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>`;
   } else {
-    el.innerHTML = `
-      <div class="post-bg" style="background:${s.color}22;flex-direction:column;gap:6px;">
-        <div style="font-size:28px;">${s.emoji}</div>
-        <div class="post-name" style="font-size:9px;font-weight:600;color:${s.color};text-align:center;">${s.title}</div>
-        <div style="font-size:8px;color:var(--hint);text-align:center;">Coming soon</div>
-      </div>`;
+    inner = `<div class="post-bg" style="background:${s.color}22;flex-direction:column;gap:6px;">
+      <div style="font-size:28px;">${s.emoji}</div>
+      <div class="post-name" style="font-size:9px;font-weight:600;color:${s.color};text-align:center;">${s.title}</div>
+      <div style="font-size:8px;color:var(--hint);text-align:center;">Coming soon</div>
+    </div>`;
   }
+
+  // badge for video or carousel
+  let badge = '';
+  if (s.type === 'video') {
+    badge = `<div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.55);border-radius:4px;padding:2px 5px;font-size:11px;">🎥</div>`;
+  } else if (s.type === 'carousel') {
+    badge = `<div style="position:absolute;top:6px;right:6px;">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="1" y="4" width="11" height="13" rx="2" stroke="white" stroke-width="1.5"/>
+        <rect x="4" y="1" width="11" height="13" rx="2" stroke="white" stroke-width="1.5" opacity="0.55"/>
+      </svg>
+    </div>`;
+  }
+
+  el.innerHTML = inner + badge;
+  el.onclick = () => openPPLightbox(i);
   savedGrid.appendChild(el);
 });
 
-// Tab switching
+// ── TAB SWITCHING ─────────────────────────────────────────
 function switchTab(tab) {
   const isGrid = tab === 'grid';
   document.getElementById('grid').style.display       = isGrid ? 'grid' : 'none';
