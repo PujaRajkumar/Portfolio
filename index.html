@@ -867,10 +867,12 @@ SAVED.forEach((s, i) => {
   el.style.cursor = 'pointer';
 
   let inner = '';
-  if (s.image) {
-    inner = `<img src="${s.image}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">`;
+  if (s.type === 'carousel' && s.images && s.images[0]) {
+    inner = `<img src="${s.images[0]}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">`;
   } else if (s.type === 'video' && s.video) {
     inner = `<video src="${s.video}" muted playsinline style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>`;
+  } else if (s.image) {
+    inner = `<img src="${s.image}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">`;
   } else {
     inner = `<div class="post-bg" style="background:${s.color}22;flex-direction:column;gap:6px;">
       <div style="font-size:28px;">${s.emoji}</div>
