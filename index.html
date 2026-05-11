@@ -978,14 +978,12 @@ function closeModal() { document.getElementById('modal').classList.remove('open'
   <div id="photo-zoom-inner"></div>
 </div>
 
+
+    <iframe id="puja-book-frame" src="" style="display:none;position:fixed;inset:0;width:100%;height:100%;border:none;z-index:9999;"></iframe>
 <script>
 document.querySelector('.avatar-ring').addEventListener('click', () => {
   openPujaBook();
 });
-</script>
-    <iframe src="Puja_Rajkumar_Resume_Final.pdf" style="width:100%;height:100%;border:none;"></iframe>
-
-<script>
 function openPujaBook() {
   const frame = document.getElementById('puja-book-frame');
   frame.src = 'puja-book-v4.html';
