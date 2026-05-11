@@ -573,14 +573,7 @@ const PROFILE = {
   stat3: { val: "open", label: "to work" },
 };
 const HIGHLIGHTS = [
-  { label: "All",       emoji: "✦"  },
-  { label: "UX/UI",     emoji: "🎨" },
-  { label: "Web",       emoji: "💻" },
-  { label: "Apps",      emoji: "📱" },
-  { label: "Branding",  emoji: "🖋️" },
-  { label: "Content",   emoji: "📝" },
-  { label: "AI",        emoji: "🤖" },
-  { label: "Marketing", emoji: "📣" },
+  { label: "Resume",       emoji: "📄"  },
 ];
   
 const PROJECTS = [
@@ -697,6 +690,10 @@ HIGHLIGHTS.forEach(h => {
   div.className = 'highlight' + (h.label === 'All' ? ' active' : '');
   div.innerHTML = `<div class="hl-ring"><div class="hl-inner">${h.emoji}</div></div><div class="hl-label">${h.label}</div>`;
   div.onclick = () => {
+    if (h.label === 'Resume') {
+      window.open('Puja_Rajkumar_Resume_Final.docx', '_blank');
+      return;
+    }
     activeFilter = h.label;
     document.querySelectorAll('.highlight').forEach(el => el.classList.remove('active'));
     div.classList.add('active');
