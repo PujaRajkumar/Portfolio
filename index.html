@@ -356,58 +356,42 @@
     }
 
     @media (min-width: 768px) {
-      .wrap { max-width: 1200px; }
-      .profile {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        grid-template-rows: auto auto auto auto;
-        column-gap: 40px;
-        padding: 44px 20px 36px;
-        border-bottom: 1px solid var(--border);
-      }
-      .profile-top { display: contents; }
-      .avatar-ring {
-        grid-column: 1; grid-row: 1 / 5;
-        width: 150px; height: 150px;
-        align-self: center; justify-self: center;
-      }
-      .avatar-inner { font-size: 32px; }
-      .profile-handle-row {
-        display: flex; align-items: center;
-        grid-column: 2; grid-row: 1;
-        padding-bottom: 20px;
-      }
-      .stats {
-        grid-column: 2; grid-row: 2;
-        justify-content: flex-start; gap: 36px;
-        padding-bottom: 16px;
-      }
-      .stat { text-align: left; }
-      .stat-num   { font-size: 16px; font-weight: 600; }
-      .stat-label { font-size: 14px; color: var(--muted); }
-      .bio {
-        grid-column: 2; grid-row: 3;
-        margin-bottom: 0; padding-bottom: 16px;
-      }
-      .bio-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-      .bio-role  { font-size: 13px; margin-bottom: 4px; }
-      .bio-desc  { font-size: 13px; line-height: 1.55; margin-bottom: 5px; }
-      .actions {
-        grid-column: 2; grid-row: 4;
-        max-width: 280px; margin-bottom: 0;
-      }
-      .highlights { padding: 14px 20px; gap: 20px; }
-      .hl-ring  { width: 77px; height: 77px; }
-      .hl-inner { font-size: 26px; }
-      .hl-label { font-size: 12px; }
-      .modal { max-width: 880px; }
-      .modal-media { width: 440px; }
-      .modal-media-inner { min-height: 440px; }
-      .cc-modal-media { min-height: 440px; }
-      .cc-modal-name { font-size: 28px; }
-      .cc-modal-icon { width: 60px; height: 60px; }
-      .cc-modal-icon div { width: 30px; height: 30px; }
-    }
+  .wrap { max-width: 1200px; }
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 44px 20px 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .profile-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .avatar-ring { width: 150px; height: 150px; }
+  .avatar-inner { font-size: 32px; }
+  .profile-handle-row { display: flex; justify-content: center; padding-bottom: 16px; }
+  .stats { justify-content: center; gap: 36px; padding-bottom: 16px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 16px; font-weight: 600; }
+  .stat-label { font-size: 14px; color: var(--muted); }
+  .bio { text-align: center; margin-bottom: 0; padding-bottom: 16px; }
+  .bio-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .bio-role { font-size: 13px; margin-bottom: 4px; }
+  .bio-desc { font-size: 13px; line-height: 1.55; margin-bottom: 5px; }
+  .actions { justify-content: center; max-width: 280px; margin-bottom: 0; }
+  .modal { max-width: 880px; }
+  .modal-media { width: 440px; }
+  .modal-media-inner { min-height: 440px; }
+  .cc-modal-media { min-height: 440px; }
+  .cc-modal-name { font-size: 28px; }
+  .cc-modal-icon { width: 60px; height: 60px; }
+  .cc-modal-icon div { width: 30px; height: 30px; }
+}
 
     @media (max-width: 480px) {
       .grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
