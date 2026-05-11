@@ -979,18 +979,18 @@ function closeModal() { document.getElementById('modal').classList.remove('open'
 
 <script>
 document.querySelector('.avatar-ring').addEventListener('click', () => {
-  const inner = document.getElementById('photo-zoom-inner');
-  if (PROFILE.photo) {
-    inner.innerHTML = `<img class="photo-zoom-img" src="${PROFILE.photo}" alt="${PROFILE.name}">`;
-  } else {
-    inner.innerHTML = `<div class="photo-zoom-initials">${PROFILE.initials}</div>`;
-  }
-  document.getElementById('photo-zoom').classList.add('open');
+  openPujaBook();
 });
-function closePhotoZoom() {
-  document.getElementById('photo-zoom').classList.remove('open');
+</script>
+    <iframe id="puja-book-frame" src="" style="display:none;position:fixed;inset:0;width:100%;height:100%;border:none;z-index:9999;"></iframe>
+
+<script>
+function openPujaBook() {
+  const frame = document.getElementById('puja-book-frame');
+  frame.src = 'puja-book-v4.html';
+  frame.style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhotoZoom(); });
 </script>
 </body>
 </html>
