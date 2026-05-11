@@ -133,10 +133,7 @@
 
     /* ─── HIGHLIGHTS ──────────────────────────────────── */
     .highlights {
-      display: flex; gap: 16px;
-      padding: 14px 16px;
-      overflow-x: auto; scrollbar-width: none;
-      border-bottom: 1px solid var(--border);
+      display: none !important;
     }
     .highlights::-webkit-scrollbar { display: none; }
     .highlight {
@@ -474,6 +471,7 @@ window.addEventListener('message', (e) => {
         <div class="bio-role" id="bio-role">UI/UX · Graphic Design · Creative</div>
         <div class="bio-desc" id="bio-desc">Designing at the intersection of function and beauty.</div>
         <a class="bio-link" id="bio-link" href="#" target="_blank">🔗 yoursite.com</a>
+        <a class="bio-link" href="Puja_Rajkumar_Resume_Final.pdf" target="_blank">Design Resume</a>
       </div>
 
       <div class="actions">
@@ -572,9 +570,7 @@ const PROFILE = {
   stat2: { val: "5", label: "yrs exp" },
   stat3: { val: "open", label: "to work" },
 };
-const HIGHLIGHTS = [
-  { label: "Resume",       emoji: "📄"  },
-];
+const HIGHLIGHTS = [];
   
 const PROJECTS = [
   // ─────────────────────────────────────────────────────────
