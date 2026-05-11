@@ -35,16 +35,7 @@
         --hint:    #737373;
       }
     }
-<script>
-window.addEventListener('message', (e) => {
-  if (e.data === 'closePujaBook') {
-    const frame = document.getElementById('puja-book-frame');
-    frame.style.display = 'none';
-    frame.src = '';
-    document.body.style.overflow = '';
-  }
-});
-</script>
+
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -436,7 +427,16 @@ window.addEventListener('message', (e) => {
 
   </style>
 </head>
-  
+  <script>
+window.addEventListener('message', (e) => {
+  if (e.data === 'closePujaBook') {
+    const frame = document.getElementById('puja-book-frame');
+    frame.style.display = 'none';
+    frame.src = '';
+    document.body.style.overflow = '';
+  }
+});
+</script>
 <body>
 
   <div class="wrap">
