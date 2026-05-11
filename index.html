@@ -48,9 +48,10 @@
 
     /* ─── PROFILE ─────────────────────────────────────── */
     .profile { padding: 20px 16px 0; }
+    .profile { text-align: center; }
 
     .profile-top {
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: center;
       gap: 24px; margin-bottom: 14px;
     }
 
@@ -94,7 +95,7 @@
 
     .stats {
       flex: 1;
-      display: flex; justify-content: space-around;
+      display: flex; justify-content: center; gap: 32px;
     }
     .stat { text-align: center; }
     .stat-num {
@@ -121,7 +122,7 @@
     }
     .bio-link:hover { text-decoration: underline; }
 
-    .actions { display: flex; gap: 8px; margin-bottom: 16px; }
+    .actions { display: flex; gap: 8px; margin-bottom: 16px; justify-content: center; }
     .btn {
       flex: 1; padding: 6px 0; border-radius: 8px;
       border: 1px solid var(--border); background: var(--surface);
