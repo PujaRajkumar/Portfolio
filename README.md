@@ -42,3 +42,4 @@ packaging, campaign design, and AI product concepts.
 📧 puja1901rk@gmail.com  
 🔗 [LinkedIn](https://www.linkedin.com/in/puja-rajkumar/)  
 🌐 [Portfolio](https://pujarajkumar.github.io/Portfolio/index.html)
+"  ·  <a href='https://github.com/PujaRajkumar' color='#0070C0'>GitHub</a>"
